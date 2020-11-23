@@ -1,6 +1,7 @@
 <template>
   <div class="pub-sub-test">
     <h1>{{ msg }}</h1>
+    <h3>Dummy sensor: {{sensorVal}}</h3>
     <button @click="addMessage('text')">Add</button>
     <ul>
       <li v-for="(msg, idx) in messages" :key="`msg-${idx}`">
@@ -23,8 +24,12 @@ export default class PubSubTest extends Vue {
     return eventStore.messages;
   }
 
+  get sensorVal(): number {
+    return eventStore.sensorVal;
+  }
+
   addMessage(msg: string): void {
-    eventbus.publish('help', msg);
+    eventbus.publish('ext_comm.ui.test', msg);
   }
 }
 </script>

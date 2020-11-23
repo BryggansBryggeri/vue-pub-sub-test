@@ -5,9 +5,15 @@ import store from '@/store';
 export class EventModule extends VuexModule {
   messages: string[] = [];
 
+  sensorVal = 0;
+
   @Action
   public async addMessage(msg: string): Promise<void> {
     this.messages = [...this.messages, msg];
+  }
+
+  public async updateSensorMeas(meas: number): Promise<void> {
+    this.sensorVal = meas;
   }
 }
 
