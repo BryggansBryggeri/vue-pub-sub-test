@@ -24,7 +24,7 @@ export default class PubSubTest extends Vue {
   }
 
   addMessage(msg: string): void {
-    eventbus.publish('demo', msg);
+    eventbus.publish('help', msg);
   }
 }
 </script>
