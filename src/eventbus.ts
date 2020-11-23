@@ -1,4 +1,3 @@
-// import mqtt from 'mqtt';
 import { connect, StringCodec, NatsConnection } from 'nats.ws';
 import { eventStore } from '@/store/events';
 
