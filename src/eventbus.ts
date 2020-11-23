@@ -9,7 +9,7 @@ export class Eventbus {
     const opts: mqtt.IClientOptions = {
       protocol: 'ws',
       host: 'localhost',
-      port: 9000,
+      port: 9001,
       path: '/eventbus',
       rejectUnauthorized: false,
     };
@@ -26,7 +26,8 @@ export class Eventbus {
       if (body.length === 0) {
         return;
       }
-      const msg = body.toString();
+      // const msg = body.toString();
+      const msg = `${topic}: ${body.toString()}`;
       eventStore.addMessage(msg);
       // handle message
     });
