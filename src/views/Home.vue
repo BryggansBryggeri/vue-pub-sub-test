@@ -21,11 +21,11 @@
       <div
         class="w-full mx-auto grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 pt-6 gap-8"
       >
-        <div class="rounded shadow-lg border">
-          <Vessel :vesselData="mash" />
-        </div>
+        <Vessel :vesselData="mash" />
+        <Vessel :vesselData="manifold" />
+        <Vessel :vesselData="boil" />
 
-        <div class="rounded shadow-lg border  border-yellow-500">
+        <!-- <div class="rounded shadow-lg border  border-yellow-500">
           <div class="mx-auto bg-yellow-50 h-full shadow rounded w-full">
             <div
               class="flex flex-row bg-gray-200 bg-opacity-40 rounded-t justify-between w-full shadow-sm mb-2 px-4 py-2"
@@ -141,7 +141,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
       <!-- End Three column layout -->
     </div>

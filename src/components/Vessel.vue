@@ -1,4 +1,5 @@
 <template>
+<div class="rounded shadow-lg border">
   <div class="mx-auto shadow rounded h-full w-full">
     <div
       class="flex flex-row bg-gray-200 bg-opacity-40 rounded-t justify-between w-full shadow-sm mb-2 px-4 py-2"
@@ -62,6 +63,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script lang="ts">
