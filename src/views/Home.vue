@@ -21,9 +21,10 @@
       <div
         class="w-full mx-auto grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 pt-6 gap-8"
       >
-        <Vessel :vesselData="mash" />
-        <Vessel :vesselData="manifold" />
-        <Vessel :vesselData="boil" />
+        <Vessel :vesselProp="mash" />
+        <Vessel :vesselProp="manifold" />
+        <Vessel :vesselProp="boil" />
+
 
         <!-- <div class="rounded shadow-lg border  border-yellow-500">
           <div class="mx-auto bg-yellow-50 h-full shadow rounded w-full">
