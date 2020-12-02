@@ -4,12 +4,12 @@
       class="flex flex-row bg-gray-200 bg-opacity-40 rounded-t justify-between w-full shadow-sm mb-2 px-4 py-2"
     >
       <div class="sm:w-3/5 mb-4 sm:mb-0">
-        <h2 class="text-gray-800 text-lg font-bold">{ { Vessel.Name } }</h2>
+        <h2 class="text-gray-800 text-lg font-bold">{{vesselData.name}}</h2>
         <p class="my-0 text-gray-600 text-xs">
-          Main sensor: { { vessel.sensor } }
+          Main sensor: {{ vesselData.mainSensor }}
         </p>
         <p class="my-0 text-gray-600 text-xs">
-          Main actor: { { vessel.actor } }
+          Main actor: {{vesselData.mainActor}}
         </p>
       </div>
       <div class="flex text-green-600 rounded-tr">
@@ -50,12 +50,12 @@
       </div>
       <div>
         <div>
-          <h1>{{ msg }}</h1>
+          <h1> msg </h1>
           <h3>Dummy sensor: {{ sensorVal }}</h3>
           <button @click="addMessage('text')">Add</button>
           <ul>
             <li v-for="(msg, idx) in messages" :key="`msg-${idx}`">
-              {{ msg }}
+              msg
             </li>
           </ul>
         </div>
@@ -68,19 +68,12 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { eventStore } from '@/store/events';
 import { eventbus } from '@/eventbus';
+import VesselData from '@/models';
 
-
-export default interface VesselProp {
-  name: string;
-  mainActor: string;
-  mainSensor: string;
-  maxVolume: number;
-}
 
 @Component
 export default class Vessel extends Vue {
-  @Prop() private props!: VesselProp;
-
+  @Prop() vesselData!: string;
 
   get messages(): string[] {
     return eventStore.messages;

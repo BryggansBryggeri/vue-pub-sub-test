@@ -22,7 +22,7 @@
         class="w-full mx-auto grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 pt-6 gap-8"
       >
         <div class="rounded shadow-lg border">
-          <Vessel mash />
+          <Vessel :vesselData="mash" />
         </div>
 
         <div class="rounded shadow-lg border  border-yellow-500">
@@ -32,7 +32,7 @@
             >
               <div class="sm:w-3/5 mb-4 sm:mb-0">
                 <h2 class="text-gray-800 text-lg font-bold">
-                  { { Vessel.Name } }
+                  vessel.name
                 </h2>
                 <p class="my-0 text-gray-600 text-xs">
                   Main sensor: { { vessel.sensor } }
@@ -90,7 +90,7 @@
             >
               <div class="sm:w-3/5 mb-4 sm:mb-0">
                 <h2 class="text-gray-800 text-lg font-bold">
-                  { { Vessel.Name } }
+                  vessel.name
                 </h2>
                 <p class="my-0 text-gray-600 text-xs">
                   Main sensor: { { vessel.sensor } }
@@ -153,10 +153,9 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { VesselProp } from '@/components/Vessel.vue';
-import Vessel from '@/components/Vessel.vue'; // @ is an alias to /src
+import Vessel from '@/components/Vessel.vue';
 import NavBar from '@/components/NavBar.vue';
-// import MashCard from "@/components/MashCard.vue";
+import VesselProp from '@/models';
 
 @Component({
   components: {
