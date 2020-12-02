@@ -1,12 +1,4 @@
 <template>
-
-
-
-
-
-
-
-
   <div class="pub-sub-test">
     <h1>{{ msg }}</h1>
     <h3>Dummy sensor: {{sensorVal}}</h3>
@@ -26,8 +18,6 @@ import { eventbus } from '@/eventbus';
 
 @Component
 export default class PubSubTest extends Vue {
-
-  
   @Prop() private msg!: string;
 
   get messages(): string[] {
