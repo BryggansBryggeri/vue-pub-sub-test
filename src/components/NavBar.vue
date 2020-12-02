@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-green-900 p-2 mx-auto flex flex-row md:flex-row items-start md:items-center justify-between shadow-xl"
+    class="w-full bg-green-900 py-2 px-4 mx-auto flex flex-row md:flex-row items-start md:items-center justify-between shadow-xl"
   >
     <h4 class="text-2xl font-bold leading-tight text-gray-100">BryggIO</h4>
     <div class="flex flex-row text-white border items-center px-2 rounded-lg">
