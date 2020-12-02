@@ -4,12 +4,12 @@
       class="flex flex-row bg-gray-200 bg-opacity-40 rounded-t justify-between w-full shadow-sm mb-2 px-4 py-2"
     >
       <div class="sm:w-3/5 mb-4 sm:mb-0">
-        <h2 class="text-gray-800 text-lg font-bold">{{vesselData.name}}</h2>
+        <h2 class="text-gray-800 text-lg font-bold">{{vesselProp.name}}</h2>
         <p class="my-0 text-gray-600 text-xs">
-          Main sensor: {{ vesselData.mainSensor }}
+          Main sensor: {{ vesselProp.mainSensor }}
         </p>
         <p class="my-0 text-gray-600 text-xs">
-          Main actor: {{vesselData.mainActor}}
+          Main actor: {{vesselProp.mainActor}}
         </p>
       </div>
       <div class="flex text-green-600 rounded-tr">
@@ -73,7 +73,7 @@ import VesselProp from '@/models';
 
 @Component
 export default class Vessel extends Vue {
-  @Prop() vesselData!: VesselProp;
+  @Prop() vesselProp!: VesselProp;
 
   get messages(): string[] {
     return eventStore.messages;
