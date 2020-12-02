@@ -18,5 +18,7 @@ module.exports = {
     'class-methods-use-this': 'off',
     'no-unused-expressions': 'off',
     'no-restricted-syntax': 'off',
+    'no-multiple-empty-lines': 'off',
+    'max-len': 'off',
   },
 };
