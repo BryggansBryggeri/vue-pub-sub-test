@@ -68,12 +68,12 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { eventStore } from '@/store/events';
 import { eventbus } from '@/eventbus';
-import VesselData from '@/models';
+import VesselProp from '@/models';
 
 
 @Component
 export default class Vessel extends Vue {
-  @Prop() vesselData!: string;
+  @Prop() vesselData!: VesselProp;
 
   get messages(): string[] {
     return eventStore.messages;
