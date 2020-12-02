@@ -69,9 +69,18 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import { eventStore } from '@/store/events';
 import { eventbus } from '@/eventbus';
 
+
+export default interface VesselProp {
+  name: string;
+  mainActor: string;
+  mainSensor: string;
+  maxVolume: number;
+}
+
 @Component
-export default class PubSubTest extends Vue {
-  @Prop() private msg!: string;
+export default class Vessel extends Vue {
+  @Prop() private props!: VesselProp;
+
 
   get messages(): string[] {
     return eventStore.messages;

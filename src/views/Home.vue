@@ -22,7 +22,7 @@
         class="w-full mx-auto grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 pt-6 gap-8"
       >
         <div class="rounded shadow-lg border">
-          <PubSubTest v-bind="mash" />
+          <Vessel mash />
         </div>
 
         <div class="rounded shadow-lg border  border-yellow-500">
@@ -146,31 +146,31 @@
       <!-- End Three column layout -->
     </div>
     <!-- End Dashboard container -->
-    <!-- <PubSubTest msg="Pub-sub test" /> -->
+    <!-- <Vessel msg="Pub-sub test" /> -->
   </div>
   <!-- End Main container -->
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import PubSubTest from '@/components/PubSubTest.vue'; // @ is an alias to /src
+import { VesselProp } from '@/components/Vessel.vue';
+import Vessel from '@/components/Vessel.vue'; // @ is an alias to /src
 import NavBar from '@/components/NavBar.vue';
 // import MashCard from "@/components/MashCard.vue";
 
-private mash: Array<object> = [
-  {
-    name: 'Mash Vessel'
-    mainSensor: 'Mash Sensor'
-    mainActor: 'Mash Actor'
-  }
-]
-
 @Component({
   components: {
-    PubSubTest,
+    Vessel,
     NavBar,
     // MashCard,
   },
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  private mash: VesselProp = {
+    name: 'Mash Vessel',
+    mainActor: 'Mash Heater',
+    mainSensor: 'Mash Sensor',
+    maxVolume: 180,
+  }
+}
 </script>
