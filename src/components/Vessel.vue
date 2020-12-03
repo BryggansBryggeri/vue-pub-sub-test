@@ -71,13 +71,12 @@ export default class Vessel extends Vue {
   @Prop() vesselProp!: VesselProp;
 
   get dispManualPower(): number {
-    return Math.round(this.manualPower * 100.0);
+    return Math.round(this.actorSignal * 100.0);
   }
 
   get powerColor(): string {
     const color = this.actorSignal > 0.0? "green": "gray";
     const classColor = `bg-${color}-500`;
-    console.log(classColor);
     return classColor
   }
 
@@ -96,6 +95,7 @@ export default class Vessel extends Vue {
   addMessage(msg: string): void {
     const json = JSON.parse('{"id": "mash", "cmd": "test"}');
     eventbus.publish("ext_comm.ui.test", json);
+    console.log(`Current actor signal ${this.actorSignal}`);
   }
 }
 </script>
