@@ -21,10 +21,9 @@
       <div
         class="w-full mx-auto grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 pt-6 gap-8"
       >
-        <Vessel :vesselProp="mash" />
-        <Vessel :vesselProp="manifold" />
-        <Vessel :vesselProp="boil" />
-
+        <Vessel v-for="vessel in vessels" v-bind:vesselProp="vessel" v-bind:key="vessel.name" />
+        <!-- <Vessel :vesselProp="manifold" />
+        <Vessel :vesselProp="boil" /> -->
 
         <!-- <div class="rounded shadow-lg border  border-yellow-500">
           <div class="mx-auto bg-yellow-50 h-full shadow rounded w-full">
@@ -153,24 +152,33 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import Vessel from '@/components/Vessel.vue';
-import NavBar from '@/components/NavBar.vue';
-import VesselProp from '@/models';
+import { Component, Vue } from "vue-property-decorator";
+import Vessel from "@/components/Vessel.vue";
+import NavBar from "@/components/NavBar.vue";
+import VesselProp from "@/models";
 
 @Component({
   components: {
     Vessel,
-    NavBar,
+    NavBar
     // MashCard,
-  },
+  }
 })
 export default class Home extends Vue {
   private mash: VesselProp = {
-    name: 'Mash Vessel',
-    mainActor: 'Mash Heater',
-    mainSensor: 'Mash Sensor',
-    maxVolume: 180,
-  }
+    name: "Mash Vessel",
+    mainActor: "Mash Heater",
+    mainSensor: "Mash Sensor",
+    maxVolume: 180
+  };
+
+  private boil: VesselProp = {
+    name: "Boil Vessel",
+    mainActor: "Boil Heater",
+    mainSensor: "Boil Sensor",
+    maxVolume: 180
+  };
+
+  private vessels = [this.boil, this.mash];
 }
 </script>

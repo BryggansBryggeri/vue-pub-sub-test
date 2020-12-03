@@ -1,6 +1,6 @@
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { eventbus } from '@/eventbus';
+import { Component, Vue } from "vue-property-decorator";
+import { eventbus } from "@/eventbus";
 
 @Component
 export default class App extends Vue {
@@ -12,6 +12,6 @@ export default class App extends Vue {
 
 <template>
   <div id="app">
-    <router-view/>
+    <router-view />
   </div>
 </template>
