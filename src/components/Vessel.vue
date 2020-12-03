@@ -39,6 +39,7 @@
             <div class="flex" flex-row>
               <p class="text-gray-800 text-xl">{{ dispManualPower }}%</p>
               <div
+                class="h-4 w-4 shadow-lg my-auto mx-2 rounded-full animate-pulse"
                 :class="powerColor"
               ></div>
             </div>
@@ -75,7 +76,7 @@ export default class Vessel extends Vue {
 
   get powerColor(): string {
     const color = this.actorSignal > 0.0? "green": "gray";
-    const classColor = `h-4 w-4 bg-${color}-500 shadow-lg my-auto mx-2 rounded-full animate-pulse`;
+    const classColor = `bg-${color}-500`;
     console.log(classColor);
     return classColor
   }
