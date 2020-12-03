@@ -28,7 +28,7 @@
         <div class="flex w-full justify-between mb-8">
           <div class="flex flex-col items-center w-6/12">
             <p class="text-gray-600 text-sm mb-1">Current Temp</p>
-            <p class="text-gray-800 text-4xl mb-2">{{ sensorVal }}&deg;C</p>
+            <p class="text-gray-800 text-4xl mb-2">{{ sensorMeasDisp }}&deg;C</p>
             <p class="text-gray-600 text-sm mb-1">Target Temp</p>
             <p class="text-gray-800 text-xl">{{ 80.0 }}&deg;C</p>
           </div>
@@ -37,9 +37,9 @@
             <p class="text-gray-800 text-4xl mb-2">Auto</p>
             <p class="text-gray-600 text-sm mb-1">Current Status</p>
             <div class="flex" flex-row>
-              <p class="text-gray-800 text-xl">50%</p>
+              <p class="text-gray-800 text-xl">{{ dispManualPower }}%</p>
               <div
-                class="h-4 w-4 bg-green-500 shadow-lg my-auto mx-2 rounded-full animate-pulse"
+                :class="powerColor"
               ></div>
             </div>
           </div>
@@ -48,13 +48,8 @@
         <div>
           <div>
             <h1>status</h1>
-            <h3>Dummy sensor: {{ sensorVal }}</h3>
+            <h3>Dummy sensor: {{ sensorMeasDisp }}</h3>
             <button @click="addMessage('text')">Add</button>
-            <ul>
-              <li v-for="(msg, idx) in messages" :key="`msg-${idx}`">
-                msg
-              </li>
-            </ul>
           </div>
         </div>
       </div>
@@ -70,18 +65,36 @@ import VesselProp from "@/models";
 
 @Component
 export default class Vessel extends Vue {
+  private manualPower = 0.0;
+
   @Prop() vesselProp!: VesselProp;
+
+  get dispManualPower(): number {
+    return Math.round(this.manualPower * 100.0);
+  }
+
+  get powerColor(): string {
+    const color = this.actorSignal > 0.0? "green": "gray";
+    const classColor = `h-4 w-4 bg-${color}-500 shadow-lg my-auto mx-2 rounded-full animate-pulse`;
+    console.log(classColor);
+    return classColor
+  }
 
   get messages(): string[] {
     return eventStore.messages;
   }
 
-  get sensorVal(): string {
-    return eventStore.sensorVal.toFixed(2);
+  get actorSignal(): number {
+    return eventStore.actorSignal;
+  }
+
+  get sensorMeasDisp(): string {
+    return eventStore.sensorMeas.toFixed(2);
   }
 
   addMessage(msg: string): void {
-    eventbus.publish("ext_comm.ui.test", msg);
+    const json = JSON.parse('{"id": "mash", "cmd": "test"}');
+    eventbus.publish("ext_comm.ui.test", json);
   }
 }
 </script>
