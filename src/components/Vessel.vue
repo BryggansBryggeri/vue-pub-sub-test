@@ -90,4 +90,3 @@ export default class Vessel extends Vue {
   }
 }
 </script>
-
