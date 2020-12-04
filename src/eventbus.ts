@@ -1,4 +1,3 @@
-// import mqtt from 'mqtt';
 import { connect, StringCodec, JSONCodec, NatsConnection, Msg } from "nats.ws";
 import { eventStore } from "@/store/events";
 
@@ -12,7 +11,7 @@ export class Eventbus {
     const nc = await connect({
       servers: "ws://localhost:9222",
       user: "jackonelli",
-      pass: "penna1glas"
+      pass: "penna1glas",
     });
     this.client = nc;
     const sensorSub = nc.subscribe("sensor.*.measurement");
