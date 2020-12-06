@@ -155,7 +155,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import Vessel from "@/components/Vessel.vue";
 import NavBar from "@/components/NavBar.vue";
-import VesselProp from "@/models";
+import VesselProp from "@/models/vesselProps";
 
 @Component({
   components: {
@@ -166,18 +166,16 @@ import VesselProp from "@/models";
 })
 export default class Home extends Vue {
   private mash: VesselProp = {
-    name: "Mash Vessel",
+    id: "Mash Vessel",
     mainActor: "Mash Heater",
     mainSensor: "Mash Sensor",
-    vesselController: "Mash Controller",
     maxVolume: 180
   };
 
   private boil: VesselProp = {
-    name: "Boil Vessel",
+    id: "Boil Vessel",
     mainActor: "Boil Heater",
     mainSensor: "Boil Sensor",
-    vesselController: "Boil Controller",
     maxVolume: 180
   };
 

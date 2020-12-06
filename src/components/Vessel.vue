@@ -5,7 +5,7 @@
         class="flex flex-row bg-gray-200 bg-opacity-40 rounded-t justify-between w-full shadow-sm mb-2 px-4 py-2"
       >
         <div class="sm:w-3/5 mb-4 sm:mb-0">
-          <h2 class="text-gray-800 text-lg font-bold">{{ vesselProp.name }}</h2>
+          <h2 class="text-gray-800 text-lg font-bold">{{ vesselProp.id }}</h2>
           <p class="my-0 text-gray-600 text-xs">
             Main sensor: {{ vesselProp.mainSensor }}
           </p>
@@ -78,7 +78,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { eventStore } from "@/store/events";
 import { eventbus } from "@/eventbus";
-import VesselProp from "@/models/vesselProp";
+import VesselProp from "@/models/vesselProps";
 import ToggleButton from "@/components/ToggleButton.vue";
 
 @Component({
