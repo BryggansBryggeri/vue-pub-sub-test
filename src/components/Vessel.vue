@@ -6,8 +6,12 @@
       >
         <div class="sm:w-3/5 mb-4 sm:mb-0">
           <h2 class="text-gray-800 text-lg font-bold">{{ vesselProp.name }}</h2>
-          <p class="my-0 text-gray-600 text-xs">Main sensor: {{ vesselProp.mainSensor }}</p>
-          <p class="my-0 text-gray-600 text-xs">Main actor: {{ vesselProp.mainActor }}</p>
+          <p class="my-0 text-gray-600 text-xs">
+            Main sensor: {{ vesselProp.mainSensor }}
+          </p>
+          <p class="my-0 text-gray-600 text-xs">
+            Main actor: {{ vesselProp.mainActor }}
+          </p>
         </div>
         <div class="flex text-green-600 rounded-tr">
           <div class="my-auto mx-auto">
@@ -28,11 +32,15 @@
         <div class="flex w-full justify-between mb-8">
           <div class="flex flex-col items-center w-6/12">
             <p class="text-gray-600 text-sm mb-1">Current Temp</p>
-            <p class="text-gray-800 text-4xl mb-2">{{ sensorMeasDisp }}&deg;C</p>
+            <p class="text-gray-800 text-4xl mb-2">
+              {{ sensorMeasDisp }}&deg;C
+            </p>
             <p class="text-gray-600 text-sm mb-1">Target Temp</p>
             <p class="text-gray-800 text-xl">{{ 80.0 }}&deg;C</p>
           </div>
-          <div class="flex flex-col items-center w-6/12 border-l border-gray-200">
+          <div
+            class="flex flex-col items-center w-6/12 border-l border-gray-200"
+          >
             <p class="text-gray-600 text-sm mb-1">Controller</p>
             <p class="text-gray-800 text-4xl mb-2">Auto</p>
             <p class="text-gray-600 text-sm mb-1">Current Status</p>
@@ -48,6 +56,7 @@
         </div>
         <div>
           <div>
+            <ToggleButton />
             <h1>status</h1>
             <h3>Dummy sensor: {{ sensorMeasDisp }}</h3>
             <button @click="addMessage('text')">Add</button>
@@ -63,8 +72,13 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import { eventStore } from "@/store/events";
 import { eventbus } from "@/eventbus";
 import VesselProp from "@/models";
+import ToggleButton from "@/components/ToggleButton.vue";
 
-@Component
+@Component({
+  components: {
+    ToggleButton
+  }
+})
 export default class Vessel extends Vue {
   private manualPower = 0.0;
 
