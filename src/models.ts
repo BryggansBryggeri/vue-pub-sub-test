@@ -6,7 +6,7 @@
 //}
 
 export default interface VesselProp {
-  name: string;
+  id: string;
   mainActor: string;
   mainSensor: string;
   maxVolume: number;

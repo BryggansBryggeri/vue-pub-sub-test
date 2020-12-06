@@ -5,7 +5,7 @@
         class="flex flex-row bg-gray-200 bg-opacity-40 rounded-t justify-between w-full shadow-sm mb-2 px-4 py-2"
       >
         <div class="sm:w-3/5 mb-4 sm:mb-0">
-          <h2 class="text-gray-800 text-lg font-bold">{{ vesselProp.name }}</h2>
+          <h2 class="text-gray-800 text-lg font-bold">{{ dispName }}</h2>
           <p class="my-0 text-gray-600 text-xs">
             Main sensor: {{ vesselProp.mainSensor }}
           </p>
@@ -56,7 +56,7 @@
         </div>
         <div>
           <div>
-            <ToggleButton />
+            <ToggleButton v-bind:controllerId="vesselProp.id"/>
             <h1>status</h1>
             <h3>Dummy sensor: {{ sensorMeasDisp }}</h3>
             <button @click="addMessage('text')">Add</button>
@@ -72,6 +72,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import { eventStore } from "@/store/events";
 import { eventbus } from "@/eventbus";
 import VesselProp from "@/models";
+import capitalizeFirstLetter from "@/utils";
 import ToggleButton from "@/components/ToggleButton.vue";
 
 @Component({
@@ -86,6 +87,10 @@ export default class Vessel extends Vue {
 
   get dispManualPower(): number {
     return Math.round(this.actorSignal * 100.0);
+  }
+
+  get dispName(): string {
+    return capitalizeFirstLetter(this.vesselProp.id)
   }
 
   get powerColor(): string {

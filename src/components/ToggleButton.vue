@@ -22,6 +22,8 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 export default class ToggleButton extends Vue {
   private active = false;
 
+  @Prop() controllerId!: string;
+
   toggleActive() {
     this.active = !this.active;
   }
