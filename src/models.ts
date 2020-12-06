@@ -10,4 +10,5 @@ export default interface VesselProp {
   mainActor: string;
   mainSensor: string;
   maxVolume: number;
+  vesselController: string;
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="rounded shadow-lg border">
-    <div class="mx-auto shadow rounded h-full w-full">
+    <div class="mx-auto shadow flex flex-col rounded space-y-4 h-full w-full">
       <div
         class="flex flex-row bg-gray-200 bg-opacity-40 rounded-t justify-between w-full shadow-sm mb-2 px-4 py-2"
       >
@@ -28,8 +28,9 @@
           </div>
         </div>
       </div>
+      <!-- Start Main Card Body -->
       <div class="flex flex-col items-center p-3">
-        <div class="flex w-full justify-between mb-8">
+        <div class="flex w-full justify-between">
           <div class="flex flex-col items-center w-6/12">
             <p class="text-gray-600 text-sm mb-1">Current Temp</p>
             <p class="text-gray-800 text-4xl mb-2">
@@ -54,13 +55,19 @@
           </div>
           <hr class="mb-4 lg:mb-4 h-1 rounded bg-gray-200" />
         </div>
-        <div>
-          <div>
-            <ToggleButton />
-            <h1>status</h1>
-            <h3>Dummy sensor: {{ sensorMeasDisp }}</h3>
-            <button @click="addMessage('text')">Add</button>
-          </div>
+      </div>
+      <div
+        class="flex flex-row bg-gray-100 bg-opacity-40 rounded-t justify-between w-full shadow-sm mb-2 px-4 py-2"
+      >
+        <div class="sm:w-3/5 mb-4 sm:mb-0">
+          <h2 class="text-gray-800 text-lg font-bold truncate">
+            {{ vesselProp.vesselController }}
+          </h2>
+        </div>
+      </div>
+      <div class="flex flex-col items-center p-3">
+        <div class="flex w-full justify-center">
+          <ToggleButton />
         </div>
       </div>
     </div>
@@ -76,8 +83,8 @@ import ToggleButton from "@/components/ToggleButton.vue";
 
 @Component({
   components: {
-    ToggleButton
-  }
+    ToggleButton,
+  },
 })
 export default class Vessel extends Vue {
   private manualPower = 0.0;
@@ -89,9 +96,9 @@ export default class Vessel extends Vue {
   }
 
   get powerColor(): string {
-    const color = this.actorSignal > 0.0? "green": "gray";
+    const color = this.actorSignal > 0.0 ? "green" : "gray";
     const classColor = `bg-${color}-500`;
-    return classColor
+    return classColor;
   }
 
   get messages(): string[] {

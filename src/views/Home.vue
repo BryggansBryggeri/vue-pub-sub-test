@@ -169,6 +169,7 @@ export default class Home extends Vue {
     name: "Mash Vessel",
     mainActor: "Mash Heater",
     mainSensor: "Mash Sensor",
+    vesselController: "Mash Controller",
     maxVolume: 180
   };
 
@@ -176,6 +177,7 @@ export default class Home extends Vue {
     name: "Boil Vessel",
     mainActor: "Boil Heater",
     mainSensor: "Boil Sensor",
+    vesselController: "Boil Controller",
     maxVolume: 180
   };
 
