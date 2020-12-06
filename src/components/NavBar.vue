@@ -3,7 +3,7 @@
     class="w-full bg-green-900 py-2 px-4 mx-auto flex flex-row md:flex-row items-start md:items-center justify-between shadow-xl"
   >
     <h4 class="text-2xl font-bold leading-tight text-gray-100">BryggIO</h4>
-    <div class="flex flex-row text-white border items-center px-2 rounded-lg">
+    <div class="flex flex-row text-white items-center px-2 rounded-lg">
       <svg
         class="w-6 h-6"
         fill="none"
@@ -24,8 +24,7 @@
           d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
         ></path>
       </svg>
-      <button class="transition focus:outline-none duration-150 ease-in-out text-white p-2 text-sm">
-        Settings
+      <button class="transition focus:outline-none duration-150 ease-in-out text-white text-sm">
       </button>
     </div>
   </div>
