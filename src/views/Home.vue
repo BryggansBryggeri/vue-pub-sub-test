@@ -155,7 +155,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import Vessel from "@/components/Vessel.vue";
 import NavBar from "@/components/NavBar.vue";
-import VesselProp from "@/models";
+import VesselProp from "@/models/vesselProp";
 
 @Component({
   components: {
