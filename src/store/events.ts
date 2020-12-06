@@ -1,5 +1,6 @@
 import { Action, Module, VuexModule } from "vuex-class-modules";
 import store from "@/store";
+import Vessel from "@/models/vessel";
 
 @Module({ generateMutationSetters: true })
 export class EventModule extends VuexModule {
@@ -8,6 +9,8 @@ export class EventModule extends VuexModule {
   sensorMeas = 0.0;
 
   actorSignal = 0.0;
+
+  brewery = new Vessel("id");
 
   @Action
   public async addMessage(msg: string): Promise<void> {
