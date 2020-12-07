@@ -10,10 +10,7 @@
         >
           Manual</span
         >
-        <div
-          class="flex justify-between items-center"
-          @click="toggleControllerState"
-        >
+        <div class="flex justify-between items-center" @click="toggleControllerState">
           <div
             class="w-20 h-10 flex items-center bg-yellow-300 rounded-full p-1 duration-300 ease-in-out"
             :class="{ 'bg-green-400': controllerState }"
@@ -76,6 +73,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import VueSlider from "vue-slider-component";
 import "vue-slider-component/theme/antd.css";
+import { eventStore } from "@/store/events";
 
 @Component({
   components: {
@@ -104,6 +102,7 @@ export default class ToggleButton extends Vue {
 
   toggleControllerState() {
     this.controllerState = !this.controllerState;
+    eventStore.toggleController();
   }
 }
 </script>
