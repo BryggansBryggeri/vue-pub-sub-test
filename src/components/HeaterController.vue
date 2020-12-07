@@ -1,5 +1,6 @@
 <template>
   <div class="flex flex-col w-full">
+    <h1>{{controllerId}}</h1>
     <div class="flex flex-col items-center w-full space-y-2">
       <div class="flex flex-row space-x-2 items-center">
         <span
@@ -36,31 +37,27 @@
       <div>
         <div class="flex flex-col h-30 text-sm" v-show="controllerState">
           <div class="flex flex-row">
-            <span class="pr-2 font-medium">Settings: </span>
-            <span>Setpoint</span>
+          <span class="pr-2 font-medium">Settings: </span>
+          <span>Setpoint</span>
+          </div>
+          
+          <div class="flex flex-row">
+          <span>This controller will automatically controll the actor output to achieve the targeted setpoint.</span>
           </div>
 
-          <div class="flex flex-row">
-            <span
-              >This controller will automatically controll the actor output to
-              achieve the targeted setpoint.</span
-            >
-          </div>
+
         </div>
         <div class="flex flex-col h-30 text-sm" v-show="!controllerState">
           <div class="flex flex-row">
-            <span class="pr-2 font-medium">Settings: </span>
-            <span>Manual</span>
+          <span class="pr-2 font-medium">Settings: </span>
+          <span>Manual</span>
           </div>
+          
+          <div class="flex flex-row">
+          <span>This controller sets the duty cycle of the actor to the input percentage.</span>
+          </div>
+          
 
-          <div class="flex flex-col">
-            <span
-              >This controller sets the duty cycle of the actor to the input
-              percentage.</span>
-              <div class="w-2/3 py-4 mx-auto -center">
-            <vue-slider class="w-20" v-model="manualValue" :tooltip="none" :lazy="true" :adsorb="true" :interval="10" :marks="manualMarks" :drag-on-click="true" />
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -68,47 +65,15 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import VueSlider from "vue-slider-component";
-import "vue-slider-component/theme/antd.css";
 
-@Component({
-  components: {
-    VueSlider,
-  },
-})
-export default class ToggleButton extends Vue {
-  data() {
-    return {
-      manualValue: 0,
-      manualMarks: (val: number)  => val % 10 === 0 ? ({
-          label: `${val}%`,
-          labelStyle: {
-            opacity: val * 0.01 * 0.7 + 0.3
-          },
-          labelActiveStyle: {
-            color: '#3498db'
-          }
-        }) : false,
-    };
-  }
-
+@Component({})
+export default class HeaterController extends Vue {
   private controllerState = false;
 
-  @Prop() controllerId!: string;
+@Prop() controllerId!: string;
 
   toggleControllerState() {
     this.controllerState = !this.controllerState;
   }
 }
 </script>
-
-
-
-export default {
-  components: {
-    VueSlider
-  },
-
-    }
-  }
-}
