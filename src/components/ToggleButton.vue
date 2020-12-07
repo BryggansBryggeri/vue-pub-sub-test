@@ -36,12 +36,18 @@
             <span class="pr-2 font-medium">Settings: </span>
             <span>Setpoint</span>
           </div>
+          <div class="flex flex-col">
+            <span>This controller will automatically controll the actor output to
+              achieve the targeted setpoint.</span>
+          <div class="flex flex-row justify-around mx-auto align-middle py-3 space-x-2 bg-gray-50 shadow-lg border rounded-lg">
+            <div class="text-xl border-r border-gray-300 px-3">-</div>
+            <input class="bg-gray-50" placeholder="Enter target temp." type="text" />
+            
+            <div class="text-xl border-l border-gray-300 px-3">+</div>
 
-          <div class="flex flex-row">
-            <span
-              >This controller will automatically controll the actor output to achieve the targeted
-              setpoint.</span
-            >
+
+          </div>
+
           </div>
         </div>
         <div class="flex flex-col h-30 text-sm" v-show="!controllerState">
@@ -50,8 +56,13 @@
             <span>Manual</span>
           </div>
 
-          <div class="flex flex-row">
-            <span>This controller sets the duty cycle of the actor to the input percentage.</span>
+          <div class="flex flex-col">
+            <span
+              >This controller sets the duty cycle of the actor to the input
+              percentage.</span>
+              <div class="w-4/5 text-xs py-4 mx-auto -center">
+            <vue-slider class="w-20" v-model="manualValue" :tooltip="none" :lazy="true" :adsorb="true" :interval="10" :marks="manualMarks" :drag-on-click="true" />
+            </div>
           </div>
         </div>
       </div>
@@ -60,10 +71,31 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import VueSlider from "vue-slider-component";
+import "vue-slider-component/theme/antd.css";
 import { eventStore } from "@/store/events";
 
-@Component({})
+@Component({
+  components: {
+    VueSlider,
+  },
+})
 export default class ToggleButton extends Vue {
+  data() {
+    return {
+      manualValue: 0,
+      manualMarks: (val: number)  => val % 10 === 0 ? ({
+          label: `${val}%`,
+          labelStyle: {
+            opacity: val * 0.01 * 0.7 + 0.3
+          },
+          labelActiveStyle: {
+            color: '#3498db'
+          }
+        }) : false,
+    };
+  }
+
   private controllerState = false;
 
   @Prop() controllerId!: string;
@@ -74,3 +106,14 @@ export default class ToggleButton extends Vue {
   }
 }
 </script>
+
+
+
+export default {
+  components: {
+    VueSlider
+  },
+
+    }
+  }
+}
