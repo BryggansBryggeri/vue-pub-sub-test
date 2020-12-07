@@ -21,6 +21,8 @@ export class EventModule extends VuexModule {
     this.sensorMeas = meas;
   }
 
+  public async toggleController(): Promise<void> {}
+
   public async updateActorSignal(signal: number): Promise<void> {
     this.actorSignal = signal;
   }
