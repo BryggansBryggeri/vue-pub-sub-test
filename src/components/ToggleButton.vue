@@ -57,7 +57,7 @@
             <span
               >This controller sets the duty cycle of the actor to the input
               percentage.</span>
-              <div class="w-2/3 py-4 mx-auto -center">
+              <div class="w-4/5 text-xs py-4 mx-auto -center">
             <vue-slider class="w-20" v-model="manualValue" :tooltip="none" :lazy="true" :adsorb="true" :interval="10" :marks="manualMarks" :drag-on-click="true" />
             </div>
           </div>
