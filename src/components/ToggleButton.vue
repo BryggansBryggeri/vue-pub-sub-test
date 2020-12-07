@@ -39,12 +39,18 @@
             <span class="pr-2 font-medium">Settings: </span>
             <span>Setpoint</span>
           </div>
+          <div class="flex flex-col">
+            <span>This controller will automatically controll the actor output to
+              achieve the targeted setpoint.</span>
+          <div class="flex flex-row justify-around mx-auto align-middle py-3 space-x-2 bg-gray-50 shadow-lg border rounded-lg">
+            <div class="text-xl border-r border-gray-300 px-3">-</div>
+            <input class="bg-gray-50" placeholder="Enter target temp." type="text" />
+            
+            <div class="text-xl border-l border-gray-300 px-3">+</div>
 
-          <div class="flex flex-row">
-            <span
-              >This controller will automatically controll the actor output to
-              achieve the targeted setpoint.</span
-            >
+
+          </div>
+
           </div>
         </div>
         <div class="flex flex-col h-30 text-sm" v-show="!controllerState">
