@@ -14,6 +14,7 @@
         class="three-column-grid"
       >
         <Vessel v-for="vessel in vessels" v-bind:vesselProp="vessel" v-bind:key="vessel.name" />
+        <Manifold :manifoldProp="manifold" />
       </div>
       <!-- End Three column layout -->
     </div>
@@ -25,15 +26,18 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Vessel from "@/components/Vessel.vue";
+import Manifold from "@/components/Manifold.vue";
 import NavBar from "@/components/NavBar.vue";
 import DashboardTop from "@/components/DashboardTop.vue";
 import VesselProp from "@/models/vesselProps";
+import ManifoldProp from "@/models/manifoldProps";
 
 @Component({
   components: {
     Vessel,
+    Manifold,
     NavBar,
-    DashboardTop
+    DashboardTop,
     // MashCard,
   }
 })
@@ -52,7 +56,15 @@ export default class Home extends Vue {
     maxVolume: 180
   };
 
+  private manifold: ManifoldProp = {
+    id: "manifold",
+    mainActor: "Pump",
+    mainSensor: "Manifold Sensor",
+    maxVolume: 180
+  };
+
   private vessels = [this.boil, this.mash];
+  
 }
 </script>
 <style scoped>
