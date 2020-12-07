@@ -3,14 +3,12 @@ import Vessel from "@/models/vessel";
 export class Brewery {
   private name!: string;
 
-  private vessels!: {
-    [key: string]: Vessel;
-  };
+  private vessels!: Map<string, Vessel>;
 
   constructor(name: string, vessels: string[]) {
     this.name = name;
-    const tmp = vessels.map((id) => [id, new Vessel(id)]);
-    this.vessels = tmp;
+    const tmp: [string, Vessel][] = vessels.map((id) => [id, new Vessel(id)]);
+    this.vessels = new Map(tmp);
   }
 }
 
