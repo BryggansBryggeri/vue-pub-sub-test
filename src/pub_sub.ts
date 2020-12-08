@@ -2,6 +2,11 @@ export default class Result<T> {
   private ok: T | null = null;
   private err: string | null = null;
 
+  private constructor(ok: T | null, err: string | null) {
+    this.ok = ok;
+    this.err = err;
+  }
+
   public is_ok(): boolean {
     return this.ok !== null;
   }
@@ -12,11 +17,6 @@ export default class Result<T> {
     } else {
       return this.err as string;
     }
-  }
-
-  private constructor(ok: T | null, err: string | null) {
-    this.ok = ok;
-    this.err = err;
   }
 
   public static from_err(err: string) {
