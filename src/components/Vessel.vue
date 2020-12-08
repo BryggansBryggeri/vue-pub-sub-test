@@ -81,8 +81,8 @@
         </div>
         <div
           class="flex text-red-600 rounded-tr"
-          @mouseover="toggleTooltip()"
-          @mouseleave="toggleTooltip()"
+          @mouseover="tooltip = true"
+          @mouseleave="tooltip = false"
         >
           <div class="relative mt-20 md:mt-0">
             <div
