@@ -1,7 +1,9 @@
 <template>
   <div class="rounded shadow-lg border">
     <div class="mx-auto shadow flex flex-col rounded space-y-4 h-full w-full">
+      <!-- Header All Ok!-->
       <div
+        v-if="vesselStatus == 1"
         class="flex flex-row bg-gray-200 bg-opacity-40 rounded-t justify-between w-full shadow-sm mb-2 px-4 py-2"
       >
         <div class="sm:w-3/5 mb-4 sm:mb-0">
@@ -28,6 +30,126 @@
           </div>
         </div>
       </div>
+      <!-- Header -->
+      <!-- Header Issue-->
+      <div
+        v-else-if="vesselStatus == 2"
+        class="flex flex-row bg-yellow-200 bg-opacity-40 rounded-t justify-between w-full shadow-sm mb-2 px-4 py-2"
+      >
+        <div class="sm:w-3/5 mb-4 sm:mb-0">
+          <h2 class="text-gray-800 text-lg font-bold">{{ dispName }}</h2>
+          <p class="my-0 text-gray-600 text-xs">
+            Main sensor: {{ vesselProp.mainSensor }}
+          </p>
+          <p class="my-0 text-gray-600 text-xs">
+            Main actor: {{ vesselProp.mainActor }}
+          </p>
+        </div>
+        <div class="flex text-yellow-600 rounded-tr">
+          <div class="my-auto mx-auto">
+            <svg
+              class="w-8 h-8"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <!-- Header -->
+      <!-- Header Error-->
+      <div
+        v-else-if="vesselStatus == 3"
+        class="flex flex-row bg-red-200 bg-opacity-40 rounded-t justify-between w-full shadow-sm mb-2 px-4 py-2"
+      >
+        <div class="sm:w-3/5 mb-4 sm:mb-0">
+          <h2 class="text-gray-800 text-lg font-bold">{{ dispName }}</h2>
+          <p class="my-0 text-gray-600 text-xs">
+            Main sensor: {{ vesselProp.mainSensor }}
+          </p>
+          <p class="my-0 text-gray-600 text-xs">
+            Main actor: {{ vesselProp.mainActor }}
+          </p>
+        </div>
+        <div
+          class="flex text-red-600 rounded-tr"
+          @mouseover="toggleTooltip()"
+          @mouseleave="toggleTooltip()"
+        >
+          <div class="relative mt-20 md:mt-0">
+            <div
+              id="tooltip1"
+              role="tooltip"
+              class="z-20 -left-1 transition duration-150 ease-in-out bottom-12 absolute shadow-lg border pt-4 pr-2 pl-3 pb-5 bg-white text-gray-600 rounded-lg w-40"
+              :class="{'opacity-0': !tooltip }"
+            >
+              <svg
+                class="absolute bottom-0 -mb-2"
+                width="16px"
+                height="8px"
+                viewBox="0 0 16 8"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+              >
+                <g
+                  id="Page-1"
+                  stroke="none"
+                  stroke-width="1"
+                  fill="none"
+                  fill-rule="evenodd"
+                >
+                  <g
+                    id="Tooltips-"
+                    transform="translate(-84.000000, -203.000000)"
+                    fill="#FFFFFF"
+                  >
+                    <g
+                      id="Group-3-Copy"
+                      transform="translate(76.000000, 145.000000)"
+                    >
+                      <polygon
+                        class="shadow"
+                        id="Triangle"
+                        transform="translate(16.000000, 62.000000) rotate(-180.000000) translate(-16.000000, -62.000000) "
+                        points="16 58 24 66 8 66"
+                      ></polygon>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+              <p class="text-xs text-gray-600 leading-4">
+                This information will be used for personalization
+              </p>
+            </div>
+          </div>
+          <div class="my-auto mx-auto">
+            <svg
+              class="w-8 h-8"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <!-- Header -->
       <!-- Start Main Card Body -->
       <div class="flex flex-col items-center p-3">
         <div class="flex w-full justify-between">
@@ -79,6 +201,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { eventStore } from "@/store/events";
 import { eventbus } from "@/eventbus";
+import result from "@/pub_sub";
 import VesselProp from "@/models/vesselProps";
 import capitalizeFirstLetter from "@/utils";
 import ToggleButton from "@/components/ToggleButton.vue";
@@ -91,14 +214,22 @@ import ToggleButton from "@/components/ToggleButton.vue";
 export default class Vessel extends Vue {
   private manualPower = 0.0;
 
+  private vesselStatus = 3; // Todo
+
+  private tooltip = false; // Todo
+
   @Prop() vesselProp!: VesselProp;
+
+  toggleTooltip() {
+    this.tooltip = !this.tooltip;
+  }
 
   get dispManualPower(): number {
     return Math.round(this.actorSignal * 100.0);
   }
 
   get dispName(): string {
-    return capitalizeFirstLetter(this.vesselProp.id)
+    return capitalizeFirstLetter(this.vesselProp.id);
   }
 
   get powerColor(): string {
