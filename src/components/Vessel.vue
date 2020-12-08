@@ -81,10 +81,10 @@
         </div>
         <div
           class="flex text-red-600 rounded-tr"
-          @mouseover="tooltip = true"
-          @mouseleave="tooltip = false"
+          @mouseover="toggleTooltip()"
+          @mouseleave="toggleTooltip()"
         >
-          <div class="relative mt-20 bg-green-900 md:mt-0">
+          <div class="relative mt-20 md:mt-0">
             <div
               id="tooltip1"
               role="tooltip"
