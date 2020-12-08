@@ -89,6 +89,7 @@
               id="tooltip1"
               role="tooltip"
               class="z-20 -left-1 transition duration-150 ease-in-out bottom-12 absolute shadow-lg border pt-4 pr-2 pl-3 pb-5 bg-white text-gray-600 rounded-lg w-40"
+              :class="{'opacity-0': !tooltip }"
             >
               <svg
                 class="absolute bottom-0 -mb-2"
@@ -213,9 +214,9 @@ import ToggleButton from "@/components/ToggleButton.vue";
 export default class Vessel extends Vue {
   private manualPower = 0.0;
 
-  private vesselStatus = 3;
+  private vesselStatus = 3; // Todo
 
-  private tooltip = false;
+  private tooltip = false; // Todo
 
   @Prop() vesselProp!: VesselProp;
 
