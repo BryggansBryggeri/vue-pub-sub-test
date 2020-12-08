@@ -66,9 +66,11 @@
       </div>
       <!-- Header -->
       <!-- Header Error-->
+      
+      <div v-else-if="vesselStatus == 3" class="flex flex-col bg-opacity-40">
       <div
-        v-else-if="vesselStatus == 3"
-        class="flex flex-row bg-red-200 bg-opacity-40 rounded-t justify-between w-full shadow-sm mb-2 px-4 py-2"
+        
+        class="flex flex-row bg-red-200 rounded-t justify-between w-full shadow-sm mb-2 px-4 py-2"
       >
         <div class="sm:w-3/5 mb-4 sm:mb-0">
           <h2 class="text-gray-800 text-lg font-bold">{{ dispName }}</h2>
@@ -149,6 +151,15 @@
           </div>
         </div>
       </div>
+      <div v-if="error"
+        class="flex flex-row bg-red-200 w-full border-gray-100 shadow-sm -mt-2 mb-2 px-4 py-2"
+      >
+        <div class="flex flex-row space-x-2 sm:w-3/5 mb-4 sm:mb-0">
+          <h2 class="text-gray-800 text-base font-bold">Error: </h2>
+          <p> { { Error message } }</p>
+        </div>
+      </div>
+      </div>
       <!-- Header -->
       <!-- Start Main Card Body -->
       <div class="flex flex-col items-center p-3">
@@ -191,8 +202,12 @@
         <div class="flex w-full justify-center">
           <ToggleButton v-bind:controllerId="vesselProp.id" />
         </div>
-      </div>
+      </div><div class="flex flex-row justify-around mb-4 pb-4">
+    <button class="bg-blue-200 rounded-lg p-2 w-64" @click="error = !error, vesselStatus = 3">Error?</button>
+    <button class="bg-green-200 rounded-lg p-2 w-64" @click="setVesselStatus()">Vesselstatus</button>
     </div>
+    </div>
+    
   </div>
 </template>
 
@@ -214,7 +229,9 @@ import ToggleButton from "@/components/ToggleButton.vue";
 export default class Vessel extends Vue {
   private manualPower = 0.0;
 
-  private vesselStatus = 3; // Todo
+  private vesselStatus = 1; // Todo
+
+  private error = false;
 
   private tooltip = false; // Todo
 
@@ -222,6 +239,14 @@ export default class Vessel extends Vue {
 
   toggleTooltip() {
     this.tooltip = !this.tooltip;
+  }
+
+  setVesselStatus(){
+     if (this.vesselStatus === 3){
+      this.vesselStatus = 1;
+    }else{
+      this.vesselStatus += 1;
+    }
   }
 
   get dispManualPower(): number {
