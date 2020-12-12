@@ -49,7 +49,9 @@
             >
               <input
                 type="number"
-                min="0" max="101" step="0.1"
+                min="0"
+                max="101"
+                step="0.1"
                 v-model="targetTemp"
                 class="bg-gray-50 py-2 w-32 text-center"
                 placeholder="Enter target temp."
@@ -61,6 +63,7 @@
                 Set new Target
               </button>
             </div>
+            <button @click="getTargetTemp(73.8)">Listen from NATS</button>
           </div>
         </div>
       </div>
@@ -79,18 +82,18 @@
             <vue-slider
               ref="manualSlider"
               class="w-20"
-              v-model="manualValue"
+              v-model="percentage"
               :tooltip="none"
               :lazy="true"
               :adsorb="true"
               :interval="10"
               :marks="manualMarks"
               :drag-on-click="true"
-              @change="emitValue(manualValue)"
+              @change="setValue(percentage)"
             />
-            {{ manualValue }}
           </div>
         </div>
+        <button @click="getPercentage(60)">Listen from NATS</button>
       </div>
     </div>
   </div>
@@ -109,7 +112,7 @@ import { eventStore } from "@/store/events";
 export default class ToggleButton extends Vue {
   data() {
     return {
-      manualValue: 0,
+      percentage: 0,
       manualMarks: (val: number) =>
         val % 10 === 0
           ? {
@@ -127,8 +130,8 @@ export default class ToggleButton extends Vue {
 
   private controllerState = false;
 
-  private manualValue!: number;
-  
+  private percentage!: number;
+
   private targetTemp = 0;
 
   @Prop() controllerId!: string;
@@ -139,12 +142,21 @@ export default class ToggleButton extends Vue {
     eventStore.toggleController();
   }
 
-  emitValue(val: number) {
+  setPercentage(val: number) {
+    console.log(val);
+  }
+  
+  getPercentage(val: number) {
+    this.percentage = val;
+  }
+
+
+  setTargetTemp(val: number) {
     console.log(val);
   }
 
-  setTargetTemp(val: number) {
-      console.log(val);
-    }
+  getTargetTemp(val: number){
+    this.targetTemp = val;
+  }
 }
 </script>
