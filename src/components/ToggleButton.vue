@@ -10,7 +10,10 @@
         >
           Manual</span
         >
-        <div class="flex justify-between items-center" @click="toggleControllerState">
+        <div
+          class="flex justify-between items-center"
+          @click="toggleControllerState"
+        >
           <div
             class="w-20 h-10 flex items-center bg-yellow-300 rounded-full p-1 duration-300 ease-in-out"
             :class="{ 'bg-green-400': controllerState }"
@@ -38,14 +41,18 @@
           </div>
           <div class="flex flex-col">
             <span
-              >This controller will automatically controll the actor output to achieve the targeted
-              setpoint.</span
+              >This controller will automatically controll the actor output to
+              achieve the targeted setpoint.</span
             >
             <div
               class="flex flex-row justify-around mx-auto align-middle py-3 space-x-2 bg-gray-50 shadow-lg border rounded-lg"
             >
               <div class="text-xl border-r border-gray-300 px-3">-</div>
-              <input class="bg-gray-50" placeholder="Enter target temp." type="text" />
+              <input
+                class="bg-gray-50"
+                placeholder="Enter target temp."
+                type="text"
+              />
 
               <div class="text-xl border-l border-gray-300 px-3">+</div>
             </div>
@@ -58,9 +65,12 @@
           </div>
 
           <div class="flex flex-col">
-            <span>This controller sets the duty cycle of the actor to the input percentage.</span>
+            <span
+              >This controller sets the duty cycle of the actor to the input
+              percentage.</span
+            >
             <div class="w-4/5 text-xs py-4 mx-auto -center">
-              <vue-slider
+              <vue-slider ref="manualSlider"
                 class="w-20"
                 v-model="manualValue"
                 :tooltip="none"
@@ -69,7 +79,9 @@
                 :interval="10"
                 :marks="manualMarks"
                 :drag-on-click="true"
+                @change="emitValue(manualValue)"
               />
+              {{ manualValue }}
             </div>
           </div>
         </div>
@@ -109,11 +121,18 @@ export default class ToggleButton extends Vue {
 
   private controllerState = false;
 
+  private manualValue!: number;
+
   @Prop() controllerId!: string;
 
   toggleControllerState() {
     this.controllerState = !this.controllerState;
+    console.log(this.controllerState);
     eventStore.toggleController();
+  }
+
+  emitValue(val: number) {
+    console.log(val);
   }
 }
 </script>
