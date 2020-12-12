@@ -45,50 +45,55 @@
               achieve the targeted setpoint.</span
             >
             <div
-              class="flex flex-row justify-around mx-auto align-middle py-3 space-x-2 bg-gray-50 shadow-lg border rounded-lg"
+              class="flex flex-row justify-around mx-auto align-middle p-4 space-x-2"
             >
               <input
                 type="number"
+                min="0" max="101" step="0.1"
                 v-model="targetTemp"
-                class="bg-gray-50"
+                class="bg-gray-50 py-2 w-32 text-center"
                 placeholder="Enter target temp."
               />
-              <button class="bg-green-200 rounded-lg p-2 w-64" @click="setTargetTemp(targetTemp)">Set new Target</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="flex flex-col h-30 text-sm" v-show="!controllerState">
-          <div class="flex flex-row">
-            <span class="pr-2 font-medium">Settings: </span>
-            <span>Manual</span>
-          </div>
-
-          <div class="flex flex-col">
-            <span
-              >This controller sets the duty cycle of the actor to the input
-              percentage.</span
-            >
-            <div class="w-4/5 text-xs py-4 mx-auto -center">
-              <vue-slider
-                ref="manualSlider"
-                class="w-20"
-                v-model="manualValue"
-                :tooltip="none"
-                :lazy="true"
-                :adsorb="true"
-                :interval="10"
-                :marks="manualMarks"
-                :drag-on-click="true"
-                @change="emitValue(manualValue)"
-              />
-              {{ manualValue }}
+              <button
+                class="bg-green-200 rounded-lg px-2"
+                @click="setTargetTemp(targetTemp)"
+              >
+                Set new Target
+              </button>
             </div>
           </div>
         </div>
       </div>
+      <div class="flex flex-col h-30 text-sm" v-show="!controllerState">
+        <div class="flex flex-row">
+          <span class="pr-2 font-medium">Settings: </span>
+          <span>Manual</span>
+        </div>
+
+        <div class="flex flex-col">
+          <span
+            >This controller sets the duty cycle of the actor to the input
+            percentage.</span
+          >
+          <div class="w-4/5 text-xs py-4 mx-auto -center">
+            <vue-slider
+              ref="manualSlider"
+              class="w-20"
+              v-model="manualValue"
+              :tooltip="none"
+              :lazy="true"
+              :adsorb="true"
+              :interval="10"
+              :marks="manualMarks"
+              :drag-on-click="true"
+              @change="emitValue(manualValue)"
+            />
+            {{ manualValue }}
+          </div>
+        </div>
+      </div>
     </div>
-  
+  </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
@@ -123,6 +128,8 @@ export default class ToggleButton extends Vue {
   private controllerState = false;
 
   private manualValue!: number;
+  
+  private targetTemp = 0;
 
   @Prop() controllerId!: string;
 
@@ -137,7 +144,7 @@ export default class ToggleButton extends Vue {
   }
 
   setTargetTemp(val: number) {
-    console.log(val);
-  }
+      console.log(val);
+    }
 }
 </script>
