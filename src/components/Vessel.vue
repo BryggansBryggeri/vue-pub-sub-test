@@ -216,7 +216,6 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { eventStore } from "@/store/events";
 import { eventbus } from "@/eventbus";
-import result from "@/pub_sub";
 import VesselProp from "@/models/vesselProps";
 import capitalizeFirstLetter from "@/utils";
 import ToggleButton from "@/components/ToggleButton.vue";
@@ -275,7 +274,7 @@ export default class Vessel extends Vue {
     return eventStore.sensorMeas.toFixed(2);
   }
 
-  addMessage(msg: string): void {
+  addMessage(): void {
     const json = JSON.parse('{"id": "mash", "cmd": "test"}');
     eventbus.publish("ext_comm.ui.test", json);
     console.log(`Current actor signal ${this.actorSignal}`);
