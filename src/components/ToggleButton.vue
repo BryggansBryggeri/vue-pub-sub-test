@@ -50,10 +50,11 @@
               <input
                 type="number"
                 v-model="targetTemp"
-                @change="setTargetTemp(targetTemp)"
                 class="bg-gray-50"
                 placeholder="Enter target temp."
               />
+              <button class="bg-green-200 rounded-lg p-2 w-64" @click="setTargetTemp(targetTemp)">Set new Target</button>
+              </div>
             </div>
           </div>
         </div>
@@ -87,7 +88,7 @@
         </div>
       </div>
     </div>
-  </div>
+  
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
