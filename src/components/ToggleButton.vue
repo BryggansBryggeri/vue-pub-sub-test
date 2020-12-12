@@ -47,14 +47,13 @@
             <div
               class="flex flex-row justify-around mx-auto align-middle py-3 space-x-2 bg-gray-50 shadow-lg border rounded-lg"
             >
-              <div class="text-xl border-r border-gray-300 px-3">-</div>
               <input
+                type="number"
+                v-model="targetTemp"
+                @change="setTargetTemp(targetTemp)"
                 class="bg-gray-50"
                 placeholder="Enter target temp."
-                type="text"
               />
-
-              <div class="text-xl border-l border-gray-300 px-3">+</div>
             </div>
           </div>
         </div>
@@ -70,7 +69,8 @@
               percentage.</span
             >
             <div class="w-4/5 text-xs py-4 mx-auto -center">
-              <vue-slider ref="manualSlider"
+              <vue-slider
+                ref="manualSlider"
                 class="w-20"
                 v-model="manualValue"
                 :tooltip="none"
@@ -132,6 +132,10 @@ export default class ToggleButton extends Vue {
   }
 
   emitValue(val: number) {
+    console.log(val);
+  }
+
+  setTargetTemp(val: number) {
     console.log(val);
   }
 }
