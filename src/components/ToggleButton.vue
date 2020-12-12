@@ -117,5 +117,3 @@ export default class ToggleButton extends Vue {
   }
 }
 </script>
-
-export default { components: { VueSlider }, } } }
