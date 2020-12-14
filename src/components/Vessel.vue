@@ -8,12 +8,8 @@
       >
         <div class="sm:w-3/5 mb-4 sm:mb-0">
           <h2 class="text-gray-800 text-lg font-bold">{{ dispName }}</h2>
-          <p class="my-0 text-gray-600 text-xs">
-            Main sensor: {{ vesselProp.mainSensor }}
-          </p>
-          <p class="my-0 text-gray-600 text-xs">
-            Main actor: {{ vesselProp.mainActor }}
-          </p>
+          <p class="my-0 text-gray-600 text-xs">Main sensor: {{ vesselProp.mainSensor }}</p>
+          <p class="my-0 text-gray-600 text-xs">Main actor: {{ vesselProp.mainActor }}</p>
         </div>
         <div class="flex text-green-600 rounded-tr">
           <div class="my-auto mx-auto">
@@ -38,12 +34,8 @@
       >
         <div class="sm:w-3/5 mb-4 sm:mb-0">
           <h2 class="text-gray-800 text-lg font-bold">{{ dispName }}</h2>
-          <p class="my-0 text-gray-600 text-xs">
-            Main sensor: {{ vesselProp.mainSensor }}
-          </p>
-          <p class="my-0 text-gray-600 text-xs">
-            Main actor: {{ vesselProp.mainActor }}
-          </p>
+          <p class="my-0 text-gray-600 text-xs">Main sensor: {{ vesselProp.mainSensor }}</p>
+          <p class="my-0 text-gray-600 text-xs">Main actor: {{ vesselProp.mainActor }}</p>
         </div>
         <div class="flex text-yellow-600 rounded-tr">
           <div class="my-auto mx-auto">
@@ -66,99 +58,81 @@
       </div>
       <!-- Header -->
       <!-- Header Error-->
-      
       <div v-else-if="vesselStatus == 3" class="flex flex-col bg-opacity-40">
-      <div
-        
-        class="flex flex-row bg-red-200 rounded-t justify-between w-full shadow-sm mb-2 px-4 py-2"
-      >
-        <div class="sm:w-3/5 mb-4 sm:mb-0">
-          <h2 class="text-gray-800 text-lg font-bold">{{ dispName }}</h2>
-          <p class="my-0 text-gray-600 text-xs">
-            Main sensor: {{ vesselProp.mainSensor }}
-          </p>
-          <p class="my-0 text-gray-600 text-xs">
-            Main actor: {{ vesselProp.mainActor }}
-          </p>
-        </div>
         <div
-          class="flex text-red-600 rounded-tr"
-          @mouseover="tooltip = true"
-          @mouseleave="tooltip = false"
+          class="flex flex-row bg-red-200 rounded-t justify-between w-full shadow-sm mb-2 px-4 py-2"
         >
-          <div class="relative mt-20 md:mt-0">
-            <div
-              id="tooltip1"
-              role="tooltip"
-              class="z-20 -left-1 transition duration-150 ease-in-out bottom-12 absolute shadow-lg border pt-4 pr-2 pl-3 pb-5 bg-white text-gray-600 rounded-lg w-40"
-              :class="{'opacity-0': !tooltip }"
-            >
-              <svg
-                class="absolute bottom-0 -mb-2"
-                width="16px"
-                height="8px"
-                viewBox="0 0 16 8"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
+          <div class="sm:w-3/5 mb-4 sm:mb-0">
+            <h2 class="text-gray-800 text-lg font-bold">{{ dispName }}</h2>
+            <p class="my-0 text-gray-600 text-xs">Main sensor: {{ vesselProp.mainSensor }}</p>
+            <p class="my-0 text-gray-600 text-xs">Main actor: {{ vesselProp.mainActor }}</p>
+          </div>
+          <div
+            class="flex text-red-600 rounded-tr"
+            @mouseover="tooltip = true"
+            @mouseleave="tooltip = false"
+          >
+            <div class="relative mt-20 md:mt-0">
+              <div
+                id="tooltip1"
+                role="tooltip"
+                class="z-20 -left-1 transition duration-150 ease-in-out bottom-12 absolute shadow-lg border pt-4 pr-2 pl-3 pb-5 bg-white text-gray-600 rounded-lg w-40"
+                :class="{ 'opacity-0': !tooltip }"
               >
-                <g
-                  id="Page-1"
-                  stroke="none"
-                  stroke-width="1"
-                  fill="none"
-                  fill-rule="evenodd"
+                <svg
+                  class="absolute bottom-0 -mb-2"
+                  width="16px"
+                  height="8px"
+                  viewBox="0 0 16 8"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
                 >
-                  <g
-                    id="Tooltips-"
-                    transform="translate(-84.000000, -203.000000)"
-                    fill="#FFFFFF"
-                  >
-                    <g
-                      id="Group-3-Copy"
-                      transform="translate(76.000000, 145.000000)"
-                    >
-                      <polygon
-                        class="shadow"
-                        id="Triangle"
-                        transform="translate(16.000000, 62.000000) rotate(-180.000000) translate(-16.000000, -62.000000) "
-                        points="16 58 24 66 8 66"
-                      ></polygon>
+                  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="Tooltips-" transform="translate(-84.000000, -203.000000)" fill="#FFFFFF">
+                      <g id="Group-3-Copy" transform="translate(76.000000, 145.000000)">
+                        <polygon
+                          class="shadow"
+                          id="Triangle"
+                          transform="translate(16.000000, 62.000000) rotate(-180.000000) translate(-16.000000, -62.000000) "
+                          points="16 58 24 66 8 66"
+                        ></polygon>
+                      </g>
                     </g>
                   </g>
-                </g>
+                </svg>
+                <p class="text-xs text-gray-600 leading-4">
+                  This information will be used for personalization
+                </p>
+              </div>
+            </div>
+            <div class="my-auto mx-auto">
+              <svg
+                class="w-8 h-8"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
               </svg>
-              <p class="text-xs text-gray-600 leading-4">
-                This information will be used for personalization
-              </p>
             </div>
           </div>
-          <div class="my-auto mx-auto">
-            <svg
-              class="w-8 h-8"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-              ></path>
-            </svg>
+        </div>
+        <div
+          v-if="error"
+          class="flex flex-row bg-red-200 w-full border-gray-100 shadow-sm -mt-2 mb-2 px-4 py-2"
+        >
+          <div class="flex flex-row space-x-2 sm:w-3/5 mb-4 sm:mb-0">
+            <h2 class="text-gray-800 text-base font-bold">Error:</h2>
+            <p>{ { Error message } }</p>
           </div>
         </div>
-      </div>
-      <div v-if="error"
-        class="flex flex-row bg-red-200 w-full border-gray-100 shadow-sm -mt-2 mb-2 px-4 py-2"
-      >
-        <div class="flex flex-row space-x-2 sm:w-3/5 mb-4 sm:mb-0">
-          <h2 class="text-gray-800 text-base font-bold">Error: </h2>
-          <p> { { Error message } }</p>
-        </div>
-      </div>
       </div>
       <!-- Header -->
       <!-- Start Main Card Body -->
@@ -166,15 +140,11 @@
         <div class="flex w-full justify-between">
           <div class="flex flex-col items-center w-6/12">
             <p class="text-gray-600 text-sm mb-1">Current Temp</p>
-            <p class="text-gray-800 text-4xl mb-2">
-              {{ sensorMeasDisp }}&deg;C
-            </p>
+            <p class="text-gray-800 text-4xl mb-2">{{ sensorMeasDisp }}&deg;C</p>
             <p class="text-gray-600 text-sm mb-1">Target Temp</p>
             <p class="text-gray-800 text-xl">{{ 80.0 }}&deg;C</p>
           </div>
-          <div
-            class="flex flex-col items-center w-6/12 border-l border-gray-200"
-          >
+          <div class="flex flex-col items-center w-6/12 border-l border-gray-200">
             <p class="text-gray-600 text-sm mb-1">Controller</p>
             <p class="text-gray-800 text-4xl mb-2">Auto</p>
             <p class="text-gray-600 text-sm mb-1">Current Status</p>
@@ -202,15 +172,21 @@
         <div class="flex w-full justify-center">
           <ToggleButton v-bind:controllerId="vesselProp.id" />
         </div>
-      </div><div class="flex flex-row justify-around mb-4 pb-4">
-    <button class="bg-blue-200 rounded-lg p-2 w-64" @click="error = !error, vesselStatus = 3">Error?</button>
-    <button class="bg-green-200 rounded-lg p-2 w-64" @click="setVesselStatus()">Vesselstatus</button>
+      </div>
+      <div class="flex flex-row justify-around mb-4 pb-4">
+        <button
+          class="bg-blue-200 rounded-lg p-2 w-64"
+          @click="(error = !error), (vesselStatus = 3)"
+        >
+          Error?
+        </button>
+        <button class="bg-green-200 rounded-lg p-2 w-64" @click="setVesselStatus()">
+          Vesselstatus
+        </button>
+      </div>
     </div>
-    </div>
-    
   </div>
 </template>
-
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
@@ -240,10 +216,10 @@ export default class Vessel extends Vue {
     this.tooltip = !this.tooltip;
   }
 
-  setVesselStatus(){
-     if (this.vesselStatus === 3){
+  setVesselStatus() {
+    if (this.vesselStatus === 3) {
       this.vesselStatus = 1;
-    }else{
+    } else {
       this.vesselStatus += 1;
     }
   }
