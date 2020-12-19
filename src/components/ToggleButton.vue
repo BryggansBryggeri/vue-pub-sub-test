@@ -83,7 +83,7 @@
               ref="manualSlider"
               class="w-20"
               v-model="percentage"
-              :tooltip="none"
+              tooltip="none"
               :lazy="true"
               :adsorb="true"
               :interval="10"
