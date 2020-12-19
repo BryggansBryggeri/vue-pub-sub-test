@@ -24,14 +24,15 @@
           d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
         ></path>
       </svg>
-      <button class="transition focus:outline-none duration-150 ease-in-out text-white text-sm">
-      </button>
+      <button
+        class="transition focus:outline-none duration-150 ease-in-out text-white text-sm"
+      ></button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "NavBar"
+  name: "NavBar",
 };
 </script>

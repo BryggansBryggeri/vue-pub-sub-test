@@ -37,8 +37,8 @@ export default {
   name: "MashCard",
   data() {
     return {
-      profilePhoto: "https://tuk-cdn.s3.amazonaws.com/assets/components/grid_cards/gc_25.png"
+      profilePhoto: "https://tuk-cdn.s3.amazonaws.com/assets/components/grid_cards/gc_25.png",
     };
-  }
+  },
 };
 </script>

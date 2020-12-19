@@ -216,6 +216,10 @@ export default class Vessel extends Vue {
     this.tooltip = !this.tooltip;
   }
 
+  created() {
+    console.log("Mounted");
+  }
+
   setVesselStatus() {
     if (this.vesselStatus === 3) {
       this.vesselStatus = 1;

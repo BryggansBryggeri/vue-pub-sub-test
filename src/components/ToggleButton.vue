@@ -10,10 +10,7 @@
         >
           Manual</span
         >
-        <div
-          class="flex justify-between items-center"
-          @click="toggleControllerState"
-        >
+        <div class="flex justify-between items-center" @click="toggleControllerState">
           <div
             class="w-20 h-10 flex items-center bg-yellow-300 rounded-full p-1 duration-300 ease-in-out"
             :class="{ 'bg-green-400': controllerState }"
@@ -41,12 +38,10 @@
           </div>
           <div class="flex flex-col">
             <span
-              >This controller will automatically controll the actor output to
-              achieve the targeted setpoint.</span
+              >This controller will automatically controll the actor output to achieve the targeted
+              setpoint.</span
             >
-            <div
-              class="flex flex-row justify-around mx-auto align-middle p-4 space-x-2"
-            >
+            <div class="flex flex-row justify-around mx-auto align-middle p-4 space-x-2">
               <input
                 type="number"
                 min="0"
@@ -56,10 +51,7 @@
                 class="bg-gray-50 py-2 w-32 text-center"
                 placeholder="Enter target temp."
               />
-              <button
-                class="bg-green-200 rounded-lg px-2"
-                @click="setTargetTemp(targetTemp)"
-              >
+              <button class="bg-green-200 rounded-lg px-2" @click="setTargetTemp(targetTemp)">
                 Set new Target
               </button>
             </div>
@@ -74,10 +66,7 @@
         </div>
 
         <div class="flex flex-col">
-          <span
-            >This controller sets the duty cycle of the actor to the input
-            percentage.</span
-          >
+          <span>This controller sets the duty cycle of the actor to the input percentage.</span>
           <div class="w-4/5 text-xs py-4 mx-auto -center">
             <vue-slider
               ref="manualSlider"
@@ -145,17 +134,16 @@ export default class ToggleButton extends Vue {
   setPercentage(val: number) {
     console.log(val);
   }
-  
+
   getPercentage(val: number) {
     this.percentage = val;
   }
-
 
   setTargetTemp(val: number) {
     console.log(val);
   }
 
-  getTargetTemp(val: number){
+  getTargetTemp(val: number) {
     this.targetTemp = val;
   }
 }
