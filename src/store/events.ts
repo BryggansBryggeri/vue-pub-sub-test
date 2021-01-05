@@ -25,6 +25,10 @@ export class EventModule extends VuexModule {
     console.log("Toggling");
   }
 
+  public async toggleDarkMode() {
+    console.log("DarkMode Toggled");
+  }
+
   public async updateActorSignal(signal: number): Promise<void> {
     this.actorSignal = signal;
   }
