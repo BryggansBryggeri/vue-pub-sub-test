@@ -5,10 +5,7 @@
       class="bg-blue-gray-100 overscroll-none font-sans dark:bg-darkTrueGray w-full dark:text-gray-100 text-gray-700 h-full pb-24"
     >
       <!-- Main container -->
-      <NavBar
-        :isDarkmode="toggleDarkMode"
-        @toggleDarkMode="setDarkMode($event)"
-      />
+      <NavBar :isDarkmode="toggleDarkMode" @toggleDarkMode="setDarkMode($event)" />
 
       <div class="mx-8 space-y-4">
         <!-- <Overview /> -->
@@ -19,12 +16,8 @@
           id="vesselGrid"
           class="mx-auto grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4"
         >
-            <!-- <Vessel :issue="issue" :fullWidth="fullWidth" /> -->
-            <Vessel
-              v-for="vessel in vessels"
-              v-bind:vesselProp="vessel"
-              v-bind:key="vessel.name"
-            />
+          <!-- <Vessel :issue="issue" :fullWidth="fullWidth" /> -->
+          <Vessel v-for="vessel in vessels" v-bind:vesselProp="vessel" v-bind:key="vessel.name" />
         </section>
       </div>
       <!-- End Main container -->

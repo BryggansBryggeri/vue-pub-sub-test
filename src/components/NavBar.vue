@@ -1,4 +1,3 @@
-
 <template>
   <div
     id="Navbar"
@@ -30,9 +29,7 @@
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path
-            d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
-          ></path>
+          <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
         </svg>
       </button>
 
@@ -61,14 +58,13 @@
 </template>
 
 <script lang="ts">
-import {Emit, Component, Prop, Vue } from "vue-property-decorator";
+import { Emit, Component, Prop, Vue } from "vue-property-decorator";
 import { eventStore } from "@/store/events";
 
 // import { Options, Vue } from "vue-class-component";
 // import { Emit, Prop } from "vue-property-decorator";
 @Component({
-  components: {
-  },
+  components: {},
 })
 export default class Navbar extends Vue {
   @Prop({ default: false }) isDarkmode = false;
