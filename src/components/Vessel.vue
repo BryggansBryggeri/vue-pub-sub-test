@@ -1,192 +1,378 @@
 <template>
-  <div class="rounded shadow-lg border">
-    <div class="mx-auto shadow flex flex-col rounded space-y-4 h-full w-full">
-      <!-- Header All Ok!-->
-      <div
-        v-if="vesselStatus == 1"
-        class="flex flex-row bg-gray-200 bg-opacity-40 rounded-t justify-between w-full shadow-sm mb-2 px-4 py-2"
-      >
-        <div class="sm:w-3/5 mb-4 sm:mb-0">
-          <h2 class="text-gray-800 text-lg font-bold">{{ dispName }}</h2>
-          <p class="my-0 text-gray-600 text-xs">Main sensor: {{ vesselProp.mainSensor }}</p>
-          <p class="my-0 text-gray-600 text-xs">Main actor: {{ vesselProp.mainActor }}</p>
-        </div>
-        <div class="flex text-green-600 rounded-tr">
-          <div class="my-auto mx-auto">
-            <svg
-              class="h-8 w-8 fill-current"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-            >
-              <path
-                class="heroicon-ui"
-                d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-2.3-8.7l1.3 1.29 3.3-3.3a1 1 0 0 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-2-2a1 1 0 0 1 1.4-1.42z"
-              />
-            </svg>
-          </div>
-        </div>
-      </div>
-      <!-- Header -->
-      <!-- Header Issue-->
-      <div
-        v-else-if="vesselStatus == 2"
-        class="flex flex-row bg-yellow-200 bg-opacity-40 rounded-t justify-between w-full shadow-sm mb-2 px-4 py-2"
-      >
-        <div class="sm:w-3/5 mb-4 sm:mb-0">
-          <h2 class="text-gray-800 text-lg font-bold">{{ dispName }}</h2>
-          <p class="my-0 text-gray-600 text-xs">Main sensor: {{ vesselProp.mainSensor }}</p>
-          <p class="my-0 text-gray-600 text-xs">Main actor: {{ vesselProp.mainActor }}</p>
-        </div>
-        <div class="flex text-yellow-600 rounded-tr">
-          <div class="my-auto mx-auto">
-            <svg
-              class="w-8 h-8"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              ></path>
-            </svg>
-          </div>
-        </div>
-      </div>
-      <!-- Header -->
-      <!-- Header Error-->
-      <div v-else-if="vesselStatus == 3" class="flex flex-col bg-opacity-40">
-        <div
-          class="flex flex-row bg-red-200 rounded-t justify-between w-full shadow-sm mb-2 px-4 py-2"
-        >
-          <div class="sm:w-3/5 mb-4 sm:mb-0">
-            <h2 class="text-gray-800 text-lg font-bold">{{ dispName }}</h2>
-            <p class="my-0 text-gray-600 text-xs">Main sensor: {{ vesselProp.mainSensor }}</p>
-            <p class="my-0 text-gray-600 text-xs">Main actor: {{ vesselProp.mainActor }}</p>
-          </div>
-          <div
-            class="flex text-red-600 rounded-tr"
-            @mouseover="tooltip = true"
-            @mouseleave="tooltip = false"
+    <div
+      class="rounded-xl bg-white dark:bg-blue-gray-900 p-4 shadow-lg py-4 flex flex-col"
+    >
+      <div id="CardHeader" class="flex flex-row justify-between">
+        <span class="font-bold text-xl">{{ dispName }}</span>
+        <div class="text-green-600">
+          <svg
+            class="w-8 h-8"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <div class="relative mt-20 md:mt-0">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+            ></path>
+          </svg>
+        </div>
+      </div>
+
+      <div class="pt-6 w-full mx-auto">
+        <div class="flex flex-wrap">
+          <div class="w-full">
+            <div class="space-y-3">
               <div
-                id="tooltip1"
-                role="tooltip"
-                class="z-20 -left-1 transition duration-150 ease-in-out bottom-12 absolute shadow-lg border pt-4 pr-2 pl-3 pb-5 bg-white text-gray-600 rounded-lg w-40"
-                :class="{ 'opacity-0': !tooltip }"
+                id="6x6grid"
+                class="mx-auto grid grid-cols-1 md:grid-cols-2 gap-3"
               >
-                <svg
-                  class="absolute bottom-0 -mb-2"
-                  width="16px"
-                  height="8px"
-                  viewBox="0 0 16 8"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                <content id="sensorCard"
+                  class="rounded-lg space-y-4 border-2 dark:bg-blue-gray-800 p-2 min-h-20 flex flex-col"
+                  :class="{
+                    'col-span-full': fullWidth,
+                    'col-span-1': !fullwidth,
+                    'bg-blue-gray-100 border-transparent': issue === undefined,
+                    'bg-blue-gray-100 border-transparent': issue === 1,
+                    'bg-yellow-100 border-yellow-400': issue === 2,
+                    'bg-red-100 border-red-600': issue === 3,
+                  }"
                 >
-                  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <g id="Tooltips-" transform="translate(-84.000000, -203.000000)" fill="#FFFFFF">
-                      <g id="Group-3-Copy" transform="translate(76.000000, 145.000000)">
-                        <polygon
-                          class="shadow"
-                          id="Triangle"
-                          transform="translate(16.000000, 62.000000) rotate(-180.000000) translate(-16.000000, -62.000000) "
-                          points="16 58 24 66 8 66"
-                        ></polygon>
-                      </g>
-                    </g>
-                  </g>
-                </svg>
-                <p class="text-xs text-gray-600 leading-4">
-                  This information will be used for personalization
-                </p>
+                  <div class="flex flex-row justify-between w-full">
+                    <span class="font-semibold text-sm">{{
+                      vesselProp.mainSensor
+                    }}</span>
+                    <div
+                      :class="{
+                        'text-green-600': issue === undefined,
+                        'text-green-600': issue === 1,
+                        'text-yellow-600': issue === 2,
+                        'text-red-600': issue === 3,
+                      }"
+                    >
+                      <svg
+                        class="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <!-- error -->
+                        <path
+                          v-if="issue === 3"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                        <!-- Issue -->
+                        <path
+                          v-else-if="issue === 2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                        <!-- Ok -->
+                        <path
+                          v-else
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <div
+                    id="Main Sensor Value"
+                    class="flex flex-row justify-center items-center"
+                  >
+                    <div id="icon" class="pr-2">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-7 w-7"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path
+                          d="M10 13.5a4 4 0 1 0 4 0v-8.5a2 2 0 0 0 -4 0v8.5"
+                        />
+                        <line x1="10" y1="9" x2="14" y2="9" />
+                      </svg>
+                    </div>
+                    <div class="text-3xl font-bold">
+                      <span>{{ sensorMeasDisp }}</span
+                      ><span>&#8451;</span>
+                    </div>
+                  </div>
+                  <div class="flex flex-row justify-end text-xs">
+                    <div
+                      class="cursor-pointer flex flex-row"
+                      @click="showMore = !showMore"
+                    >
+                      <span v-if="showMore">Show less</span>
+                      <span v-else>Show more</span>
+                      <svg
+                        class="w-4 h-4 transform transition duration-200 ease-in-out"
+                        :class="{ 'rotate-90': showMore }"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 5l7 7-7 7"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <div
+                    v-if="showMore"
+                    class="w-full text-xs mx-auto grid gap-x-1 gap-y-3"
+                    :class="{
+                      'grid-cols-3 sm:grid-cols-3 place-items-center': fullWidth,
+                      'grid-cols-2 sm:grid-cols-2': !fullWidth,
+                    }"
+                  >
+                    <div class="">
+                      <span class="font-normal">Target:</span>
+                      <div>
+                        <span class="font-extrabold">72,2</span
+                        ><span>&#8451;</span>
+                      </div>
+                    </div>
+                    <div class="font-normal">
+                      <span>Diff:</span>
+                      <div>
+                        <span class="font-extrabold">-4,1</span
+                        ><span>&#8451;</span>
+                      </div>
+                    </div>
+
+                    <div class="">
+                      <span class="font-normal">RoC:</span>
+                      <div>
+                        <span class="font-extrabold">1,27</span
+                        ><span>&#8451;/min</span>
+                      </div>
+                    </div>
+                  </div>
+                </content>
+                <content id="actorCard"
+                  class="rounded-lg space-y-4 border-2 dark:bg-blue-gray-800 p-2 min-h-20 flex flex-col"
+                  :class="{
+                    'col-span-full': fullWidth,
+                    'col-span-1': !fullwidth,
+                    'bg-blue-gray-100 border-transparent': issue === undefined,
+                    'bg-blue-gray-100 border-transparent': issue === 1,
+                    'bg-yellow-100 border-yellow-400': issue === 2,
+                    'bg-red-100 border-red-600': issue === 3,
+                  }"
+                >
+                  <div class="flex flex-row justify-between w-full">
+                    <span class="font-semibold text-sm">{{ vesselProp.mainActor }}</span>
+                    <span class="font-semibold text-sm">{{ vesselProp.vesselController }}</span>
+                    <div
+                      :class="{
+                        'text-green-600': issue === undefined,
+                        'text-green-600': issue === 1,
+                        'text-yellow-600': issue === 2,
+                        'text-red-600': issue === 3,
+                      }"
+                    >
+                      <svg
+                        class="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <!-- error -->
+                        <path
+                          v-if="issue === 3"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                        <!-- Issue -->
+                        <path
+                          v-else-if="issue === 2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                        <!-- Ok -->
+                        <path
+                          v-else
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <div
+                    id="Main Sensor Value"
+                    class="flex flex-row justify-center items-center"
+                  >
+                    <div id="icon" class="pr-2 animate-pulse text-green-600">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-7 w-7"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M13 10V3L4 14h7v7l9-11h-7z"
+                        ></path>
+                      </svg>
+                    </div>
+                    <div class="flex text-3xl font-bold">
+                      <span class="">{{ dispManualPower }}%</span>
+                    </div>
+                  </div>
+                  <div class="flex flex-row space-x-4 items-center">
+                    <span class="text-xs font-semibold">Enable actor:</span>
+                    <Toggle
+                      :isRight="toggleRight"
+                      @toggleRight="setToggleRight($event)"
+                    />
+                    <ToggleButton v-bind:controllerId="vesselProp.id" />
+                  </div>
+                </content>
+
+                
               </div>
             </div>
-            <div class="my-auto mx-auto">
-              <svg
-                class="w-8 h-8"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-                ></path>
-              </svg>
-            </div>
-          </div>
-        </div>
-        <div
-          v-if="error"
-          class="flex flex-row bg-red-200 w-full border-gray-100 shadow-sm -mt-2 mb-2 px-4 py-2"
-        >
-          <div class="flex flex-row space-x-2 sm:w-3/5 mb-4 sm:mb-0">
-            <h2 class="text-gray-800 text-base font-bold">Error:</h2>
-            <p>{ { Error message } }</p>
           </div>
         </div>
       </div>
-      <!-- Header -->
-      <!-- Start Main Card Body -->
-      <div class="flex flex-col items-center p-3">
-        <div class="flex w-full justify-between">
-          <div class="flex flex-col items-center w-6/12">
-            <p class="text-gray-600 text-sm mb-1">Current Temp</p>
-            <p class="text-gray-800 text-4xl mb-2">{{ sensorMeasDisp }}&deg;C</p>
-            <p class="text-gray-600 text-sm mb-1">Target Temp</p>
-            <p class="text-gray-800 text-xl">{{ 80.0 }}&deg;C</p>
-          </div>
-          <div class="flex flex-col items-center w-6/12 border-l border-gray-200">
-            <p class="text-gray-600 text-sm mb-1">Controller</p>
-            <p class="text-gray-800 text-4xl mb-2">Auto</p>
-            <p class="text-gray-600 text-sm mb-1">Current Status</p>
-            <div class="flex" flex-row>
-              <p class="text-gray-800 text-xl">{{ dispManualPower }}%</p>
-              <div
-                class="h-4 w-4 shadow-lg my-auto mx-2 rounded-full animate-pulse"
-                :class="powerColor"
-              ></div>
-            </div>
-          </div>
-          <hr class="mb-4 lg:mb-4 h-1 rounded bg-gray-200" />
-        </div>
-      </div>
-      <div
-        class="flex flex-row bg-gray-100 bg-opacity-40 rounded-t justify-between w-full shadow-sm mb-2 px-4 py-2"
+
+      <header
+        id="CardSubHeader"
+        class="pt-5 items-center flex flex-row justify-between cursor-pointer"
+        @click="showMore = !showMore"
       >
-        <div class="sm:w-3/5 mb-4 sm:mb-0">
-          <h2 class="text-gray-800 text-lg font-bold truncate">
-            {{ vesselProp.vesselController }}
-          </h2>
-        </div>
-      </div>
-      <div class="flex flex-col items-center p-3">
-        <div class="flex w-full justify-center">
-          <ToggleButton v-bind:controllerId="vesselProp.id" />
-        </div>
-      </div>
-      <div class="flex flex-row justify-around mb-4 pb-4">
-        <button
-          class="bg-blue-200 rounded-lg p-2 w-64"
-          @click="(error = !error), (vesselStatus = 3)"
+        <span class="font-bold text-sm">Show other sensor readings</span>
+        <svg
+          class="w-4 h-4 transform transition duration-200 ease-in-out"
+          :class="{ 'rotate-90': showMore }"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          Error?
-        </button>
-        <button class="bg-green-200 rounded-lg p-2 w-64" @click="setVesselStatus()">
-          Vesselstatus
-        </button>
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="3"
+            d="M9 5l7 7-7 7"
+          ></path>
+        </svg>
+        <!-- <Toggle :isRight="toggleRight" @toggleRight="setToggleRight($event)" /> -->
+      </header>
+      <div v-if="showMore" class="flex flex-row">
+        <div class="w-full h-full overflow-x-hidden">
+          <table class="w-full space-y-2 shadow text-left">
+            <thead class="text-xs font-medium">
+              <tr class="border-b">
+                <th class="w-1/4">Sensor ID</th>
+                <th class="w-1/4">Type</th>
+                <th class="w-1/4">Reading</th>
+                <th class="w-1/4">Status</th>
+              </tr>
+            </thead>
+            <tbody class="text-xs">
+              <tr>
+                <td class="">Mash Bottom</td>
+                <td class="">DS18B20</td>
+                <td class="">57&#8451;</td>
+                <td class="text-green-400">Ok</td>
+              </tr>
+              <tr class="bg-gray-100 dark:bg-blue-gray-800">
+                <td class="">Mash Bottom</td>
+                <td class="">DS18B20</td>
+                <td class="">57&#8451;</td>
+                <td class="text-green-400">Ok</td>
+              </tr>
+              <tr>
+                <td class="">Mash Bottom</td>
+                <td class="">DS18B20</td>
+                <td class="">57&#8451;</td>
+                <td class="text-green-400">Ok</td>
+              </tr>
+              <tr class="bg-gray-100 dark:bg-blue-gray-800">
+                <td class="">Mash Bottom</td>
+                <td class="">DS18B20</td>
+                <td class="">57&#8451;</td>
+                <td class="text-green-400">Ok</td>
+              </tr>
+              <tr>
+                <td class="">Mash Bottom</td>
+                <td class="">DS18B20</td>
+                <td class="">57&#8451;</td>
+                <td class="text-green-400">Ok</td>
+              </tr>
+              <tr class="bg-gray-100 dark:bg-blue-gray-800">
+                <td class="">Mash Bottom</td>
+                <td class="">DS18B20</td>
+                <td class="">57&#8451;</td>
+                <td class="text-green-400">Ok</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
 </template>
+
+<!-- <script lang="ts">
+import { Options, Vue } from "vue-class-component";
+import { Emit, Prop } from "vue-property-decorator";
+import Sensorcard from "../components/subcomponents/Sensorcard.vue";
+import Actorcard from "../components/subcomponents/Actorcard.vue";
+import Toggle from "../components/utils/Toggle.vue";
+
+@Options({
+  components: {
+    Sensorcard,
+    Actorcard,
+    Toggle,
+  },
+})
+export default class Vessel extends Vue {
+  @Prop() fullWidth!: boolean;
+  @Prop() issue!: number;
+
+  private toggleRight = false;
+
+  private setToggleRight(isRight: boolean) {
+    this.toggleRight = isRight;
+  }
+}
+</script> -->
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
@@ -202,6 +388,10 @@ import ToggleButton from "@/components/ToggleButton.vue";
   },
 })
 export default class Vessel extends Vue {
+  private showMore = false;
+
+  private fullWidth = true;
+
   private manualPower = 0.0;
 
   private vesselStatus = 1; // Todo
