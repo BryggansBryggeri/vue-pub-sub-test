@@ -27,7 +27,7 @@ export class EventModule extends VuexModule {
 
   public async updateSensorMeas(meas: number, sensorId: string): Promise<void> {
     switch (sensorId) {
-      case "mash":
+      case "dummy_sensor":
         this.sensors.mash = meas;
         break;
       case "boil":
@@ -40,7 +40,7 @@ export class EventModule extends VuexModule {
 
   public sensorVal(sensorId: string): number {
     switch (sensorId) {
-      case "mash":
+      case "dummy_sensor":
         return this.sensors.mash;
       case "boil":
         return this.sensors.boil;

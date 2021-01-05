@@ -1,5 +1,6 @@
 import { connect, StringCodec, JSONCodec, NatsConnection } from "nats.ws";
 import { eventStore, dummyManContr, dummyAutoContr } from "@/store/events";
+import { SensorMsg } from "@/models/sensor";
 
 const sc = StringCodec();
 const jc = JSONCodec();
@@ -18,8 +19,10 @@ export class Eventbus {
     const sensorSub = nc.subscribe("sensor.*.measurement");
     (async () => {
       for await (const msg of sensorSub) {
-        const newMeas = parseFloat(sc.decode(msg.data));
-        eventStore.updateSensorMeas(newMeas, "mash");
+        const tmpJson = jc.decode(msg.data);
+        const sensorMsg: SensorMsg = tmpJson;
+        console.log(sensorMsg.id);
+        eventStore.updateSensorMeas(sensorMsg.meas, sensorMsg.id);
       }
     })().then();
 
