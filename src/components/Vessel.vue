@@ -216,10 +216,6 @@ export default class Vessel extends Vue {
     this.tooltip = !this.tooltip;
   }
 
-  created() {
-    console.log("Mounted");
-  }
-
   setVesselStatus() {
     if (this.vesselStatus === 3) {
       this.vesselStatus = 1;
@@ -251,7 +247,7 @@ export default class Vessel extends Vue {
   }
 
   get sensorMeasDisp(): string {
-    return eventStore.sensorMeas.toFixed(2);
+    return eventStore.sensorVal("mash").toFixed(2);
   }
 
   addMessage(): void {

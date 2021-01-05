@@ -1,5 +1,5 @@
-import { connect, StringCodec, JSONCodec, NatsConnection, Msg } from "nats.ws";
-import { eventStore } from "@/store/events";
+import { connect, StringCodec, JSONCodec, NatsConnection } from "nats.ws";
+import { eventStore, dummyManContr, dummyAutoContr } from "@/store/events";
 
 const sc = StringCodec();
 const jc = JSONCodec();
@@ -14,13 +14,15 @@ export class Eventbus {
       pass: "penna1glas",
     });
     this.client = nc;
+
     const sensorSub = nc.subscribe("sensor.*.measurement");
     (async () => {
       for await (const msg of sensorSub) {
         const newMeas = parseFloat(sc.decode(msg.data));
-        eventStore.updateSensorMeas(newMeas);
+        eventStore.updateSensorMeas(newMeas, "mash");
       }
     })().then();
+
     const actorSub = nc.subscribe("actor.*.current_signal");
     (async () => {
       for await (const msg of actorSub) {
@@ -28,11 +30,16 @@ export class Eventbus {
         eventStore.updateActorSignal(newSignal);
       }
     })().then();
+
+    this.publish("command.start_controller", dummyManContr);
   }
 
-  public sensor(msg: string) {
-    const newMeas = parseFloat(msg);
-    eventStore.updateSensorMeas(newMeas);
+  public async toggleController(auto: boolean) {
+    if (auto) {
+      this.publish("command.switch_controller", dummyAutoContr);
+    } else {
+      this.publish("command.switch_controller", dummyManContr);
+    }
   }
 
   public async publish(topic: string, msg: JSON): Promise<void> {
