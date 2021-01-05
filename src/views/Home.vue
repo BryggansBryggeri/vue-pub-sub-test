@@ -10,9 +10,7 @@
       <DashboardTop />
 
       <!-- Three column layout  -->
-      <div
-        class="three-column-grid"
-      >
+      <div class="three-column-grid">
         <Vessel v-for="vessel in vessels" v-bind:vesselProp="vessel" v-bind:key="vessel.name" />
       </div>
       <!-- End Three column layout -->
@@ -33,30 +31,30 @@ import VesselProp from "@/models/vesselProps";
   components: {
     Vessel,
     NavBar,
-    DashboardTop
+    DashboardTop,
     // MashCard,
-  }
+  },
 })
 export default class Home extends Vue {
   private mash: VesselProp = {
     id: "mash",
     mainActor: "Mash Heater",
     mainSensor: "Mash Sensor",
-    maxVolume: 180
+    maxVolume: 180,
   };
 
   private boil: VesselProp = {
     id: "boil",
     mainActor: "Boil Heater",
     mainSensor: "Boil Sensor",
-    maxVolume: 180
+    maxVolume: 180,
   };
 
   private vessels = [this.boil, this.mash];
 }
 </script>
 <style scoped>
-  .three-column-grid{
+.three-column-grid {
   @apply w-full mx-auto grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 pt-6 gap-8;
-  }
+}
 </style>

@@ -1,7 +1,7 @@
 console.log("hi");
 import Vessel from "@/models/vessel";
 export class Brewery {
-  private name!: string;
+  public name!: string;
 
   private vessels!: Map<string, Vessel>;
 
@@ -12,4 +12,4 @@ export class Brewery {
   }
 }
 
-const brew = new Brewery("aba", ["boil", "mash"]);
+export const brew = new Brewery("BBBBB", ["boil", "mash"]);

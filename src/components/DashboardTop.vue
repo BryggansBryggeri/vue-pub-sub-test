@@ -17,4 +17,3 @@ export default class DashboardTop extends Vue {
   private someProp!: string;
 }
 </script>
-
