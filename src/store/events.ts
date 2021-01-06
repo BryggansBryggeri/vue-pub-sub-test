@@ -20,11 +20,13 @@ export class EventModule extends VuexModule {
   messages: string[] = [];
 
   private sensors: {
-    mash: Result<number, string>;
-    boil: Result<number, string>;
+    mash_temp: Result<number, string>;
+    boil_temp: Result<number, string>;
   } = {
-    mash: { tag: "ok", val: 0.0 },
-    boil: { tag: "ok", val: 0.0 },
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    mash_temp: { tag: "ok", val: 0.0 },
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    boil_temp: { tag: "ok", val: 0.0 },
   };
 
   actorSignal = 0.0;

@@ -49,15 +49,15 @@ export default class Home extends Vue {
 
   private mash: VesselProp = {
     id: "mash",
-    mainActor: "Mash Heater",
-    mainSensor: "Mash Sensor",
+    mainActor: "mash_heater",
+    mainSensor: "mash_temp",
     maxVolume: 180,
   };
 
   private boil: VesselProp = {
     id: "boil",
-    mainActor: "Boil Heater",
-    mainSensor: "Boil Sensor",
+    mainActor: "boil_heater",
+    mainSensor: "boil_temp",
     maxVolume: 180,
   };
 
