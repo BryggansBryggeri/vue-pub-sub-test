@@ -1,5 +1,7 @@
 import { Action, Module, VuexModule } from "vuex-class-modules";
 import store from "@/store";
+import { SensorMsg } from "@/models/sensor";
+import { Result } from "@/models/result";
 
 export const dummyManContr = JSON.parse(
   '{"controller_id": "mash", "actor_id": "dummy_actor", "sensor_id": "dummy_sensor", "type": "manual"}'
@@ -9,13 +11,20 @@ export const dummyAutoContr = JSON.parse(
   '{"controller_id": "mash", "actor_id": "dummy_actor", "sensor_id": "dummy_sensor", "type": {"hysteresis": {"offset_on": 10.0, "offset_off": 5.0}}}'
 );
 
+function hasKey<O>(obj: O, key: keyof any): key is keyof O {
+  return key in obj;
+}
+
 @Module({ generateMutationSetters: true })
 export class EventModule extends VuexModule {
   messages: string[] = [];
 
-  private sensors = {
-    mash: 0.0,
-    boil: 0.0,
+  private sensors: {
+    mash: Result<number, string>;
+    boil: Result<number, string>;
+  } = {
+    mash: { tag: "ok", val: 0.0 },
+    boil: { tag: "ok", val: 0.0 },
   };
 
   actorSignal = 0.0;
@@ -25,29 +34,27 @@ export class EventModule extends VuexModule {
     this.messages = [...this.messages, msg];
   }
 
-  public async updateSensorMeas(meas: number, sensorId: string): Promise<void> {
-    switch (sensorId) {
-      case "dummy_sensor":
-        this.sensors.mash = meas;
-        break;
-      case "boil":
-        this.sensors.boil = meas;
-        break;
-      default:
-        console.log("Incorrect id");
+  public async updateSensor(msg: SensorMsg): Promise<void> {
+    if (hasKey(this.sensors, msg.id)) {
+      if (msg.err) {
+        this.sensors[msg.id] = { tag: "err", error: msg.err };
+      }
+      if (msg.meas) {
+        this.sensors[msg.id] = { tag: "ok", val: msg.meas };
+      }
+    } else {
+      console.log("Incorrect id");
     }
   }
 
-  public sensorVal(sensorId: string): number {
-    switch (sensorId) {
-      case "dummy_sensor":
-        return this.sensors.mash;
-      case "boil":
-        return this.sensors.boil;
-      default:
-        console.log("Incorrect id");
-        return 0.0;
+  public sensorVal(sensorId: string): Result<number, string> {
+    let val: Result<number, string> = { tag: "err", error: "Incorrect id" };
+    if (hasKey(this.sensors, sensorId)) {
+      val = this.sensors[sensorId]; // works fine!
+    } else {
+      console.log("Incorrect id");
     }
+    return val;
   }
 
   public async toggleDarkMode() {

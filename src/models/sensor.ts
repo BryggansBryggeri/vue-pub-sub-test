@@ -1,4 +1,5 @@
 export interface SensorMsg {
   id: string;
-  meas: number;
+  meas: number | null;
+  err: string | null;
 }

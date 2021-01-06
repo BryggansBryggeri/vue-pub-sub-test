@@ -21,8 +21,7 @@ export class Eventbus {
       for await (const msg of sensorSub) {
         const tmpJson = jc.decode(msg.data);
         const sensorMsg: SensorMsg = tmpJson;
-        console.log(sensorMsg.id);
-        eventStore.updateSensorMeas(sensorMsg.meas, sensorMsg.id);
+        eventStore.updateSensor(sensorMsg);
       }
     })().then();
 
