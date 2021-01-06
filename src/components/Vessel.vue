@@ -352,10 +352,12 @@ import VesselProp from "@/models/vesselProps";
 import capitalizeFirstLetter from "@/utils";
 import { match } from "@/models/result";
 import ToggleButton from "@/components/ToggleButton.vue";
+import Toggle from "@/components/utils/Toggle.vue";
 
 @Component({
   components: {
     ToggleButton,
+    Toggle,
   },
 })
 export default class Vessel extends Vue {
