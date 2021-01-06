@@ -21,6 +21,9 @@
         </section>
       </div>
       <!-- End Main container -->
+      <!-- Temporary sensor test -->
+      <Sensor sensorId="mash_temp" />
+      <Sensor sensorId="boil_temp" />
     </div>
   </main>
 </template>
@@ -28,12 +31,14 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Vessel from "@/components/Vessel.vue";
+import Sensor from "@/components/Sensor.vue";
 import NavBar from "@/components/NavBar.vue";
 import DashboardTop from "@/components/DashboardTop.vue";
 import VesselProp from "@/models/vesselProps";
 
 @Component({
   components: {
+    Sensor,
     Vessel,
     NavBar,
     DashboardTop,
@@ -49,15 +54,15 @@ export default class Home extends Vue {
 
   private mash: VesselProp = {
     id: "mash",
-    mainActor: "Mash Heater",
-    mainSensor: "Mash Sensor",
+    mainActor: "mash_heater",
+    mainSensor: "mash_temp",
     maxVolume: 180,
   };
 
   private boil: VesselProp = {
     id: "boil",
-    mainActor: "Boil Heater",
-    mainSensor: "Boil Sensor",
+    mainActor: "boil_heater",
+    mainSensor: "boil_temp",
     maxVolume: 180,
   };
 

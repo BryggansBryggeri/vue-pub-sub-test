@@ -411,7 +411,7 @@ export default class Vessel extends Vue {
 
   get sensorMeasDisp(): string {
     return match(
-      eventStore.sensorVal(this.vesselProp.id),
+      eventStore.sensorVal(this.vesselProp.mainSensor),
       (ok) => ok.toFixed(2),
       (err) => err
     );
