@@ -1,11 +1,11 @@
 <template>
-  <main class="h-full" :class="{ ' dark ': toggleDarkMode }">
+  <main class="h-full" :class="{ ' dark ': darkMode }">
     <div
       id="content"
       class="bg-blue-gray-100 overscroll-none font-sans dark:bg-darkTrueGray w-full dark:text-gray-100 text-gray-700 h-full pb-24"
     >
       <!-- Main container -->
-      <NavBar :isDarkmode="toggleDarkMode" @toggleDarkMode="setDarkMode($event)" />
+      <NavBar />
 
       <div class="mx-8 space-y-4">
         <!-- <Overview /> -->
@@ -21,15 +21,13 @@
         </section>
       </div>
       <!-- End Main container -->
-      <!-- Temporary sensor test -->
-      <Sensor sensorId="mash_temp" />
-      <Sensor sensorId="boil_temp" />
     </div>
   </main>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { eventStore } from "@/store/events";
 import Vessel from "@/components/Vessel.vue";
 import Sensor from "@/components/Sensor.vue";
 import NavBar from "@/components/NavBar.vue";
@@ -46,10 +44,9 @@ import VesselProp from "@/models/vesselProps";
   },
 })
 export default class Home extends Vue {
-  private toggleDarkMode = true;
 
-  private setDarkMode(darkMode: boolean) {
-    this.toggleDarkMode = darkMode;
+    get darkMode(): boolean {
+    return eventStore.darkMode;
   }
 
   private mash: VesselProp = {

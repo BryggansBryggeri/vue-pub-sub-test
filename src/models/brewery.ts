@@ -12,4 +12,4 @@ export class Brewery {
   }
 }
 
-export const brew = new Brewery("BBBBB", ["boil", "mash"]);
+export const brew = new Brewery("BBBBB", ["mash", "manifold", "boil"]);

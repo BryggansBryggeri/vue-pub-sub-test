@@ -19,17 +19,19 @@ function hasKey<O>(obj: O, key: keyof any): key is keyof O {
 export class EventModule extends VuexModule {
   messages: string[] = [];
 
+  public darkMode = true;
+
   private sensors: {
     mash_temp: Result<number, string>;
     boil_temp: Result<number, string>;
   } = {
     // eslint-disable-next-line @typescript-eslint/camelcase
-    mash_temp: { tag: "ok", val: 0.0 },
+    mash_temp: { tag: "ok", val: 54.2 },
     // eslint-disable-next-line @typescript-eslint/camelcase
-    boil_temp: { tag: "ok", val: 0.0 },
+    boil_temp: { tag: "ok", val: 98.739 },
   };
 
-  actorSignal = 0.0;
+  actorSignal = 70.0;
 
   @Action
   public async addMessage(msg: string): Promise<void> {
@@ -60,6 +62,7 @@ export class EventModule extends VuexModule {
   }
 
   public async toggleDarkMode() {
+    this.darkMode = !this.darkMode;
     console.log("DarkMode Toggled");
   }
 
