@@ -4,20 +4,7 @@
       <div id="card-header" class="flex flex-row justify-between">
         <span class="font-bold text-xl">{{ dispName }}</span>
         <div class="text-green-600">
-          <svg
-            class="w-8 h-8"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-            ></path>
-          </svg>
+          <svg-icon name="exclamation"/>
         </div>
       </div>
       <div class="pt-6 w-full mx-auto">
@@ -49,6 +36,7 @@ import ToggleButton from "@/components/ToggleButton.vue";
 import Toggle from "@/components/utils/Toggle.vue";
 import Sensor from "@/components/Sensor.vue";
 import Actor from "@/components/Actor.vue";
+import SvgIcon from "@/components/symbols/SvgIcon.vue";
 
 @Component({
   components: {
@@ -56,6 +44,7 @@ import Actor from "@/components/Actor.vue";
     Toggle,
     Sensor,
     Actor,
+    SvgIcon,
   },
 })
 export default class Controller extends Vue {

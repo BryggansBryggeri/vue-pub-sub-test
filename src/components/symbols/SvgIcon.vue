@@ -17,8 +17,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-
-type IconName = "check" | "cross" | "exclamation";
+import { IconName } from "@/utils";
 
 @Component({
   components: {},

@@ -22,38 +22,7 @@
             'text-red-600': status === 3,
           }"
         >
-          <svg
-            class="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <!-- error -->
-            <path
-              v-if="status === 3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-            ></path>
-            <!-- issue -->
-            <path
-              v-else-if="status === 2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            ></path>
-            <!-- Ok -->
-            <path
-              v-else
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-            ></path>
-          </svg>
+          <svg-icon :name="iconType"/>
         </div>
       </div>
       <!-- TODO: Unique id by sensorId -->
@@ -130,6 +99,8 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { eventStore } from "@/store/events";
 import { match } from "@/models/result";
+import SvgIcon from "@/components/symbols/SvgIcon.vue";
+import { IconName } from "@/utils";
 
 enum Success {
   Ok = 1,
@@ -138,7 +109,9 @@ enum Success {
 }
 
 @Component({
-  components: {},
+  components: {
+    SvgIcon
+  },
 })
 export default class Sensor extends Vue {
   @Prop() sensorId!: string;
@@ -159,6 +132,20 @@ export default class Sensor extends Vue {
       () => Success.Ok,
       () => Success.Error
     );
+  }
+
+  get iconType(): IconName {
+    switch (this.status) {
+      case Success.Ok:
+        return "check";
+      case Success.Issue:
+        return "exclamation";
+      case Success.Error:
+        return "cross";
+      default:
+        console.log("Unreachable iconType");
+        return "cross";
+    }
   }
 
   get sensorMeasDisp(): string {

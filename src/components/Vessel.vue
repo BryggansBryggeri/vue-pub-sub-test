@@ -25,7 +25,6 @@
         <div class="w-full">
           <div class="space-y-3">
             <div id="6x6grid" class="mx-auto grid grid-cols-1 md:grid-cols-2 gap-3">
-              <SvgIcon name="exclamation" />
               <Sensor :sensorId="vesselProp.mainSensor" />
 
               <content
