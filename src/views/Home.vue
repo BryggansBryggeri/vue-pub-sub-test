@@ -18,7 +18,11 @@
         >
           <!-- <Vessel :issue="issue" :fullWidth="fullWidth" /> -->
           <!-- <Vessel v-for="vessel in vessels" v-bind:vesselProp="vessel" v-bind:key="vessel.name" /> -->
-          <Controller v-for="controller in controllers" v-bind:controllerProps="controller" v-bind:key="controller.name" />
+          <Controller
+            v-for="controller in controllers"
+            v-bind:controllerProps="controller"
+            v-bind:key="controller.name"
+          />
         </section>
       </div>
       <!-- End Main container -->

@@ -1,6 +1,6 @@
 <template>
   <!-- TODO: Unique id by sensorId -->
-  <div id="sensor">
+  <div class="sensor">
     <content
       class="rounded-lg space-y-4 border-2 dark:bg-blue-gray-800 p-2 min-h-20 flex flex-col"
       :class="{
