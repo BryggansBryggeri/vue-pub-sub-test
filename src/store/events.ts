@@ -1,7 +1,6 @@
 import { Action, Module, VuexModule } from "vuex-class-modules";
 import store from "@/store";
-import { SensorMsg } from "@/models/sensor";
-import { Result, newOk, newErr } from "@/models/result";
+import { SensorMsg, MeasResult, measResultFromMsg, newMeasOk, newMeasErr } from "@/models/sensor";
 
 export const dummyManContr = JSON.parse(
   '{"controller_id": "mash", "actor_id": "dummy_actor", "sensor_id": "dummy_sensor", "type": "manual"}'
@@ -23,13 +22,16 @@ export class EventModule extends VuexModule {
   public darkMode = true;
 
   private sensors: {
-    mash_temp: Result<[number, number], [string, number]>;
-    boil_temp: Result<[number, number], [string, number]>;
+    mash_temp: MeasResult;
+    boil_temp: MeasResult;
   } = {
     // eslint-disable-next-line @typescript-eslint/camelcase
-    mash_temp: newOk([54.2, 0]),
+    mash_temp: newMeasOk(54.2, Date.now()),
     // eslint-disable-next-line @typescript-eslint/camelcase
-    boil_temp: newErr(["Das ist nicht nur nicht richtig; es ist nicht einmal falsch!", 0]),
+    boil_temp: newMeasErr(
+      "Das ist nicht nur nicht richtig; es ist nicht einmal falsch!",
+      Date.now()
+    ),
   };
 
   actorSignal = 70.0;
@@ -41,19 +43,14 @@ export class EventModule extends VuexModule {
 
   public async updateSensor(msg: SensorMsg): Promise<void> {
     if (hasKey(this.sensors, msg.id)) {
-      if (msg.err) {
-        this.sensors[msg.id] = newErr([msg.err, msg.timestamp]);
-      }
-      if (msg.meas) {
-        this.sensors[msg.id] = newOk([msg.meas, msg.timestamp]);
-      }
+      this.sensors[msg.id] = measResultFromMsg(msg);
     } else {
       console.log("Incorrect id");
     }
   }
 
-  public sensorVal(sensorId: string): Result<[number, number], [string, number]> {
-    let val: Result<[number, number], [string, number]> = newErr(["Incorrect id", 0]);
+  public sensorVal(sensorId: string): MeasResult {
+    let val: MeasResult = newMeasErr("Incorrect id", Date.now());
     if (hasKey(this.sensors, sensorId)) {
       val = this.sensors[sensorId]; // works fine!
     } else {
