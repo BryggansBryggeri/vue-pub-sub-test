@@ -230,7 +230,6 @@ import { eventStore } from "@/store/events";
 import { eventbus } from "@/eventbus";
 import VesselProp from "@/models/vesselProps";
 import capitalizeFirstLetter from "@/utils";
-import { match } from "@/models/result";
 import ToggleButton from "@/components/ToggleButton.vue";
 import Toggle from "@/components/utils/Toggle.vue";
 import Sensor from "@/components/Sensor.vue";
@@ -281,14 +280,6 @@ export default class Vessel extends Vue {
 
   get actorSignal(): number {
     return eventStore.actorSignal;
-  }
-
-  get sensorMeasDisp(): string {
-    return match(
-      eventStore.sensorVal(this.vesselProp.mainSensor),
-      (ok) => ok.toFixed(2),
-      (err) => err
-    );
   }
 
   addMessage(): void {

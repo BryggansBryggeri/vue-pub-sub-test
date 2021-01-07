@@ -126,7 +126,6 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { eventStore } from "@/store/events";
-import capitalizeFirstLetter from "@/utils";
 import { match } from "@/models/result";
 
 enum Success {
@@ -145,10 +144,6 @@ export default class Sensor extends Vue {
 
   private fullWidth = true;
 
-  get dispName(): string {
-    return capitalizeFirstLetter(this.sensorId);
-  }
-
   get status(): Success {
     return match(
       eventStore.sensorVal(this.sensorId),
@@ -158,11 +153,13 @@ export default class Sensor extends Vue {
   }
 
   get sensorMeasDisp(): string {
-    console.log("sensor", this.sensorId);
     return match(
       eventStore.sensorVal(this.sensorId),
-      (ok) => ok.toFixed(2),
-      (err) => "--"
+      (ok) => {
+        console.log(ok);
+        return ok[0].toFixed(2);
+      },
+      () => "--"
     );
   }
 }
