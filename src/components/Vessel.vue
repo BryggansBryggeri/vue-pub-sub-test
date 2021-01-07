@@ -91,6 +91,7 @@
                     <SvgIcon name="power" :size="8"  />
                     <SvgIcon name="check" :size="10" :stroke="1" />
                     <SvgIcon name="check" :size="12" :stroke="2" :color="'blue-500'" />
+                    <SvgIcon name="cross" :tailwind="'h-6 w-6 text-yellow-300'" />
                   </div>
                   <div class="flex text-3xl font-bold">
                     <span class="">{{ dispManualPower }}%</span>

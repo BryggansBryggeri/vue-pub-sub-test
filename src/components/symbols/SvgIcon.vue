@@ -1,15 +1,15 @@
 <template>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      :class="`h-${this.size} w-${this.size} stroke-${this.stroke} ${iconColor}`"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      fill="none"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    >
-      <path stroke-linecap="round" stroke-linejoin="round" :d="path"></path>
-    </svg>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    :class="cssClass"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    fill="none"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path stroke-linecap="round" stroke-linejoin="round" :d="path"></path>
+  </svg>
 </template>
 
 <script lang="ts">
@@ -23,14 +23,26 @@ type IconName = "check" | "cross" | "exclamation" | "power" | "temp" | "chevronD
 export default class SvgIcon extends Vue {
   @Prop({required: true}) name!: IconName;
   
-  @Prop({ default: "6" }) size!: string;
+  @Prop({ default: "4" }) size!: string;
   
-  @Prop() color!: string;
+  @Prop({default: null}) color!: string;
   
   @Prop({ default: "2" }) stroke!: string;
+  
+  @Prop() tailwind!: string;
 
   get iconColor(): string {
-    return `text-${this.color}`
+    if(this.color){
+      return `text-${this.color}`
+    }
+    return '';
+  }
+
+  get cssClass(): string {
+    if(this.tailwind){
+      return this.tailwind;
+    }
+      return `h-${this.size} w-${this.size} stroke-${this.stroke} ${this.iconColor}`;    
   }
 
   get path(): string {
