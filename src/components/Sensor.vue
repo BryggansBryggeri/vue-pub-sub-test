@@ -13,6 +13,7 @@
   >
     <div class="flex flex-row justify-between w-full">
       <span class="font-semibold text-sm">{{ this.sensorId }}</span>
+      <button @click="fullWidth = !fullWidth">Width</button>
       <div
         :class="{
           'text-green-600': status === undefined,
@@ -117,7 +118,7 @@
 
       <div class="">
         <span class="font-normal">RoC:</span>
-        <div><span class="font-extrabold">1,27</span><span>&#8451;/min</span></div>
+        <div><span class="font-extrabold">{{(target - sensorMeasDisp)/10}}</span><span>&#8451;/min</span></div>
       </div>
     </div>
   </content>
