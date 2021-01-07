@@ -87,23 +87,10 @@
                 </div>
                 <div id="Main Sensor Value" class="flex flex-row justify-center items-center">
                   <div id="icon" class="pr-2 animate-pulse text-green-600">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-7 w-7"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      fill="none"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M13 10V3L4 14h7v7l9-11h-7z"
-                      ></path>
-                    </svg>
+                    <SvgIcon name="power"  />
+                    <SvgIcon name="power" :size="8"  />
+                    <SvgIcon name="check" :size="10" :stroke="1" />
+                    <SvgIcon name="check" :size="12" :stroke="2" :color="'blue-500'" />
                   </div>
                   <div class="flex text-3xl font-bold">
                     <span class="">{{ dispManualPower }}%</span>

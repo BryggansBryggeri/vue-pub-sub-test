@@ -1,30 +1,37 @@
 <template>
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      :class="dimension"
+      :class="`h-${this.size} w-${this.size} stroke-${this.stroke} ${iconColor}`"
       viewBox="0 0 24 24"
-      stroke-width="1.5"
       stroke="currentColor"
       fill="none"
       stroke-linecap="round"
       stroke-linejoin="round"
     >
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="path"></path>
+      <path stroke-linecap="round" stroke-linejoin="round" :d="path"></path>
     </svg>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 
-type IconName = "check" | "cross" | "exclamation";
+type IconName = "check" | "cross" | "exclamation" | "power" | "temp" | "chevronDown" | "moon" | "sun" | "git";
 
 @Component({
   components: {},
 })
 export default class SvgIcon extends Vue {
-  @Prop() name!: IconName;
+  @Prop({required: true}) name!: IconName;
   
-  @Prop() size!: string;
+  @Prop({ default: "6" }) size!: string;
+  
+  @Prop() color!: string;
+  
+  @Prop({ default: "2" }) stroke!: string;
+
+  get iconColor(): string {
+    return `text-${this.color}`
+  }
 
   get path(): string {
     return this.icons[this.name];
@@ -37,8 +44,14 @@ export default class SvgIcon extends Vue {
 
   private icons = {
     check: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z",
-    exclamation: "M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
     cross: "M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z",
+    exclamation: "M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
+    power: "M13 10V3L4 14h7v7l9-11h-7z",
+    temp: "M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z",
+    chevronDown: "M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z",
+    moon: "M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z",
+    sun: "M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z",
+    git: "M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z",
   } as const;
 }
 </script>
