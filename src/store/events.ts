@@ -45,7 +45,7 @@ export class EventModule extends VuexModule {
     if (hasKey(this.sensors, msg.id)) {
       this.sensors[msg.id] = measResultFromMsg(msg);
     } else {
-      console.log("Incorrect id");
+      console.log("Incorrect id", msg.id);
     }
   }
 
@@ -54,7 +54,7 @@ export class EventModule extends VuexModule {
     if (hasKey(this.sensors, sensorId)) {
       val = this.sensors[sensorId]; // works fine!
     } else {
-      console.log("Incorrect id");
+      console.log("Incorrect id", sensorId);
     }
     return val;
   }
