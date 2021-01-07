@@ -1,8 +1,7 @@
 <template>
-  <div class="svg-icons">
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      class="h-16 w-16"
+      :class="dimension"
       viewBox="0 0 24 24"
       stroke-width="1.5"
       stroke="currentColor"
@@ -12,7 +11,6 @@
     >
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="path"></path>
     </svg>
-  </div>
 </template>
 
 <script lang="ts">
@@ -25,9 +23,16 @@ type IconName = "check" | "cross" | "exclamation";
 })
 export default class SvgIcon extends Vue {
   @Prop() name!: IconName;
+  
+  @Prop() size!: string;
 
   get path(): string {
     return this.icons[this.name];
+  }
+
+  get dimension(): string {
+    return `h-${this.size} w-${this.size}`
+
   }
 
   private icons = {
