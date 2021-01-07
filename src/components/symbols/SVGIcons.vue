@@ -13,7 +13,7 @@
     stroke-linecap="round"
     stroke-linejoin="round"
     stroke-width="2"
-    :d="icons[exclamation]"
+    :d="getPath(name)"
   ></path>
 </svg>
 </template>
