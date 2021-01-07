@@ -145,6 +145,8 @@ export default class Sensor extends Vue {
 
   private showMore = false;
 
+  private target = 68.7; // Subscribe to Controller.Actor.Target ?
+
   private fullWidth = true;
 
   get isFullWidth(): boolean {
