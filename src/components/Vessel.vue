@@ -25,7 +25,7 @@
         <div class="w-full">
           <div class="space-y-3">
             <div id="6x6grid" class="mx-auto grid grid-cols-1 md:grid-cols-2 gap-3">
-              <svg-icons :name="exclamation"></svg-icons>
+              <SvgIcon name="exclamation" />
               <Sensor :sensorId="vesselProp.mainSensor" />
 
               <content
@@ -234,13 +234,13 @@ import capitalizeFirstLetter from "@/utils";
 import ToggleButton from "@/components/ToggleButton.vue";
 import Toggle from "@/components/utils/Toggle.vue";
 import Sensor from "@/components/Sensor.vue";
-import SVGIcons from "@/components/symbols/SVGIcons.vue";
+import SvgIcon from "@/components/symbols/SvgIcon.vue";
 
 @Component({
   components: {
     ToggleButton,
     Toggle,
-    SVGIcons,
+    SvgIcon,
     Sensor,
   },
 })

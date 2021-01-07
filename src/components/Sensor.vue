@@ -109,16 +109,25 @@
     >
       <div class="">
         <span class="font-normal">Target:</span>
-        <div><span class="font-extrabold">{{ target }}</span><span>&#8451;</span></div>
+        <div>
+          <span class="font-extrabold">{{ target }}</span
+          ><span>&#8451;</span>
+        </div>
       </div>
       <div class="font-normal">
         <span>Diff:</span>
-        <div><span class="font-extrabold">{{ target - sensorMeasDisp }}</span><span>&#8451;</span></div>
+        <div>
+          <span class="font-extrabold">{{ target - sensorMeasDisp }}</span
+          ><span>&#8451;</span>
+        </div>
       </div>
 
       <div class="">
         <span class="font-normal">RoC:</span>
-        <div><span class="font-extrabold">{{(target - sensorMeasDisp)/10}}</span><span>&#8451;/min</span></div>
+        <div>
+          <span class="font-extrabold">{{ (target - sensorMeasDisp) / 10 }}</span
+          ><span>&#8451;/min</span>
+        </div>
       </div>
     </div>
   </content>
