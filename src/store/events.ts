@@ -1,7 +1,7 @@
 import { Action, Module, VuexModule } from "vuex-class-modules";
 import store from "@/store";
 import { SensorMsg } from "@/models/sensor";
-import { Result } from "@/models/result";
+import { Result, newOk, newErr } from "@/models/result";
 
 export const dummyManContr = JSON.parse(
   '{"controller_id": "mash", "actor_id": "dummy_actor", "sensor_id": "dummy_sensor", "type": "manual"}'
@@ -26,9 +26,9 @@ export class EventModule extends VuexModule {
     boil_temp: Result<number, string>;
   } = {
     // eslint-disable-next-line @typescript-eslint/camelcase
-    mash_temp: { tag: "ok", val: 54.2 },
+    mash_temp: newOk(54.2),
     // eslint-disable-next-line @typescript-eslint/camelcase
-    boil_temp: { tag: "ok", val: 98.739 },
+    boil_temp: newErr("Das ist nicht nur nicht richtig; es ist nicht einmal falsch!"),
   };
 
   actorSignal = 70.0;
@@ -41,10 +41,10 @@ export class EventModule extends VuexModule {
   public async updateSensor(msg: SensorMsg): Promise<void> {
     if (hasKey(this.sensors, msg.id)) {
       if (msg.err) {
-        this.sensors[msg.id] = { tag: "err", error: msg.err };
+        this.sensors[msg.id] = newErr(msg.err);
       }
       if (msg.meas) {
-        this.sensors[msg.id] = { tag: "ok", val: msg.meas };
+        this.sensors[msg.id] = newOk(msg.meas);
       }
     } else {
       console.log("Incorrect id");
@@ -52,7 +52,7 @@ export class EventModule extends VuexModule {
   }
 
   public sensorVal(sensorId: string): Result<number, string> {
-    let val: Result<number, string> = { tag: "err", error: "Incorrect id" };
+    let val: Result<number, string> = newErr("Incorrect id");
     if (hasKey(this.sensors, sensorId)) {
       val = this.sensors[sensorId]; // works fine!
     } else {

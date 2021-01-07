@@ -44,8 +44,7 @@ import VesselProp from "@/models/vesselProps";
   },
 })
 export default class Home extends Vue {
-
-    get darkMode(): boolean {
+  get darkMode(): boolean {
     return eventStore.darkMode;
   }
 

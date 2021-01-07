@@ -26,7 +26,7 @@
           <div class="space-y-3">
             <div id="6x6grid" class="mx-auto grid grid-cols-1 md:grid-cols-2 gap-3">
               <Sensor :sensorId="vesselProp.mainSensor" />
-              
+
               <content
                 id="actorCard"
                 class="rounded-lg space-y-4 border-2 dark:bg-blue-gray-800 p-2 min-h-20 flex flex-col"
@@ -260,7 +260,6 @@ export default class Vessel extends Vue {
   toggleTooltip() {
     this.tooltip = !this.tooltip;
   }
-
 
   get dispManualPower(): number {
     return Math.round(this.actorSignal * 100.0);

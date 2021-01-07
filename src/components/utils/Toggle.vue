@@ -8,7 +8,7 @@
         class="w-4 h-4 bg-white rounded-full shadow-lg transform duration-300 ease-in-out"
         :class="{
           'translate-x-4': isRight,
-          'bg-gray-400 dark:bg-gray-100': !isRight
+          'bg-gray-400 dark:bg-gray-100': !isRight,
         }"
       ></div>
     </div>

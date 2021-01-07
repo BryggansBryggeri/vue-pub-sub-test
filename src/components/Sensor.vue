@@ -55,10 +55,7 @@
         </svg>
       </div>
     </div>
-    <div
-      id="Main Sensor Value"
-      class="flex flex-row justify-center items-center"
-    >
+    <div id="Main Sensor Value" class="flex flex-row justify-center items-center">
       <div id="icon" class="pr-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -120,9 +117,7 @@
 
       <div class="">
         <span class="font-normal">RoC:</span>
-        <div>
-          <span class="font-extrabold">1,27</span><span>&#8451;/min</span>
-        </div>
+        <div><span class="font-extrabold">1,27</span><span>&#8451;/min</span></div>
       </div>
     </div>
   </content>
@@ -147,7 +142,7 @@ export default class Sensor extends Vue {
   @Prop() sensorId!: string;
 
   private showMore = false;
-  
+
   private fullWidth = true;
 
   get dispName(): string {
@@ -167,7 +162,7 @@ export default class Sensor extends Vue {
     return match(
       eventStore.sensorVal(this.sensorId),
       (ok) => ok.toFixed(2),
-      (err) => "Error!"
+      (err) => "--"
     );
   }
 }
