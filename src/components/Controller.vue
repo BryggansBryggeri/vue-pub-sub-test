@@ -4,7 +4,8 @@
       <div id="card-header" class="flex flex-row justify-between">
         <span class="font-bold text-xl">{{ dispName }}</span>
         <div class="text-green-600">
-          <svg-icon name="exclamation"/>
+          <!--<StatusInd :status="this.status"/>-->
+          <StatusInd :status="1" size="6" /> <!--Use for now until we get Vessel/controller Status -->
         </div>
       </div>
       <div class="pt-6 w-full mx-auto">
@@ -36,7 +37,7 @@ import ToggleButton from "@/components/ToggleButton.vue";
 import Toggle from "@/components/utils/Toggle.vue";
 import Sensor from "@/components/Sensor.vue";
 import Actor from "@/components/Actor.vue";
-import SvgIcon from "@/components/symbols/SvgIcon.vue";
+import StatusInd from "@/components/utils/StatusInd.vue";
 
 @Component({
   components: {
@@ -44,7 +45,7 @@ import SvgIcon from "@/components/symbols/SvgIcon.vue";
     Toggle,
     Sensor,
     Actor,
-    SvgIcon,
+    StatusInd,
   },
 })
 export default class Controller extends Vue {

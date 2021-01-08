@@ -21,7 +21,7 @@ enum Success {
 export default class StatusInd extends Vue {
   @Prop({ required: true }) status!: number;
 
-  @Prop({ default: "6" }) size!: string;
+  @Prop({ default: "4" }) size!: string;
 
     private color!: string;
     

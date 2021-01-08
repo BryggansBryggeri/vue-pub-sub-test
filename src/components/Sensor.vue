@@ -7,7 +7,7 @@
         'col-span-full': isFullWidth,
         'col-span-1': !isFullWidth,
         'bg-blue-gray-100 border-transparent': status === undefined,
-        'bg-blue-gray-100 border-white': status === 1,
+        'bg-blue-gray-100 border-transparent': status === 1,
         'bg-yellow-100 border-yellow-400': status === 2,
         'bg-red-100 border-red-600': status === 3,
       }"
@@ -21,20 +21,7 @@
       <!-- TODO: Unique id by sensorId -->
       <div id="main-sensor-value" class="flex flex-row justify-center items-center">
         <div id="icon" class="pr-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-7 w-7"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M10 13.5a4 4 0 1 0 4 0v-8.5a2 2 0 0 0 -4 0v8.5" />
-            <line x1="10" y1="9" x2="14" y2="9" />
-          </svg>
+          <SvgIcon name="temp" size="7" />
         </div>
         <div class="text-3xl font-bold">
           <span>{{ sensorMeasDisp }}</span

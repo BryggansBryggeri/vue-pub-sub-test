@@ -1,7 +1,7 @@
 <template>
   <div class="rounded-xl bg-white dark:bg-blue-gray-900 p-4 shadow-lg py-4 flex flex-col">
     <div id="CardHeader" class="flex flex-row justify-between">
-      <span class="font-bold text-xl">{{ dispName }}</span>
+      <span class="font-bold text-xl">HAKKÅ</span>
       <div class="text-green-600">
         <svg
           class="w-8 h-8"

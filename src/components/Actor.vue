@@ -13,18 +13,15 @@
     >
       <div class="flex flex-row justify-between w-full">
         <span class="font-semibold text-sm">{{ actorId }}</span>
-        <div
-          :class="{
-            'text-green-600': status === 1,
-            'text-yellow-600': status === 2,
-            'text-red-600': status === 3,
-          }"
-        >
-          <svg-icon :name="iconType"/>
+        <div>
+          <status-ind :status="this.status" :size="4" />
         </div>
       </div>
       <!-- TODO: Unique id by actorId -->
-      <div id="main-actor-value" class="flex flex-row justify-center items-center">
+      <div
+        id="main-actor-value"
+        class="flex flex-row justify-center items-center"
+      >
         <div id="icon" class="pr-2 animate-pulse text-green-600">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -56,6 +53,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { eventStore } from "@/store/events";
 import SvgIcon from "@/components/symbols/SvgIcon.vue";
+import StatusInd from "@/components/utils/StatusInd.vue";
 import { IconName } from "@/utils";
 
 enum Success {
@@ -65,7 +63,9 @@ enum Success {
 }
 
 @Component({
-  components: {SvgIcon},
+  components: { 
+    StatusInd,
+   },
 })
 export default class Actor extends Vue {
   @Prop() actorId!: string;
@@ -101,6 +101,5 @@ export default class Actor extends Vue {
         return "cross";
     }
   }
-
 }
 </script>
