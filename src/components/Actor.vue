@@ -11,19 +11,30 @@
         'bg-red-100 border-red-600': status === 3,
       }"
     >
-      <div class="flex flex-row justify-between w-full">
+      <div class="flex flex-row justify-between w-full ">
         <span class="font-semibold text-sm">{{ actorId }}</span>
         <div>
           <status-ind :status="this.status" :size="4" />
         </div>
       </div>
       <!-- TODO: Unique id by actorId -->
-      <div id="main-actor-value" class="flex flex-row justify-center items-center">
+      <div
+        id="main-actor-value"
+        class="flex flex-row justify-center items-center"
+      >
         <div id="icon" class="pr-2 animate-pulse text-green-600">
           <SvgIcon name="power" size="7" />
         </div>
         <div class="flex text-3xl font-bold">
           <span class="">{{ dispSignal }}%</span>
+        </div>
+      </div>
+      <div class="flex flex-col space-y-2">
+        <span class="text-sm ">Arm actor:</span>
+        <div class="flex flex-row space-x-2 justify-center">
+          <span>Off</span>
+          <toggle />
+          <span>On</span>
         </div>
       </div>
     </content>
@@ -34,6 +45,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { eventStore } from "@/store/events";
 import StatusInd from "@/components/utils/StatusInd.vue";
+import Toggle from "@/components/utils/Toggle.vue";
 import SvgIcon from "@/components/symbols/SvgIcon.vue";
 import { IconName } from "@/utils";
 
@@ -46,6 +58,7 @@ enum Success {
 @Component({
   components: {
     StatusInd,
+    Toggle,
     SvgIcon,
   },
 })

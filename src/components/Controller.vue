@@ -38,7 +38,7 @@
                       <status-ind :status="this.status" :size="4" />
                     </div>
                   </div>
-                  <div id="" class="flex flex-col">
+                  <div id="ingredients" class="flex flex-col">
                     <div class="flex flex-col justify-left text-xs">
                       <div class="flex flex-row">
                         <span class="pr-1 font-semibold"
