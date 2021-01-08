@@ -23,7 +23,7 @@
           <SvgIcon name="power" size="7" />
         </div>
         <div class="flex text-3xl font-bold">
-          <span class="">{{ dispSignal }}%</span>
+          <span class="">{{ actorSignalDisp }}%</span>
         </div>
       </div>
     </content>
@@ -35,13 +35,8 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import { eventStore } from "@/store/events";
 import StatusInd from "@/components/utils/StatusInd.vue";
 import SvgIcon from "@/components/symbols/SvgIcon.vue";
-import { IconName } from "@/utils";
-
-enum Success {
-  Ok = 1,
-  Issue = 2,
-  Error = 3,
-}
+import { IconName, IndicatorType } from "@/utils";
+import { match } from "@/models/result";
 
 @Component({
   components: {
@@ -58,25 +53,31 @@ export default class Actor extends Vue {
     return this.fullWidth;
   }
 
-  get status(): Success {
-    return Success.Ok;
+  get status(): IndicatorType {
+    return match(
+      eventStore.actorSignal(this.actorId),
+      () => IndicatorType.Ok,
+      () => IndicatorType.Error
+    );
   }
 
-  get actorSignal(): number {
-    return eventStore.actorSignal;
-  }
-
-  get dispSignal(): number {
-    return Math.round(this.actorSignal * 100.0);
+  get actorSignalDisp(): string {
+    return match(
+      eventStore.actorSignal(this.actorId),
+      (ok) => {
+        return `${Math.round(100 * ok[0])}`;
+      },
+      () => "--"
+    );
   }
 
   get iconType(): IconName {
     switch (this.status) {
-      case Success.Ok:
+      case IndicatorType.Ok:
         return "check";
-      case Success.Issue:
+      case IndicatorType.Issue:
         return "exclamation";
-      case Success.Error:
+      case IndicatorType.Error:
         return "cross";
       default:
         console.log("Unreachable iconType");

@@ -134,7 +134,6 @@ export default class Sensor extends Vue {
     return match(
       eventStore.sensorVal(this.sensorId),
       (ok) => {
-        console.log(ok);
         return ok[0].toFixed(2);
       },
       () => "--"

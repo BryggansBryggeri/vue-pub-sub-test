@@ -1,8 +1,8 @@
-import { connect, StringCodec, JSONCodec, NatsConnection } from "nats.ws";
+import { connect, JSONCodec, NatsConnection } from "nats.ws";
 import { eventStore, dummyManContr, dummyAutoContr } from "@/store/events";
 import { SensorMsg } from "@/models/sensor";
+import { ActorMsg } from "@/models/actor";
 
-const sc = StringCodec();
 const jc = JSONCodec();
 
 export class Eventbus {
@@ -28,8 +28,9 @@ export class Eventbus {
     const actorSub = nc.subscribe("actor.*.current_signal");
     (async () => {
       for await (const msg of actorSub) {
-        const newSignal = parseFloat(sc.decode(msg.data));
-        eventStore.updateActorSignal(newSignal);
+        const tmpJson = jc.decode(msg.data);
+        const actorMsg: ActorMsg = tmpJson;
+        eventStore.updateActor(actorMsg);
       }
     })().then();
 
