@@ -92,7 +92,7 @@ enum Success {
 @Component({
   components: {
     SvgIcon,
-    StatusInd
+    StatusInd,
   },
 })
 export default class Sensor extends Vue {

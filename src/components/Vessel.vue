@@ -86,8 +86,8 @@
                 </div>
                 <div id="Main Sensor Value" class="flex flex-row justify-center items-center">
                   <div id="icon" class="pr-2 animate-pulse text-green-600">
-                    <svg-icon name="power"  />
-                    <svg-icon name="power" :size="8"  />
+                    <svg-icon name="power" />
+                    <svg-icon name="power" :size="8" />
                     <svg-icon name="check" :size="10" :stroke="1" />
                     <svg-icon name="check" :size="12" :stroke="2" :color="'blue-500'" />
                     <svg-icon name="cross" :tailwind="'h-6 w-6 text-yellow-300'" />

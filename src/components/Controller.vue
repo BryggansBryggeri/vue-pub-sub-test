@@ -5,7 +5,8 @@
         <span class="font-bold text-xl">{{ dispName }}</span>
         <div class="text-green-600">
           <!--<StatusInd :status="this.status"/>-->
-          <StatusInd :status="1" size="6" /> <!--Use for now until we get Vessel/controller Status -->
+          <StatusInd :status="1" size="6" />
+          <!--Use for now until we get Vessel/controller Status -->
         </div>
       </div>
       <div class="pt-6 w-full mx-auto">

@@ -18,10 +18,7 @@
         </div>
       </div>
       <!-- TODO: Unique id by actorId -->
-      <div
-        id="main-actor-value"
-        class="flex flex-row justify-center items-center"
-      >
+      <div id="main-actor-value" class="flex flex-row justify-center items-center">
         <div id="icon" class="pr-2 animate-pulse text-green-600">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -63,9 +60,9 @@ enum Success {
 }
 
 @Component({
-  components: { 
+  components: {
     StatusInd,
-   },
+  },
 })
 export default class Actor extends Vue {
   @Prop() actorId!: string;

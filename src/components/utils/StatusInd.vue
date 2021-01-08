@@ -1,5 +1,5 @@
 <template>
-    <svg-icon :name="iconType" :color="this.color" :stroke="this.stroke" :size="size"/>
+  <svg-icon :name="iconType" :color="this.color" :stroke="this.stroke" :size="size" />
 </template>
 
 <script lang="ts">
@@ -23,24 +23,24 @@ export default class StatusInd extends Vue {
 
   @Prop({ default: "4" }) size!: string;
 
-    private color!: string;
-    
-    private stroke!: string;
+  private color!: string;
 
-get iconType(): IconName {
+  private stroke!: string;
+
+  get iconType(): IconName {
     switch (this.status) {
       case Success.Ok:
-        this.color="green-500"
+        this.color = "green-500";
         return "check";
       case Success.Issue:
         return "exclamation";
       case Success.Error:
-        this.color="red-500"
-        this.stroke="2"
+        this.color = "red-500";
+        this.stroke = "2";
         return "cross";
       default:
         console.log("Unreachable iconType");
-        this.color="blue-500"
+        this.color = "blue-500";
         return "cross";
     }
   }
