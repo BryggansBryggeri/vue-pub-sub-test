@@ -269,7 +269,7 @@ export default class Vessel extends Vue {
   }
 
   get actorSignal(): number {
-    return eventStore.actorSignal;
+    return 0.8;
   }
 
   addMessage(): void {

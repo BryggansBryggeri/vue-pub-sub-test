@@ -1,6 +1,13 @@
 import { Action, Module, VuexModule } from "vuex-class-modules";
 import store from "@/store";
 import { SensorMsg, MeasResult, measResultFromMsg, newMeasOk, newMeasErr } from "@/models/sensor";
+import {
+  ActorMsg,
+  ActorResult,
+  actorResultFromMsg,
+  newActorResultOk,
+  newActorResultErr,
+} from "@/models/actor";
 
 export const dummyManContr = JSON.parse(
   '{"controller_id": "mash", "actor_id": "boil_heater", "sensor_id": "boil_temp", "type": "manual"}'
@@ -21,6 +28,19 @@ export class EventModule extends VuexModule {
 
   public darkMode = true;
 
+  private actors: {
+    mash_heater: ActorResult;
+    boil_heater: ActorResult;
+  } = {
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    mash_heater: newActorResultOk(0.7, Date.now()),
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    boil_heater: newActorResultErr(
+      "Das ist nicht nur nicht richtig; es ist nicht einmal falsch!",
+      Date.now()
+    ),
+  };
+
   private sensors: {
     mash_temp: MeasResult;
     boil_temp: MeasResult;
@@ -33,13 +53,6 @@ export class EventModule extends VuexModule {
       Date.now()
     ),
   };
-
-  actorSignal = 70.0;
-
-  @Action
-  public async addMessage(msg: string): Promise<void> {
-    this.messages = [...this.messages, msg];
-  }
 
   public async updateSensor(msg: SensorMsg): Promise<void> {
     if (hasKey(this.sensors, msg.id)) {
@@ -59,13 +72,32 @@ export class EventModule extends VuexModule {
     return val;
   }
 
+  public async updateActor(msg: ActorMsg): Promise<void> {
+    if (hasKey(this.actors, msg.id)) {
+      this.actors[msg.id] = actorResultFromMsg(msg);
+    } else {
+      console.log("Incorrect id", msg.id);
+    }
+  }
+
+  public actorSignal(actorId: string): ActorResult {
+    let val: ActorResult = newActorResultErr("Incorrect id", Date.now());
+    if (hasKey(this.actors, actorId)) {
+      val = this.actors[actorId]; // works fine!
+    } else {
+      console.log("Incorrect id", actorId);
+    }
+    return val;
+  }
+
   public async toggleDarkMode() {
     this.darkMode = !this.darkMode;
     console.log("DarkMode Toggled");
   }
 
-  public async updateActorSignal(signal: number): Promise<void> {
-    this.actorSignal = signal;
+  @Action
+  public async addMessage(msg: string): Promise<void> {
+    this.messages = [...this.messages, msg];
   }
 }
 
