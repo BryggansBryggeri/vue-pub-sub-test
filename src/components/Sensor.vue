@@ -2,7 +2,7 @@
   <!-- TODO: Unique id by sensorId -->
   <div class="sensor">
     <content
-      class="rounded-lg space-y-4 border-2 dark:bg-blue-gray-800 p-2 min-h-20 flex flex-col"
+      class="rounded-lg space-y-4 border-2 dark:bg-blue-gray-800 p-2 min-h-20 h-full flex flex-col"
       :class="{
         'col-span-full': isFullWidth,
         'col-span-1': !isFullWidth,
