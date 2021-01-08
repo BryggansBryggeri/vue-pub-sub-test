@@ -18,6 +18,13 @@
         >
           <!-- <Vessel :issue="issue" :fullWidth="fullWidth" /> -->
           <Vessel v-for="vessel in vessels" v-bind:vesselProp="vessel" v-bind:key="vessel.name" />
+          <!--
+          <Controller
+            v-for="controller in controllers"
+            v-bind:controllerProps="controller"
+            v-bind:key="controller.name"
+          />
+          -->
         </section>
       </div>
       <!-- End Main container -->
@@ -29,15 +36,18 @@
 import { Component, Vue } from "vue-property-decorator";
 import { eventStore } from "@/store/events";
 import Vessel from "@/components/Vessel.vue";
+import Controller from "@/components/Controller.vue";
 import Sensor from "@/components/Sensor.vue";
 import NavBar from "@/components/NavBar.vue";
 import DashboardTop from "@/components/DashboardTop.vue";
-import VesselProp from "@/models/vesselProps";
+// import VesselProp from "@/models/vesselProps";
+import ControllerProp from "@/models/controllerProps";
 
 @Component({
   components: {
     Sensor,
     Vessel,
+    Controller,
     NavBar,
     DashboardTop,
     // MashCard,
@@ -48,19 +58,19 @@ export default class Home extends Vue {
     return eventStore.darkMode;
   }
 
-  private mash: VesselProp = {
+  private mash: ControllerProp = {
     id: "mash",
-    mainActor: "mash_heater",
-    mainSensor: "mash_temp",
-    maxVolume: 180,
+    actorId: "mash_heater",
+    sensorId: "mash_temp",
   };
 
-  private boil: VesselProp = {
+  private boil: ControllerProp = {
     id: "boil",
-    mainActor: "boil_heater",
-    mainSensor: "boil_temp",
-    maxVolume: 180,
+    actorId: "boil_heater",
+    sensorId: "boil_temp",
   };
+
+  private controllers = [this.boil, this.mash];
 
   private vessels = [this.boil, this.mash];
 }

@@ -14,35 +14,34 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-
-type IconName = "check" | "cross" | "exclamation" | "power" | "temp" | "chevronDown" | "moon" | "sun" | "git";
+import { IconName } from "@/utils";
 
 @Component({
   components: {},
 })
 export default class SvgIcon extends Vue {
-  @Prop({required: true}) name!: IconName;
-  
+  @Prop({ required: true }) name!: IconName;
+
   @Prop({ default: "4" }) size!: string;
-  
-  @Prop({default: null}) color!: string;
-  
+
+  @Prop({ default: null }) color!: string;
+
   @Prop({ default: "2" }) stroke!: string;
-  
+
   @Prop() tailwind!: string;
 
   get iconColor(): string {
-    if(this.color){
-      return `text-${this.color}`
+    if (this.color) {
+      return `text-${this.color}`;
     }
-    return '';
+    return "";
   }
 
   get cssClass(): string {
-    if(this.tailwind){
+    if (this.tailwind) {
       return this.tailwind;
     }
-      return `h-${this.size} w-${this.size} stroke-${this.stroke} ${this.iconColor}`;    
+    return `h-${this.size} w-${this.size} stroke-${this.stroke} ${this.iconColor}`;
   }
 
   get path(): string {
@@ -50,8 +49,7 @@ export default class SvgIcon extends Vue {
   }
 
   get dimension(): string {
-    return `h-${this.size} w-${this.size}`
-
+    return `h-${this.size} w-${this.size}`;
   }
 
   private icons = {

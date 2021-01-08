@@ -1,5 +1,5 @@
-export default interface heaterControllerProps {
+export default interface ControllerProps {
   id: string;
-  firstState: string;
-  secondState: string;
+  actorId: string;
+  sensorId: string;
 }

@@ -3,11 +3,11 @@ import store from "@/store";
 import { SensorMsg, MeasResult, measResultFromMsg, newMeasOk, newMeasErr } from "@/models/sensor";
 
 export const dummyManContr = JSON.parse(
-  '{"controller_id": "mash", "actor_id": "dummy_actor", "sensor_id": "dummy_sensor", "type": "manual"}'
+  '{"controller_id": "mash", "actor_id": "boil_heater", "sensor_id": "boil_temp", "type": "manual"}'
 );
 
 export const dummyAutoContr = JSON.parse(
-  '{"controller_id": "mash", "actor_id": "dummy_actor", "sensor_id": "dummy_sensor", "type": {"hysteresis": {"offset_on": 10.0, "offset_off": 5.0}}}'
+  '{"controller_id": "mash", "actor_id": "mash_heater", "sensor_id": "mash_temp", "type": {"hysteresis": {"offset_on": 10.0, "offset_off": 5.0}}}'
 );
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -45,7 +45,7 @@ export class EventModule extends VuexModule {
     if (hasKey(this.sensors, msg.id)) {
       this.sensors[msg.id] = measResultFromMsg(msg);
     } else {
-      console.log("Incorrect id");
+      console.log("Incorrect id", msg.id);
     }
   }
 
@@ -54,7 +54,7 @@ export class EventModule extends VuexModule {
     if (hasKey(this.sensors, sensorId)) {
       val = this.sensors[sensorId]; // works fine!
     } else {
-      console.log("Incorrect id");
+      console.log("Incorrect id", sensorId);
     }
     return val;
   }

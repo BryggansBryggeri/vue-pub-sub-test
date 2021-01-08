@@ -25,9 +25,8 @@
         <div class="w-full">
           <div class="space-y-3">
             <div id="6x6grid" class="mx-auto grid grid-cols-1 md:grid-cols-2 gap-3">
-              <SvgIcon name="exclamation" :size="4" />
-              <Sensor :sensorId="vesselProp.mainSensor" />
-
+              <svg-icon name="exclamation" :size="4" />
+              <sensor :sensorId="vesselProp.mainSensor" />
               <content
                 id="actorCard"
                 class="rounded-lg space-y-4 border-2 dark:bg-blue-gray-800 p-2 min-h-20 flex flex-col"
@@ -87,11 +86,11 @@
                 </div>
                 <div id="Main Sensor Value" class="flex flex-row justify-center items-center">
                   <div id="icon" class="pr-2 animate-pulse text-green-600">
-                    <SvgIcon name="power"  />
-                    <SvgIcon name="power" :size="8"  />
-                    <SvgIcon name="check" :size="10" :stroke="1" />
-                    <SvgIcon name="check" :size="12" :stroke="2" :color="'blue-500'" />
-                    <SvgIcon name="cross" :tailwind="'h-6 w-6 text-yellow-300'" />
+                    <svg-icon name="power"  />
+                    <svg-icon name="power" :size="8"  />
+                    <svg-icon name="check" :size="10" :stroke="1" />
+                    <svg-icon name="check" :size="12" :stroke="2" :color="'blue-500'" />
+                    <svg-icon name="cross" :tailwind="'h-6 w-6 text-yellow-300'" />
                   </div>
                   <div class="flex text-3xl font-bold">
                     <span class="">{{ dispManualPower }}%</span>
