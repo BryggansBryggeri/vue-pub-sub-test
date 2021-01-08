@@ -1,5 +1,6 @@
-console.log("hi");
 import Vessel from "@/models/vessel";
+
+console.log("hi");
 export class Brewery {
   public name!: string;
 

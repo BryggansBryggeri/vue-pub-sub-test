@@ -49,7 +49,6 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { eventStore } from "@/store/events";
-import SvgIcon from "@/components/symbols/SvgIcon.vue";
 import StatusInd from "@/components/utils/StatusInd.vue";
 import { IconName } from "@/utils";
 

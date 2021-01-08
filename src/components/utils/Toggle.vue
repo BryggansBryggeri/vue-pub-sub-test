@@ -19,17 +19,16 @@
 
 <script lang="ts">
 import { Component, Emit, Prop, Vue } from "vue-property-decorator";
-import { eventStore } from "@/store/events";
-import { eventbus } from "@/eventbus";
-import VesselProp from "@/models/vesselProps";
-import capitalizeFirstLetter from "@/utils";
-import { match } from "@/models/result";
 
 /* 
 @Options({
   emits: ["toggle-right"]
 }) 
 */
+@Component({
+  components: {
+  },
+})
 export default class Toggle extends Vue {
   @Prop({ default: false }) isRight = false;
 

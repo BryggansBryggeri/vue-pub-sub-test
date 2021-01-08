@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-var-requires, import/no-extraneous-dependencies */
 const colors = require("tailwindcss/colors");
+/* eslint-enable @typescript-eslint/no-var-requires, import/no-extraneous-dependencies */
 
 module.exports = {
   darkMode: "class", // or 'media' or 'class'
