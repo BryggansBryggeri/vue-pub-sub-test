@@ -1,5 +1,5 @@
 <template>
-  <main class="h-full" :class="{ ' dark ': darkMode }">
+  <main class="h-screen" :class="{ ' dark ': darkMode }">
     <div
       id="content"
       class="bg-blue-gray-100 overscroll-none font-sans dark:bg-darkTrueGray w-full dark:text-gray-100 text-gray-700 h-full pb-24"
