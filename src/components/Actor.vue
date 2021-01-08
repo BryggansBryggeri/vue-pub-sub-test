@@ -65,7 +65,6 @@ enum Success {
 })
 export default class Actor extends Vue {
   @Prop() actorId!: string;
-
   private fullWidth = true;
 
   get isFullWidth(): boolean {

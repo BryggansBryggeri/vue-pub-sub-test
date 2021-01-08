@@ -26,8 +26,7 @@ import { Component, Emit, Prop, Vue } from "vue-property-decorator";
 }) 
 */
 @Component({
-  components: {
-  },
+  components: {},
 })
 export default class Toggle extends Vue {
   @Prop({ default: false }) isRight = false;
