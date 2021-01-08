@@ -14,15 +14,8 @@
     >
       <div class="flex flex-row justify-between w-full">
         <span class="font-semibold text-sm">{{ this.sensorId }}</span>
-        <div
-          :class="{
-            'text-green-600': status === undefined,
-            'text-green-600': status === 1,
-            'text-yellow-600': status === 2,
-            'text-red-600': status === 3,
-          }"
-        >
-          <svg-icon :name="iconType"/>
+        <div>
+          <status-ind :status="this.status" :size="4" />
         </div>
       </div>
       <!-- TODO: Unique id by sensorId -->
@@ -100,6 +93,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import { eventStore } from "@/store/events";
 import { match } from "@/models/result";
 import SvgIcon from "@/components/symbols/SvgIcon.vue";
+import StatusInd from "@/components/utils/StatusInd.vue";
 import { IconName } from "@/utils";
 
 enum Success {
@@ -110,7 +104,8 @@ enum Success {
 
 @Component({
   components: {
-    SvgIcon
+    SvgIcon,
+    StatusInd
   },
 })
 export default class Sensor extends Vue {
