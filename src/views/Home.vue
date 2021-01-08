@@ -16,15 +16,14 @@
           id="vesselGrid"
           class="mx-auto grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4"
         >
-          <!-- <Vessel :issue="issue" :fullWidth="fullWidth" /> -->
-          <Vessel v-for="vessel in vessels" v-bind:vesselProp="vessel" v-bind:key="vessel.name" />
           <!--
+          <Vessel v-for="vessel in vessels" v-bind:vesselProp="vessel" v-bind:key="vessel.name" />
+          -->
           <Controller
             v-for="controller in controllers"
             v-bind:controllerProps="controller"
             v-bind:key="controller.name"
           />
-          -->
         </section>
       </div>
       <!-- End Main container -->
@@ -71,7 +70,5 @@ export default class Home extends Vue {
   };
 
   private controllers = [this.boil, this.mash];
-
-  private vessels = [this.boil, this.mash];
 }
 </script>
