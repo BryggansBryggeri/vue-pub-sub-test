@@ -10,6 +10,10 @@ export enum IndicatorType {
   Error = 3,
 }
 
+export type toggleType =
+  | "ManAuto"
+  | "OnOff";
+
 export type IconName =
   | "check"
   | "cross"

@@ -50,7 +50,7 @@
                       <span></span>
                       <!-- <toggle-2 :state="state" @toggleState="toggleState()"/> -->
                       <toggle :state="isAuto" @click="toggleAuto" />
-                      <span>Auto</span>
+                      <toggle :state="isAutoOther" @click="toggleAutoOther" />
                     </div>
                   </div>
                 </content>
@@ -87,7 +87,7 @@ import StatusInd from "@/components/utils/StatusInd.vue";
 export default class Controller extends Vue {
   @Prop() controllerProps!: ControllerProps;
 
-  private autoState!: boolean;
+  private autoState = false;
 
   private autoStateOther = false;
 
