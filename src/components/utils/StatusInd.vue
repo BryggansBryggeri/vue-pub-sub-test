@@ -1,17 +1,15 @@
 <template>
-  <svg-icon :name="iconType" :color="this.color" :stroke="this.stroke" :size="size" />
+  <svg-icon :name="iconType" :color="color" :size="size" />
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import SvgIcon from "@/components/symbols/SvgIcon.vue";
-import { IconName } from "@/utils";
+import { IndicatorType } from "@/utils";
 
-enum Success {
-  Ok = 1,
-  Issue = 2,
-  Error = 3,
-}
+type IndicatorName = "check" | "exclamation" | "cross";
+type IndicatorColor = "green-500" | "yellow-500" | "red-500";
+type IndicatorStyle = "text-green-500" | "text-yellow-500" | "text-red-500";
 
 @Component({
   components: {
@@ -23,39 +21,30 @@ export default class StatusInd extends Vue {
 
   @Prop({ default: "4" }) size!: string;
 
-  private color!: string;
-
   private stroke!: string;
 
-  get iconType(): IconName {
-    switch (this.status) {
-      case Success.Ok:
-        this.color = "green-500";
-        return "check";
-      case Success.Issue:
-        return "exclamation";
-      case Success.Error:
-        this.color = "red-500";
-        this.stroke = "2";
-        return "cross";
-      default:
-        console.log("Unreachable iconType");
-        this.color = "blue-500";
-        return "cross";
-    }
+  get iconType(): IndicatorName {
+    return this.iconProps(this.status)[0];
+  }
+
+  get color(): IndicatorColor {
+    return this.iconProps(this.status)[1];
   }
 
   get style(): string {
-    switch (this.status) {
-      case Success.Ok:
-        return "text-green-500";
-      case Success.Issue:
-        return "text-yellow-500";
-      case Success.Error:
-        return "text-red-500";
+    return this.iconProps(this.status)[2];
+  }
+
+  iconProps(iconStatus: IndicatorType): [IndicatorName, IndicatorColor, IndicatorStyle] {
+    switch (iconStatus) {
+      case IndicatorType.Ok:
+        return ["check", "green-500", "text-green-500"];
+      case IndicatorType.Issue:
+        return ["exclamation", "yellow-500", "text-yellow-500"];
+      case IndicatorType.Error:
+        return ["cross", "red-500", "text-red-500"];
       default:
-        console.log("Unreachable stylee");
-        return "";
+        throw new Error("Unreachable IndicatorType");
     }
   }
 }
