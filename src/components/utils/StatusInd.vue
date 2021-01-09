@@ -17,7 +17,7 @@ type IndicatorStyle = "text-green-500" | "text-yellow-500" | "text-red-500";
   },
 })
 export default class StatusInd extends Vue {
-  @Prop({ required: true }) status!: number;
+  @Prop({ required: true }) status!: IndicatorType;
 
   @Prop({ default: "4" }) size!: string;
 
@@ -44,6 +44,7 @@ export default class StatusInd extends Vue {
       case IndicatorType.Error:
         return ["cross", "red-500", "text-red-500"];
       default:
+        console.log("error status", iconStatus);
         throw new Error("Unreachable IndicatorType");
     }
   }

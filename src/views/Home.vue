@@ -34,18 +34,15 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { eventStore } from "@/store/events";
-import Vessel from "@/components/Vessel.vue";
 import Controller from "@/components/Controller.vue";
 import Sensor from "@/components/Sensor.vue";
 import NavBar from "@/components/NavBar.vue";
 import DashboardTop from "@/components/DashboardTop.vue";
-// import VesselProp from "@/models/vesselProps";
 import ControllerProps from "@/models/controller";
 
 @Component({
   components: {
     Sensor,
-    Vessel,
     Controller,
     NavBar,
     DashboardTop,

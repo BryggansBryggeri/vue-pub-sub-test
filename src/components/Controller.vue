@@ -5,7 +5,7 @@
         <span class="font-bold text-xl">{{ dispName }}</span>
         <div class="text-green-600">
           <!--<StatusInd :status="this.status"/>-->
-          <StatusInd :status="1" size="6" />
+          <StatusInd :status="status" size="6" />
           <!--Use for now until we get Vessel/controller Status -->
         </div>
       </div>
@@ -49,7 +49,7 @@
                     <div class="flex flex-row space-x-2 justify-center">
                       <span></span>
                       <!-- <toggle-2 :state="state" @toggleState="toggleState()"/> -->
-                      <toggle :state="state" @click="click($event)" />
+                      <toggle :state="isAuto" @click="toggleAuto" />
                       <span>Auto</span>
                     </div>
                   </div>
@@ -66,7 +66,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import ControllerProps from "@/models/controller";
-import capitalizeFirstLetter from "@/utils";
+import { IndicatorType } from "@/utils";
 import ToggleButton from "@/components/ToggleButton.vue";
 import Toggle from "@/components/utils/Toggle.vue";
 import Toggle2 from "@/components/utils/Toggle2.vue";
@@ -87,20 +87,28 @@ import StatusInd from "@/components/utils/StatusInd.vue";
 export default class Controller extends Vue {
   @Prop() controllerProps!: ControllerProps;
 
-  private status = 1;
+  private autoState!: boolean;
 
-  private state = false;
+  private internalState = false;
 
   private toggleState2(): void {
-    this.state = !this.state;
+    this.internalState = !this.internalState;
   }
 
-  private click(state: boolean): void {
-    this.state = !this.state;
+  get isAuto(): boolean {
+    return this.internalState;
+  }
+
+  private toggleAuto(): void {
+    this.autoState = !this.autoState;
+  }
+
+  get status(): IndicatorType {
+    return IndicatorType.Ok;
   }
 
   get dispName(): string {
-    return capitalizeFirstLetter(this.controllerProps.id);
+    return this.controllerProps.id;
   }
 }
 </script>

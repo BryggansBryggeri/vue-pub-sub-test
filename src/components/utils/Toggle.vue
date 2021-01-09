@@ -25,8 +25,8 @@ export default class Toggle extends Vue {
   @Prop({ default: false }) state!: boolean;
 
   @Emit()
-  private click(): boolean {
-    return this.state;
+  private click(): void {
+    // click logic in parent comp.
   }
 }
 </script>
