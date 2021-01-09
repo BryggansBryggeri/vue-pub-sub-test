@@ -6,8 +6,8 @@
     <h4 class="text-xl font-bold leading-tight">BryggIO</h4>
     <div class="flex flex-row space-x-4">
       <button class="focus:outline-none focus:ring-0" @click="toggleDarkMode()">
-        <div v-if="darkMode" class="hover:text-yellow-600 transition duration-150"> 
-          <svg-icon name="sun" size="6"></svg-icon>
+        <div v-if="darkMode" class="hover:text-yellow-600 bg-transparent bg-clip-content transition duration-150"> 
+          <svg-icon name="sun" class="bg-clip-text bg-none " size="6"></svg-icon>
         </div>
         <div v-else class="hover:text-indigo-400 transition duration-150">
           <svg-icon name="moon" size="6"></svg-icon>

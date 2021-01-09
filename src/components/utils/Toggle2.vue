@@ -1,5 +1,6 @@
 <template>
-    <div class="flex justify-between items-center" @click="click()">
+  <div class="toggle">
+    <div class="flex justify-between items-center" @click="toggleState()">
       <div
         class="w-10 h-6 flex items-center rounded-full p-1 border-2 border-green-600 duration-300 ease-in-out"
         :class="{ 'bg-green-600': state }"
@@ -13,6 +14,7 @@
         ></div>
       </div>
     </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -21,12 +23,12 @@ import { Component, Emit, Prop, Vue } from "vue-property-decorator";
 @Component({
   components: {},
 })
-export default class Toggle extends Vue {
+export default class Toggle2 extends Vue {
   @Prop({ default: false }) state!: boolean;
 
   @Emit()
-  private click(): boolean {
-    return this.state;
+  private toggleState(): boolean {
+    return !this.state;
   }
 }
 </script>
