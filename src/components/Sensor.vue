@@ -19,7 +19,10 @@
         </div>
       </div>
       <!-- TODO: Unique id by sensorId -->
-      <div id="main-sensor-value" class="flex flex-row justify-center items-center">
+      <div
+        id="main-sensor-value"
+        class="flex flex-row justify-center items-center"
+      >
         <div id="icon" class="pr-2">
           <SvgIcon name="temp" size="7" />
         </div>
@@ -30,23 +33,16 @@
       </div>
       <div class="flex flex-row justify-end text-xs">
         <div class="cursor-pointer flex flex-row" @click="showMore = !showMore">
-          <span v-if="showMore">Show less</span>
-          <span v-else>Show more</span>
-          <svg
-            class="w-4 h-4 transform transition duration-200 ease-in-out"
-            :class="{ 'rotate-90': showMore }"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M9 5l7 7-7 7"
-            ></path>
-          </svg>
+          <div class="flex flex-row">
+            <span v-if="showMore">Show less</span>
+            <span v-else>Show less</span>
+            <svg-icon
+              class="transform transition duration-200 ease-in-out"
+              :class="{ 'transform rotate-90': showMore }"
+              name="chevronRight"
+              size="4"
+            />
+          </div>
         </div>
       </div>
       <div
@@ -59,16 +55,22 @@
       >
         <div class="">
           <span class="font-normal">Target:</span>
-          <div><span class="font-extrabold">72,2</span><span>&#8451;</span></div>
+          <div>
+            <span class="font-extrabold">72,2</span><span>&#8451;</span>
+          </div>
         </div>
         <div class="font-normal">
           <span>Diff:</span>
-          <div><span class="font-extrabold">-4,1</span><span>&#8451;</span></div>
+          <div>
+            <span class="font-extrabold">-4,1</span><span>&#8451;</span>
+          </div>
         </div>
 
         <div class="">
           <span class="font-normal">RoC:</span>
-          <div><span class="font-extrabold">1,27</span><span>&#8451;/min</span></div>
+          <div>
+            <span class="font-extrabold">1,27</span><span>&#8451;/min</span>
+          </div>
         </div>
       </div>
     </content>
@@ -81,7 +83,6 @@ import { eventStore } from "@/store/events";
 import { match } from "@/models/result";
 import SvgIcon from "@/components/symbols/SvgIcon.vue";
 import StatusInd from "@/components/utils/StatusInd.vue";
-import { IconName } from "@/utils";
 
 enum Success {
   Ok = 1,
@@ -114,20 +115,6 @@ export default class Sensor extends Vue {
       () => Success.Ok,
       () => Success.Error
     );
-  }
-
-  get iconType(): IconName {
-    switch (this.status) {
-      case Success.Ok:
-        return "check";
-      case Success.Issue:
-        return "exclamation";
-      case Success.Error:
-        return "cross";
-      default:
-        console.log("Unreachable iconType");
-        return "cross";
-    }
   }
 
   get sensorMeasDisp(): string {

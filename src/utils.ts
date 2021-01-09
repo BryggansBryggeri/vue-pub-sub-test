@@ -16,6 +16,7 @@ export type IconName =
   | "exclamation"
   | "power"
   | "temp"
+  | "chevronRight"
   | "chevronDown"
   | "moon"
   | "sun"
