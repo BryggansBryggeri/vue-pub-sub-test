@@ -1,8 +1,6 @@
 <template>
   <div class="controller">
-    <div
-      class="rounded-xl bg-white dark:bg-blue-gray-900 p-4 shadow-lg py-4 flex flex-col"
-    >
+    <div class="rounded-xl bg-white dark:bg-blue-gray-900 p-4 shadow-lg py-4 flex flex-col">
       <div id="card-header" class="flex flex-row justify-between">
         <span class="font-bold text-xl">{{ dispName }}</span>
         <div class="text-green-600">
@@ -15,10 +13,7 @@
         <div class="flex flex-wrap">
           <div class="w-full">
             <div class="space-y-3">
-              <div
-                id="6x6grid"
-                class="mx-auto grid grid-cols-1 md:grid-cols-2 gap-3"
-              >
+              <div id="6x6grid" class="mx-auto grid grid-cols-1 md:grid-cols-2 gap-3">
                 <sensor :sensorId="controllerProps.sensorId" />
                 <actor :actorId="controllerProps.actorId" />
                 <content
@@ -31,9 +26,7 @@
                   }"
                 >
                   <div class="flex flex-row justify-between w-full">
-                    <span class="font-semibold text-sm"
-                      >{{ dispName }} controller</span
-                    >
+                    <span class="font-semibold text-sm">{{ dispName }} controller</span>
                     <div>
                       <status-ind :status="this.status" :size="4" />
                     </div>
@@ -41,8 +34,7 @@
                   <div id="ingredients" class="flex flex-col">
                     <div class="flex flex-col justify-left text-xs">
                       <div class="flex flex-row">
-                        <span class="pr-1 font-semibold"
-                          >Controller sensor:</span
+                        <span class="pr-1 font-semibold">Controller sensor:</span
                         ><span class="">{{ controllerProps.sensorId }}</span>
                       </div>
                       <div class="flex flex-row">
@@ -57,7 +49,7 @@
                     <div class="flex flex-row space-x-2 justify-center">
                       <span></span>
                       <!-- <toggle-2 :state="state" @toggleState="toggleState()"/> -->
-                      <toggle :state="state" @click="click($event)"/>
+                      <toggle :state="state" @click="click($event)" />
                       <span>Auto</span>
                     </div>
                   </div>
@@ -96,14 +88,14 @@ export default class Controller extends Vue {
   @Prop() controllerProps!: ControllerProps;
 
   private status = 1;
-  
+
   private state = false;
 
-  private toggleState2(): void { 
+  private toggleState2(): void {
     this.state = !this.state;
   }
 
-  private click(state: boolean): void { 
+  private click(state: boolean): void {
     this.state = !this.state;
   }
 

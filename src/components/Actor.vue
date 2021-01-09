@@ -25,7 +25,6 @@
         <span class="">{{ actorSignalDisp }}%</span>
       </div>
     </div>
-
   </content>
 </template>
 
