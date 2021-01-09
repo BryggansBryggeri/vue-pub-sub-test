@@ -25,14 +25,6 @@
         <span class="">{{ actorSignalDisp }}%</span>
       </div>
     </div>
-    <div class="flex flex-col space-y-2">
-      <span class="text-sm">Arm actor:</span>
-      <div class="flex flex-row space-x-2 justify-center">
-        <span>Off</span>
-        <toggle />
-        <span>On</span>
-      </div>
-    </div>
   </content>
 </template>
 
@@ -55,7 +47,7 @@ import { match } from "@/models/result";
 export default class Actor extends Vue {
   @Prop() actorId!: string;
 
-  private fullWidth = true;
+  private fullWidth = false;
 
   get isFullWidth(): boolean {
     return this.fullWidth;

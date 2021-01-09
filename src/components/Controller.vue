@@ -43,6 +43,16 @@
                       </div>
                     </div>
                   </div>
+
+                  <div class="flex flex-col space-y-2">
+                    <span class="text-sm">Controll:</span>
+                    <div class="flex flex-row space-x-2 justify-center">
+                      <span></span>
+                      <!-- <toggle-2 :state="state" @toggleState="toggleState()"/> -->
+                      <toggle :state="state" @click="click($event)" />
+                      <span>Auto</span>
+                    </div>
+                  </div>
                 </content>
               </div>
             </div>
@@ -59,6 +69,7 @@ import ControllerProps from "@/models/controller";
 import capitalizeFirstLetter from "@/utils";
 import ToggleButton from "@/components/ToggleButton.vue";
 import Toggle from "@/components/utils/Toggle.vue";
+import Toggle2 from "@/components/utils/Toggle2.vue";
 import Sensor from "@/components/Sensor.vue";
 import Actor from "@/components/Actor.vue";
 import StatusInd from "@/components/utils/StatusInd.vue";
@@ -67,6 +78,7 @@ import StatusInd from "@/components/utils/StatusInd.vue";
   components: {
     ToggleButton,
     Toggle,
+    Toggle2,
     Sensor,
     Actor,
     StatusInd,
@@ -77,8 +89,14 @@ export default class Controller extends Vue {
 
   private status = 1;
 
-  get toggleRight(): boolean {
-    return true;
+  private state = false;
+
+  private toggleState2(): void {
+    this.state = !this.state;
+  }
+
+  private click(state: boolean): void {
+    this.state = !this.state;
   }
 
   get dispName(): string {
