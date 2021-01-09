@@ -10,9 +10,6 @@ export enum IndicatorType {
   Error = 3,
 }
 
-export type IconColor = "green-500" | "yellow-500" | "red-500";
-export type IconStyle = "text-green-500" | "text-yellow-500" | "text-red-500";
-
 export type IconName =
   | "check"
   | "cross"

@@ -5,7 +5,11 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import SvgIcon from "@/components/symbols/SvgIcon.vue";
-import { IconName, IndicatorType, IconColor, IconStyle } from "@/utils";
+import { IndicatorType } from "@/utils";
+
+type IndicatorName = "check" | "exclamation" | "cross";
+type IndicatorColor = "green-500" | "yellow-500" | "red-500";
+type IndicatorStyle = "text-green-500" | "text-yellow-500" | "text-red-500";
 
 @Component({
   components: {
@@ -19,11 +23,11 @@ export default class StatusInd extends Vue {
 
   private stroke!: string;
 
-  get iconType(): IconName {
+  get iconType(): IndicatorName {
     return this.iconProps(this.status)[0];
   }
 
-  get color(): IconColor {
+  get color(): IndicatorColor {
     return this.iconProps(this.status)[1];
   }
 
@@ -31,7 +35,7 @@ export default class StatusInd extends Vue {
     return this.iconProps(this.status)[2];
   }
 
-  iconProps(iconStatus: IndicatorType): [IconName, IconColor, IconStyle] {
+  iconProps(iconStatus: IndicatorType): [IndicatorName, IndicatorColor, IndicatorStyle] {
     switch (iconStatus) {
       case IndicatorType.Ok:
         return ["check", "green-500", "text-green-500"];
