@@ -6,31 +6,12 @@
     <h4 class="text-xl font-bold leading-tight">BryggIO</h4>
     <div class="flex flex-row space-x-4">
       <button class="focus:outline-none focus:ring-0" @click="toggleDarkMode()">
-        <svg
-          v-if="toggleDarkMode"
-          class="w-6 h-6 hover:text-purple-700"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-          ></path>
-        </svg>
-
-        <svg
-          v-else
-          class="w-6 h-6 hover:text-purple-700"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-        </svg>
+        <div v-if="darkMode">
+          <svg-icon name="sun" size="6"></svg-icon>
+        </div>
+        <div v-else>
+          <svg-icon name="moon" size="6"></svg-icon>
+        </div>
       </button>
 
       <button
@@ -59,12 +40,15 @@
 
 <script lang="ts">
 import { Emit, Component, Prop, Vue } from "vue-property-decorator";
+import SvgIcon from "@/components/symbols/SvgIcon.vue";
 import { eventStore } from "@/store/events";
 
 // import { Options, Vue } from "vue-class-component";
 // import { Emit, Prop } from "vue-property-decorator";
 @Component({
-  components: {},
+  components: {
+    SvgIcon,
+  },
 })
 export default class Navbar extends Vue {
   @Prop({ default: false }) isDarkmode = false;
@@ -73,6 +57,10 @@ export default class Navbar extends Vue {
   private toggleDarkMode(): boolean {
     eventStore.toggleDarkMode();
     return !this.isDarkmode;
+  }
+
+  get darkMode(): boolean {
+    return eventStore.darkMode;
   }
 }
 </script>
