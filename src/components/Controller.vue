@@ -89,18 +89,22 @@ export default class Controller extends Vue {
 
   private autoState!: boolean;
 
-  private internalState = false;
-
-  private toggleState2(): void {
-    this.internalState = !this.internalState;
-  }
+  private autoStateOther = false;
 
   get isAuto(): boolean {
-    return this.internalState;
+    return this.autoState;
+  }
+
+  get isAutoOther(): boolean {
+    return this.autoStateOther;
   }
 
   private toggleAuto(): void {
     this.autoState = !this.autoState;
+  }
+
+  private toggleAutoOther(): void {
+    this.autoStateOther = !this.autoStateOther;
   }
 
   get status(): IndicatorType {
