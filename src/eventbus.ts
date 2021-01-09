@@ -2,6 +2,7 @@ import { connect, JSONCodec, NatsConnection } from "nats.ws";
 import { eventStore, dummyManContr, dummyAutoContr } from "@/store/events";
 import { SensorMsg } from "@/models/sensor";
 import { ActorMsg } from "@/models/actor";
+import { ContrMsg } from "@/models/controller";
 
 const jc = JSONCodec();
 
@@ -19,8 +20,7 @@ export class Eventbus {
     const sensorSub = nc.subscribe("sensor.*.measurement");
     (async () => {
       for await (const msg of sensorSub) {
-        const tmpJson = jc.decode(msg.data);
-        const sensorMsg: SensorMsg = tmpJson;
+        const sensorMsg: SensorMsg = jc.decode(msg.data);
         eventStore.updateSensor(sensorMsg);
       }
     })().then();
@@ -28,12 +28,20 @@ export class Eventbus {
     const actorSub = nc.subscribe("actor.*.current_signal");
     (async () => {
       for await (const msg of actorSub) {
-        const tmpJson = jc.decode(msg.data);
-        const actorMsg: ActorMsg = tmpJson;
+        const actorMsg: ActorMsg = jc.decode(msg.data);
         eventStore.updateActor(actorMsg);
       }
     })().then();
 
+    const contrSub = nc.subscribe("controller.*.new_target");
+    (async () => {
+      for await (const msg of contrSub) {
+        const contrMsg: ContrMsg = jc.decode(msg.data);
+        eventStore.updateContr(contrMsg);
+      }
+    })().then();
+
+    // TODO tmp start controller.
     this.publish("command.start_controller", dummyManContr);
   }
 

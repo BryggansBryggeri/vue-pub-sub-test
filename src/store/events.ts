@@ -2,6 +2,13 @@ import { Action, Module, VuexModule } from "vuex-class-modules";
 import store from "@/store";
 import { SensorMsg, MeasResult, measResultFromMsg, newMeasOk, newMeasErr } from "@/models/sensor";
 import {
+  ContrMsg,
+  ContrResult,
+  contrResultFromMsg,
+  newContrResultOk,
+  newContrResultErr,
+} from "@/models/controller";
+import {
   ActorMsg,
   ActorResult,
   actorResultFromMsg,
@@ -28,6 +35,19 @@ export class EventModule extends VuexModule {
 
   public darkMode = true;
 
+  private sensors: {
+    mash_temp: MeasResult;
+    boil_temp: MeasResult;
+  } = {
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    mash_temp: newMeasOk(54.2, Date.now()),
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    boil_temp: newMeasErr(
+      "Das ist nicht nur nicht richtig; es ist nicht einmal falsch!",
+      Date.now()
+    ),
+  };
+
   private actors: {
     mash_heater: ActorResult;
     boil_heater: ActorResult;
@@ -41,14 +61,14 @@ export class EventModule extends VuexModule {
     ),
   };
 
-  private sensors: {
-    mash_temp: MeasResult;
-    boil_temp: MeasResult;
+  private controllers: {
+    mash: ContrResult;
+    boil: ContrResult;
   } = {
     // eslint-disable-next-line @typescript-eslint/camelcase
-    mash_temp: newMeasOk(54.2, Date.now()),
+    mash: newContrResultOk(67, Date.now()),
     // eslint-disable-next-line @typescript-eslint/camelcase
-    boil_temp: newMeasErr(
+    boil: newContrResultErr(
       "Das ist nicht nur nicht richtig; es ist nicht einmal falsch!",
       Date.now()
     ),
@@ -65,7 +85,7 @@ export class EventModule extends VuexModule {
   public sensorVal(sensorId: string): MeasResult {
     let val: MeasResult = newMeasErr("Incorrect id", Date.now());
     if (hasKey(this.sensors, sensorId)) {
-      val = this.sensors[sensorId]; // works fine!
+      val = this.sensors[sensorId];
     } else {
       console.log("Incorrect id", sensorId);
     }
@@ -83,9 +103,27 @@ export class EventModule extends VuexModule {
   public actorSignal(actorId: string): ActorResult {
     let val: ActorResult = newActorResultErr("Incorrect id", Date.now());
     if (hasKey(this.actors, actorId)) {
-      val = this.actors[actorId]; // works fine!
+      val = this.actors[actorId];
     } else {
       console.log("Incorrect id", actorId);
+    }
+    return val;
+  }
+
+  public async updateContr(msg: ContrMsg): Promise<void> {
+    if (hasKey(this.controllers, msg.id)) {
+      this.controllers[msg.id] = contrResultFromMsg(msg);
+    } else {
+      console.log("Incorrect id", msg.id);
+    }
+  }
+
+  public contrTarget(contrId: string): ActorResult {
+    let val: ActorResult = newActorResultErr("Incorrect id", Date.now());
+    if (hasKey(this.controllers, contrId)) {
+      val = this.controllers[contrId];
+    } else {
+      console.log("Incorrect id", contrId);
     }
     return val;
   }

@@ -19,10 +19,7 @@
         </div>
       </div>
       <!-- TODO: Unique id by sensorId -->
-      <div
-        id="main-sensor-value"
-        class="flex flex-row justify-center items-center"
-      >
+      <div id="main-sensor-value" class="flex flex-row justify-center items-center">
         <div id="icon" class="pr-2">
           <SvgIcon name="temp" size="7" />
         </div>
@@ -55,22 +52,16 @@
       >
         <div class="">
           <span class="font-normal">Target:</span>
-          <div>
-            <span class="font-extrabold">72,2</span><span>&#8451;</span>
-          </div>
+          <div><span class="font-extrabold">72,2</span><span>&#8451;</span></div>
         </div>
         <div class="font-normal">
           <span>Diff:</span>
-          <div>
-            <span class="font-extrabold">-4,1</span><span>&#8451;</span>
-          </div>
+          <div><span class="font-extrabold">-4,1</span><span>&#8451;</span></div>
         </div>
 
         <div class="">
           <span class="font-normal">RoC:</span>
-          <div>
-            <span class="font-extrabold">1,27</span><span>&#8451;/min</span>
-          </div>
+          <div><span class="font-extrabold">1,27</span><span>&#8451;/min</span></div>
         </div>
       </div>
     </content>

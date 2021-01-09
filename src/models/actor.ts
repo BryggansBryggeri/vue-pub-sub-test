@@ -4,7 +4,7 @@ import { TimeStamp } from "@/utils";
 export interface ActorMsg {
   id: string;
   timestamp: number;
-  signal: number | null;
+  signal: Signal | null;
   err: string | null;
 }
 

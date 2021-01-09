@@ -40,7 +40,7 @@ import Sensor from "@/components/Sensor.vue";
 import NavBar from "@/components/NavBar.vue";
 import DashboardTop from "@/components/DashboardTop.vue";
 // import VesselProp from "@/models/vesselProps";
-import ControllerProp from "@/models/controllerProps";
+import ControllerProps from "@/models/controller";
 
 @Component({
   components: {
@@ -57,13 +57,13 @@ export default class Home extends Vue {
     return eventStore.darkMode;
   }
 
-  private mash: ControllerProp = {
+  private mash: ControllerProps = {
     id: "mash",
     actorId: "mash_heater",
     sensorId: "mash_temp",
   };
 
-  private boil: ControllerProp = {
+  private boil: ControllerProps = {
     id: "boil",
     actorId: "boil_heater",
     sensorId: "boil_temp",

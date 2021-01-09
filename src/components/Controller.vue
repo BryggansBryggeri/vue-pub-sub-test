@@ -55,7 +55,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import ControllerProps from "@/models/controllerProps";
+import ControllerProps from "@/models/controller";
 import capitalizeFirstLetter from "@/utils";
 import ToggleButton from "@/components/ToggleButton.vue";
 import Toggle from "@/components/utils/Toggle.vue";
