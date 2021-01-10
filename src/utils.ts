@@ -15,13 +15,9 @@ export enum IndicatorType {
   Error = 3,
 }
 
-<<<<<<< HEAD
 export type ToggleType =
   | "ManAuto"
   | "OnOff";
-=======
-export type toggleType = "ManAuto" | "OnOff";
->>>>>>> master
 
 export type IconName =
   | "check"
