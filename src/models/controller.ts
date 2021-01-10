@@ -10,7 +10,7 @@ export default interface ControllerProps {
 export interface ContrMsg {
   id: string;
   timestamp: number;
-  signal: number | null;
+  target: number | null;
   err: string | null;
 }
 
@@ -28,8 +28,8 @@ export function newContrResultErr(err: SignalErr, ts: TimeStamp): ContrResult {
 }
 
 export function contrResultFromMsg(msg: ContrMsg): ContrResult {
-  if (msg.signal) {
-    return newContrResultOk(msg.signal, msg.timestamp);
+  if (msg.target) {
+    return newContrResultOk(msg.target, msg.timestamp);
   }
   if (msg.err) {
     return newContrResultErr(msg.err, msg.timestamp);

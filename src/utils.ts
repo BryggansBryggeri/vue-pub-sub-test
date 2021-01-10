@@ -4,15 +4,18 @@ export function capitalizeFirstLetter(string: string): string {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function hasKey<O>(obj: O, key: keyof any): key is keyof O {
+  return key in obj;
+}
+
 export enum IndicatorType {
   Ok = 1,
   Issue = 2,
   Error = 3,
 }
 
-export type toggleType =
-  | "ManAuto"
-  | "OnOff";
+export type toggleType = "ManAuto" | "OnOff";
 
 export type IconName =
   | "check"
