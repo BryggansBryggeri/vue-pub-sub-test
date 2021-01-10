@@ -1,12 +1,12 @@
 <template>
   <button
-    class="flex flex-row space-x-4 h-14 items-center"
+    class="flex flex-row space-x-4 h-14 items-center disabled:text-red-500 disabled:cursor-not-allowed"
     :disabled="propdisabled"
     @click="click()"
   >
     <div>
       <p
-        class="transform transition-all justify-self-start duration-500 ease-in-out"
+        class="justify-self-start"
         :class="{ underline: !state }"
       >
         Manual
@@ -16,7 +16,6 @@
     <div
       v-if="propdisabled"
       class="absolute z-40 w-full items-center px-4 transition ease-in-out duration-150 cursor-not-allowed"
-      disabled=""
     >
       <svg
         class="animate-spin h-7 w-7"
@@ -45,6 +44,7 @@
         :class="{
           'bg-blue-600': state,
           'bg-yellow-400': !state,
+
         }"
       >
         <div
