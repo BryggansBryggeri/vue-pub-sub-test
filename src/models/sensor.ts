@@ -1,11 +1,18 @@
 import { Result, newErr, newOk } from "@/models/result";
+import { hasKey } from "@/utils";
 
 export interface SensorMsg {
   id: string;
   timestamp: number;
-  meas: number | null;
-  err: string | null;
+  meas: { Ok: number } | { Err: MsgErr };
 }
+
+// Internal type to parse the NATS msg.
+interface MsgErr {
+  [key: string]: string;
+}
+
+type MeasMsg = { Ok: number } | { Err: MsgErr };
 
 export type Meas = number;
 export type MeasErr = string;
@@ -22,11 +29,13 @@ export function newMeasErr(err: MeasErr, ts: TimeStamp): MeasResult {
 }
 
 export function measResultFromMsg(msg: SensorMsg): MeasResult {
-  if (msg.meas) {
-    return newMeasOk(msg.meas, msg.timestamp);
+  if (hasKey(msg.meas, "Ok")) {
+    const meas = msg.meas as { Ok: number };
+    return newMeasOk(meas.Ok, msg.timestamp);
   }
-  if (msg.err) {
-    return newMeasErr(msg.err, msg.timestamp);
+  if (hasKey(msg.meas, "Err")) {
+    const meas = msg.meas as { Err: MsgErr };
+    return newMeasErr("todo", msg.timestamp);
   }
   return newErr(["Incorrect msg", msg.timestamp]);
 }

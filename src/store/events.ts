@@ -15,6 +15,7 @@ import {
   newActorResultOk,
   newActorResultErr,
 } from "@/models/actor";
+import { hasKey } from "@/utils";
 
 export const dummyManContr = JSON.parse(
   '{"controller_id": "mash", "actor_id": "boil_heater", "sensor_id": "boil_temp", "type": "manual"}'
@@ -23,11 +24,6 @@ export const dummyManContr = JSON.parse(
 export const dummyAutoContr = JSON.parse(
   '{"controller_id": "mash", "actor_id": "mash_heater", "sensor_id": "mash_temp", "type": {"hysteresis": {"offset_on": 10.0, "offset_off": 5.0}}}'
 );
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function hasKey<O>(obj: O, key: keyof any): key is keyof O {
-  return key in obj;
-}
 
 @Module({ generateMutationSetters: true })
 export class EventModule extends VuexModule {

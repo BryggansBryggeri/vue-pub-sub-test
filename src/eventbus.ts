@@ -20,7 +20,9 @@ export class Eventbus {
     const sensorSub = nc.subscribe("sensor.*.measurement");
     (async () => {
       for await (const msg of sensorSub) {
+        console.log("raw", msg);
         const sensorMsg: SensorMsg = jc.decode(msg.data);
+        console.log("parsed", sensorMsg);
         eventStore.updateSensor(sensorMsg);
       }
     })().then();
