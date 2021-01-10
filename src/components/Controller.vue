@@ -57,15 +57,37 @@
                     >
                       <man-auto-toggle :state="isAuto" @click="toggleAuto" />
                     </div>
-                    <div v-if="isAuto">Automagiskt läge</div>
-                    <div v-if="!isAuto">Manuellt läge</div>
-                  <div class="flex flex-row justify-around">
-                    <div class="shadow bg-blue-gray-700 rounded-lg h-20 w-20 justify-center">
-                      <span>Current Power</span>
-                      <span>80%</span>
+                    <div v-if="isAuto">
+                      <div class="flex flex-row justify-between w-full">
+                        <span class="font-semibold text-base">Manual Controll</span>
                       </div>
-                      <button @click="toggleModal">Adjust power</button>
-                  </div>
+                      <div
+                        class="flex flex-row justify-between items-center"
+                      >
+                        <div
+                          id="icon"
+                          class="pr-2 animate-pulse text-green-600"
+                        >
+                          <SvgIcon name="power" size="7" />
+                        </div>
+                        <div class="flex text-3xl font-bold">
+                          <span class="">{{ actorSignalDisp }}%</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div v-else>
+                      Manuellt läge
+
+                      <div class="flex flex-row justify-around">
+                        <div
+                          class="shadow bg-blue-gray-700 p-5 rounded-lg flex flex-col items-center justify-center"
+                        >
+                          <span>Current Power</span>
+                          <span class="text-3xl">80%</span>
+                          <span>Adjust</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </content>
               </div>

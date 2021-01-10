@@ -34,15 +34,18 @@
 
 <script lang="ts">
 import { Component, Emit, Prop, Vue } from "vue-property-decorator";
-import { ToggleType } from "@/utils";
+// import { ToggleType } from "@/utils";
 
 @Component({
   components: {},
 })
 export default class ManAutoToggle extends Vue {
-  @Prop({ required: true }) ToggleType!: ToggleType;
+ // @Prop({ required: true }) ToggleType!: ToggleType;
 
   @Prop({ default: false }) state!: boolean;
+
+  private disabled = false
+    
 
   @Emit()
   private click(): void {

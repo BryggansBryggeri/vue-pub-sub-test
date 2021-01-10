@@ -29,9 +29,9 @@ import { ToggleType } from "@/utils";
   components: {},
 })
 export default class Toggle extends Vue {
-  @Prop({ required: true }) ToggleType!: ToggleType;
+ // @Prop({ required: true }) ToggleType!: ToggleType;
 
-  @Prop({ default: false }) state!: boolean;
+ // @Prop({ default: false }) state!: boolean;
 
   @Emit()
   private click(): void {
