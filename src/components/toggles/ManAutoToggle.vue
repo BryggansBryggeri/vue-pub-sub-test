@@ -1,8 +1,9 @@
 <template>
-  <div v-if="propdisabled">
-    Nu är det disajblat serru!
-  </div>
-  <button v-else class="flex flex-row space-x-4" :disabled="propdisabled" @click="click()">
+  <button
+    class="flex flex-row space-x-4"
+    :disabled="propdisabled"
+    @click="click()"
+  >
     <div>
       <p
         class="transform transition-all justify-self-start duration-500 ease-in-out"
@@ -11,9 +12,36 @@
         Manual
       </p>
     </div>
-    <div class="flex flex-row justify-between items-center">
+<div class="flex-none w-14">
+    <div
+      v-if="propdisabled"
+      class="w-full inline-flex items-center px-4 transition ease-in-out duration-150 cursor-not-allowed"
+      disabled=""
+    >
+      <svg
+        class="animate-spin h-4 w-5"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <circle
+          class="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          stroke-width="4"
+        ></circle>
+        <path
+          class="opacity-75"
+          fill="currentColor"
+          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+        ></path>
+      </svg>
+    </div>
+    <div v-else class="flex flex-row justify-between items-center">
       <div
-        class="w-14 h-6 flex items-center rounded-full p-1 border-2 shadow-inner  duration-300 ease-in-out"
+        class="w-full h-6 flex items-center rounded-full p-1 border-2 shadow-inner duration-300 ease-in-out"
         :class="{
           'bg-blue-600': state,
           'bg-yellow-400': !state,
@@ -29,6 +57,7 @@
         ></div>
       </div>
     </div>
+    </div>
     <div>
       <p class="justify-self-end" :class="{ underline: state }">Auto</p>
     </div>
@@ -37,7 +66,7 @@
 
 <script lang="ts">
 import { Component, Emit, Prop, Vue } from "vue-property-decorator";
- import { delay } from "@/utils";
+import { delay } from "@/utils";
 
 @Component({
   components: {},
@@ -51,13 +80,13 @@ export default class ManAutoToggle extends Vue {
 
   private async disableForAWhile(): Promise<void> {
     this.propdisabled = true;
-    await delay(1000)
-    this.propdisabled = false
+    await delay(1000);
+    this.propdisabled = false;
   }
 
   @Emit()
   private click(): void {
-    this.disableForAWhile()
+    this.disableForAWhile();
   }
 }
 </script>
