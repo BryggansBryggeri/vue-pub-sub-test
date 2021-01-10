@@ -1,17 +1,23 @@
 <template>
-  <div class="flex justify-between items-center" @click="click()">
+  <div class="flex flex-row space-x-4">
+    <span>Off</span>
+    <div class="flex flex-row justify-between items-center" @click="click()">
     <div
-      class="w-10 h-6 flex items-center rounded-full p-1 border-2 border-green-600 duration-300 ease-in-out"
-      :class="{ 'bg-green-600': state }"
+      class="w-10 h-6 flex items-center rounded-full p-1 border-2 border-gray-500 duration-300 ease-in-out"
+      :class="{ 
+          'bg-red-600': !state ,
+          'bg-green-600': state 
+          
+          }"
     >
       <div
         class="w-4 h-4 bg-white rounded-full shadow-lg transform duration-300 ease-in-out"
         :class="{
-          'translate-x-4': state,
-          'bg-gray-400 dark:bg-gray-100': !state,
-        }"
+          'translate-x-4': state }"
       ></div>
     </div>
+    </div>
+    <span>On</span>
   </div>
 </template>
 
@@ -23,7 +29,7 @@ import { ToggleType } from "@/utils";
   components: {},
 })
 export default class Toggle extends Vue {
-  @Prop({ required: true }) type!: ToggleType;
+  @Prop({ required: true }) ToggleType!: ToggleType;
 
   @Prop({ default: false }) state!: boolean;
 

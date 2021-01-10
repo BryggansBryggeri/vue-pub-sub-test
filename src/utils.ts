@@ -10,7 +10,7 @@ export enum IndicatorType {
   Error = 3,
 }
 
-export type toggleType =
+export type ToggleType =
   | "ManAuto"
   | "OnOff";
 

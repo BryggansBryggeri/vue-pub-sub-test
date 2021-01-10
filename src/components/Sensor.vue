@@ -13,7 +13,7 @@
       }"
     >
       <div class="flex flex-row justify-between w-full">
-        <span class="font-semibold text-sm">{{ this.sensorId }}</span>
+        <span class="font-semibold text-base">{{ this.sensorId }}</span>
         <div>
           <status-ind :status="this.status" :size="4" />
         </div>
