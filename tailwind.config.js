@@ -21,6 +21,7 @@ module.exports = {
       "7xl": "5rem",
     },
     extend: {
+      cursor: ['disabled'],
       boxShadow: {
         yellow: "0 4px 14px 0 rgba(237, 160, 29, 0.39)",
       },
