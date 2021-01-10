@@ -3,7 +3,7 @@
     <div>
       <p
         class="transform transition-all justify-self-start duration-500 ease-in-out"
-        :class="{ 'underline': !state }"
+        :class="{ underline: !state }"
       >
         Manual
       </p>
@@ -25,9 +25,7 @@
       </div>
     </div>
     <div>
-      <p class="justify-self-end" :class="{ 'underline': state }">
-        Auto
-      </p>
+      <p class="justify-self-end" :class="{ underline: state }">Auto</p>
     </div>
   </div>
 </template>
@@ -40,12 +38,11 @@ import { Component, Emit, Prop, Vue } from "vue-property-decorator";
   components: {},
 })
 export default class ManAutoToggle extends Vue {
- // @Prop({ required: true }) ToggleType!: ToggleType;
+  // @Prop({ required: true }) ToggleType!: ToggleType;
 
   @Prop({ default: false }) state!: boolean;
 
-  private disabled = false
-    
+  private disabled = false;
 
   @Emit()
   private click(): void {

@@ -14,9 +14,9 @@ import ManAutoToggle from "@/components/toggles/ManAutoToggle.vue";
 
 @Component({
   components: {
-      OnOffToggle,
-      ManAutoToggle
-      },
+    OnOffToggle,
+    ManAutoToggle,
+  },
 })
 export default class Toggle extends Vue {
   @Prop({ required: true }) ToggleType!: ToggleType;
