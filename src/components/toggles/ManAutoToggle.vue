@@ -1,6 +1,6 @@
 <template>
   <button
-    class="flex flex-row space-x-4"
+    class="flex flex-row space-x-4 h-14 items-center"
     :disabled="propdisabled"
     @click="click()"
   >
@@ -12,14 +12,14 @@
         Manual
       </p>
     </div>
-<div class="flex-none w-14">
+<div class="relative flex-none w-14">
     <div
       v-if="propdisabled"
-      class="w-full inline-flex items-center px-4 transition ease-in-out duration-150 cursor-not-allowed"
+      class="absolute z-40 w-full items-center px-4 transition ease-in-out duration-150 cursor-not-allowed"
       disabled=""
     >
       <svg
-        class="animate-spin h-4 w-5"
+        class="animate-spin h-7 w-7"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
@@ -39,14 +39,12 @@
         ></path>
       </svg>
     </div>
-    <div v-else class="flex flex-row justify-between items-center">
+    <div class="flex flex-row justify-between items-center" :class="{'opacity-40': propdisabled}">
       <div
-        class="w-full h-6 flex items-center rounded-full p-1 border-2 shadow-inner duration-300 ease-in-out"
+        class="w-full h-6 flex items-center rounded-full border-gray-500 p-1 border-2 shadow-inner duration-300 ease-in-out"
         :class="{
           'bg-blue-600': state,
           'bg-yellow-400': !state,
-          'border-gray-500': !propdisabled,
-          'border-red-500': propdisabled,
         }"
       >
         <div

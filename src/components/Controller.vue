@@ -87,7 +87,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import ControllerProps from "@/models/controller";
-import { IndicatorType, ToggleType } from "@/utils";
+import { IndicatorType, ToggleType, delay } from "@/utils";
 import ToggleButton from "@/components/ToggleButton.vue";
 import Toggle from "@/components/utils/Toggle.vue";
 import OnOffToggle from "@/components/toggles/OnOffToggle.vue";
@@ -124,7 +124,8 @@ export default class Controller extends Vue {
     return this.autoStateOther;
   }
 
-  private toggleAuto(): void {
+  private async toggleAuto(): Promise<void> {
+    await delay(300);
     this.autoState = !this.autoState;
   }
 
