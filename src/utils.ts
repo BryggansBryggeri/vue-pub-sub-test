@@ -31,4 +31,6 @@ export type IconName =
   | "chevronDown"
   | "moon"
   | "sun"
+  | "book"
+  | "dashboard"
   | "git";

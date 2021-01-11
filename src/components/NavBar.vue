@@ -4,7 +4,9 @@
     class="px-6 py-2 mb-4 bg-white dark:bg-blue-gray-900 mx-auto flex flex-row items-center align-middle justify-between shadow-lg"
   >
     <h4 class="text-xl font-bold leading-tight">BryggIO</h4>
-    <div class="flex flex-row space-x-4">
+    <div class="flex flex-row items-center space-x-4">
+      <router-link to="/"><svg-icon name="dashboard" size="6" /></router-link>
+      <router-link to="/Library"><svg-icon name="book" size="6" /></router-link>
       <button class="focus:outline-none focus:ring-0" @click="toggleDarkMode()">
         <div v-if="darkMode" class="hover:text-yellow-600 transition duration-150">
           <svg-icon name="sun" size="6"></svg-icon>
@@ -13,7 +15,6 @@
           <svg-icon name="moon" size="6"></svg-icon>
         </div>
       </button>
-
       <button
         class="flex flex-row transition focus:outline-none duration-150 ease-in-out hover:text-indigo-400 rounded px-2 py-2 text-sm"
       >

@@ -1,5 +1,5 @@
 <template>
-  <main class="h-screen" :class="{ ' dark ': darkMode }">
+  <main class="h-screen">
     <div
       id="content"
       class="bg-blue-gray-100 overscroll-none font-sans dark:bg-darkTrueGray w-full dark:text-gray-100 text-gray-700 h-full pb-24"
@@ -50,10 +50,6 @@ import { ControllerProps } from "@/models/controller";
   },
 })
 export default class Home extends Vue {
-  get darkMode(): boolean {
-    return eventStore.darkMode;
-  }
-
   private mash: ControllerProps = {
     controllerId: "mash",
     actorId: "mash_heater",
