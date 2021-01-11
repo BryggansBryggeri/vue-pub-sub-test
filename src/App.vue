@@ -1,23 +1,34 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { eventbus } from "@/eventbus";
+import { delay } from "./utils";
 
 @Component
 export default class App extends Vue {
   created(): void {
     eventbus.start();
+    this.checkLoading();
   }
 
-  private loading = eventbus.ready();
+    private async checkLoading(): Promise<void> {
+    while (!this.ready){
+      // eslint-disable-next-line
+      await delay(30);
+      this.ready = eventbus.ready()
+      console.log("eventbus.ready blev", eventbus.ready())
+    }
+  }
+
+  private ready = false;
 
 }
 </script>
 
 <template>
   <div id="app">
-    <div v-if="loading">
+    <div v-if="!ready">
       <div 
-      class="fixed inset-0 z-50 transition duration-150 ease-in-out flex justify-center items-center text-green-500"
+      class="fixed inset-0 z-50 transition-all duration-550 ease-in-out flex justify-center items-center text-green-500"
     >
       <svg
         class="animate-spin h-64 w-64"
