@@ -1,15 +1,12 @@
 <template>
   <!-- TODO: Unique id by sensorId -->
   <div class="sensor">
-    <status-card :status="status">
-      <div class="flex flex-row justify-between w-full">
-        <span class="font-semibold text-base">{{ this.sensorId }}</span>
-        <div>
-          <status-ind :status="status" :size="4" />
-        </div>
-      </div>
+    <status-card :status="this.status" :name="sensorId">
       <!-- TODO: Unique id by sensorId -->
-      <div id="main-sensor-value" class="flex flex-row justify-center items-center">
+      <div
+        id="main-sensor-value"
+        class="flex flex-row justify-center items-center"
+      >
         <div id="icon" class="pr-2">
           <SvgIcon name="temp" size="7" />
         </div>
@@ -42,16 +39,22 @@
       >
         <div class="">
           <span class="font-normal">Target:</span>
-          <div><span class="font-extrabold">72,2</span><span>&#8451;</span></div>
+          <div>
+            <span class="font-extrabold">72,2</span><span>&#8451;</span>
+          </div>
         </div>
         <div class="font-normal">
           <span>Diff:</span>
-          <div><span class="font-extrabold">-4,1</span><span>&#8451;</span></div>
+          <div>
+            <span class="font-extrabold">-4,1</span><span>&#8451;</span>
+          </div>
         </div>
 
         <div class="">
           <span class="font-normal">RoC:</span>
-          <div><span class="font-extrabold">1,27</span><span>&#8451;/min</span></div>
+          <div>
+            <span class="font-extrabold">1,27</span><span>&#8451;/min</span>
+          </div>
         </div>
       </div>
     </status-card>

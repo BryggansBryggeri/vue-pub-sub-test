@@ -1,11 +1,5 @@
 <template>
-  <status-card :status="this.status" >
-    <div class="flex flex-row justify-between w-full">
-      <span class="font-semibold text-base">{{ actorId }}</span>
-      <div>
-        <status-ind :status="this.status" :size="4" />
-      </div>
-    </div>
+  <status-card :status="this.status" :name="actorId" >
     <div
       id="main-actor-value"
       class="flex flex-row justify-center items-center"
