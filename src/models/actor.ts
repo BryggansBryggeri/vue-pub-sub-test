@@ -4,8 +4,7 @@ import { TimeStamp } from "@/utils";
 export interface ActorMsg {
   id: string;
   timestamp: number;
-  signal: Signal | null;
-  err: string | null;
+  signal: number;
 }
 
 export type Signal = number;
@@ -22,11 +21,5 @@ export function newActorResultErr(err: SignalErr, ts: TimeStamp): ActorResult {
 }
 
 export function actorResultFromMsg(msg: ActorMsg): ActorResult {
-  if (msg.signal) {
-    return newActorResultOk(msg.signal, msg.timestamp);
-  }
-  if (msg.err) {
-    return newActorResultErr(msg.err, msg.timestamp);
-  }
-  return newErr(["Incorrect msg", msg.timestamp]);
+  return newActorResultOk(msg.signal, msg.timestamp);
 }

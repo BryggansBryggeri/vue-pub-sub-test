@@ -29,6 +29,7 @@ export class Eventbus {
     (async () => {
       for await (const msg of actorSub) {
         const actorMsg: ActorMsg = jc.decode(msg.data);
+        console.log(actorMsg);
         eventStore.updateActor(actorMsg);
       }
     })().then();
@@ -41,8 +42,8 @@ export class Eventbus {
       }
     })().then();
 
-    // TODO tmp start controller.
-    // this.publish("command.start_controller", dummyManContrMash);
+    eventStore.natsClientReady = true;
+    console.log("nats client", this.client);
   }
 
   public ready(): boolean {

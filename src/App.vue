@@ -8,19 +8,17 @@ import { delay } from "./utils";
 export default class App extends Vue {
   created(): void {
     eventbus.start();
-    this.checkLoading();
-  }
-
-  private async checkLoading(): Promise<void> {
-    while (!this.ready) {
-      // eslint-disable-next-line
-      await delay(30);
-      this.ready = eventbus.ready();
-      console.log("eventbus.ready blev", eventbus.ready());
-    }
   }
 
   private ready = false;
+
+  get appReady(): boolean {
+    return this.natsClientReady();
+  }
+
+  natsClientReady(): boolean {
+    return eventStore.natsClientReady;
+  }
 
   get darkMode(): boolean {
     return eventStore.darkMode;
@@ -30,7 +28,7 @@ export default class App extends Vue {
 
 <template>
   <div id="app" :class="{ ' dark ': darkMode }">
-    <div v-if="!ready">
+    <div v-if="!natsClientReady">
       <div
         class="fixed inset-0 z-50 transition-all duration-550 ease-in-out flex justify-center items-center text-green-500"
       >

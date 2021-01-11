@@ -24,6 +24,8 @@ export class EventModule extends VuexModule {
 
   public darkMode = true;
 
+  public natsClientReady = false;
+
   private sensors: {
     mash_temp: MeasResult;
     boil_temp: MeasResult;
@@ -95,7 +97,7 @@ export class EventModule extends VuexModule {
   }
 
   public async updateContr(msg: ContrStatusMsg): Promise<void> {
-    console.log("contr msg: ", msg);
+    // console.log("contr msg: ", msg);
     if (hasKey(this.controllers, msg.status.id)) {
       this.controllers[msg.status.id] = contrResultFromMsg(msg);
     } else {
