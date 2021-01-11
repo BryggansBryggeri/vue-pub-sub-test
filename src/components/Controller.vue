@@ -49,15 +49,18 @@
                     </div>
                     <div v-if="isAuto">
                       <div class="flex flex-row justify-between w-full">
-                        <span class="font-semibold text-base">Manual Controll</span>
+                        <span class="font-semibold text-base">Manual Control</span>
                       </div>
                       <div class="flex flex-row justify-between items-center">
                         <div id="icon" class="pr-2 animate-pulse text-green-600">
                           <svg-icon name="power" size="7" />
                         </div>
+                        <!--
+                        Actor signal should be in Actor component.
                         <div class="flex text-3xl font-bold">
                           <span class="">{{ actorSignalDisp }}%</span>
                         </div>
+                        -->
                       </div>
                     </div>
                     <div v-else>

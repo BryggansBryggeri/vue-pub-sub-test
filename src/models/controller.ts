@@ -46,8 +46,10 @@ export interface ContrStatusMsg {
 }
 
 function modeFromType(type: string): Mode {
-  // console.log("contr type:", type);
-  return Mode.Man;
+  if (type === "manual") {
+    return Mode.Man;
+  }
+  return Mode.Auto;
 }
 
 export function typeFromMode(mode: Mode): ContrType {
