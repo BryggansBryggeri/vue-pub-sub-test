@@ -104,11 +104,8 @@ import { eventStore } from "@/store/events";
 import { eventbus } from "@/eventbus";
 import { match } from "@/models/result";
 import { IndicatorType, ToggleType, delay } from "@/utils";
-import ToggleButton from "@/components/ToggleButton.vue";
-import Toggle from "@/components/utils/Toggle.vue";
 import OnOffToggle from "@/components/toggles/OnOffToggle.vue";
 import ManAutoToggle from "@/components/toggles/ManAutoToggle.vue";
-import Toggle2 from "@/components/utils/Toggle2.vue";
 import Sensor from "@/components/Sensor.vue";
 import Actor from "@/components/Actor.vue";
 import StatusInd from "@/components/utils/StatusInd.vue";
@@ -118,11 +115,8 @@ import "vue-slider-component/theme/material.css";
 @Component({
   components: {
     VueSlider,
-    ToggleButton,
     OnOffToggle,
     ManAutoToggle,
-    Toggle,
-    Toggle2,
     SvgIcon,
     Sensor,
     Actor,

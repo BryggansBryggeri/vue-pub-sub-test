@@ -1,17 +1,7 @@
 <template>
   <!-- TODO: Unique id by sensorId -->
   <div class="sensor">
-    <content
-      class="rounded-lg space-y-4 border-2 dark:bg-blue-gray-800 p-2 min-h-20 h-full flex flex-col"
-      :class="{
-        'col-span-full': isFullWidth,
-        'col-span-1': !isFullWidth,
-        'bg-blue-gray-100 border-transparent': status === undefined,
-        'bg-blue-gray-100 border-transparent': status === 1,
-        'bg-yellow-100 border-yellow-400': status === 2,
-        'bg-red-100 border-red-600': status === 3,
-      }"
-    >
+    <status-card :status="this.status">
       <div class="flex flex-row justify-between w-full">
         <span class="font-semibold text-base">{{ this.sensorId }}</span>
         <div>
@@ -64,7 +54,7 @@
           <div><span class="font-extrabold">1,27</span><span>&#8451;/min</span></div>
         </div>
       </div>
-    </content>
+    </status-card>
   </div>
 </template>
 
@@ -74,6 +64,7 @@ import { eventStore } from "@/store/events";
 import { match } from "@/models/result";
 import SvgIcon from "@/components/symbols/SvgIcon.vue";
 import StatusInd from "@/components/utils/StatusInd.vue";
+import StatusCard from "@/components/utils/StatusCard.vue";
 
 enum Success {
   Ok = 1,
@@ -85,6 +76,7 @@ enum Success {
   components: {
     SvgIcon,
     StatusInd,
+    StatusCard,
   },
 })
 export default class Sensor extends Vue {
