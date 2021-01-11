@@ -4,9 +4,9 @@
     :class="{
       'col-span-full': isFullWidth,
       'col-span-1': !isFullWidth,
-      'bg-blue-gray-100 border-transparent': status = 1,
-      'bg-yellow-100 border-yellow-400': status = 2,
-      'bg-red-100 border-red-600': status = 3,
+      'bg-blue-gray-100 border-transparent': indType = 1,
+      'bg-yellow-100 border-yellow-400': indType = 2,
+      'bg-red-100 border-red-600': indType = 3,
     }"
   >
     <slot></slot>
@@ -21,10 +21,22 @@ import { IndicatorType } from "@/utils";
   components: {
   },
 })
-export default class StatusInd extends Vue {
-  @Prop({ required: true }) status!: IndicatorType;
+export default class StatusCard extends Vue {
+  @Prop({ required: true }) readonly status!: IndicatorType;
 
-  @Prop({ default: false }) fullwidth!: boolean;
+  @Prop({ default: false }) fullWidth!: boolean;
+
+  get isFullWidth(): boolean {
+    return this.fullWidth;
+  }
+
+  get indType(): IndicatorType {
+    return this.status;
+  }
+
+  set indType(indType: IndicatorType) {
+    // void
+  }
 
 }
 

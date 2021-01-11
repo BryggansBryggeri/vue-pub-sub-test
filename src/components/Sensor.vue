@@ -1,11 +1,11 @@
 <template>
   <!-- TODO: Unique id by sensorId -->
   <div class="sensor">
-    <status-card :status="this.status">
+    <status-card :status="status">
       <div class="flex flex-row justify-between w-full">
         <span class="font-semibold text-base">{{ this.sensorId }}</span>
         <div>
-          <status-ind :status="this.status" :size="4" />
+          <status-ind :status="status" :size="4" />
         </div>
       </div>
       <!-- TODO: Unique id by sensorId -->
