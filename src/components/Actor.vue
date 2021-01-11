@@ -1,5 +1,5 @@
 <template>
-  <status-card :status="this.status" :name="actorId" >
+  <status-card :status="this.status" typeOfCard="actor" :name="actorId" >
     <div
       id="main-actor-value"
       class="flex flex-row justify-center items-center"

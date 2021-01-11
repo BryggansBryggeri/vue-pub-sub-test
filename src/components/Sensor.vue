@@ -1,7 +1,7 @@
 <template>
   <!-- TODO: Unique id by sensorId -->
   <div class="sensor">
-    <status-card :status="this.status" :name="sensorId">
+    <status-card :status="this.status" typeOfCard="sensor" :name="sensorId">
       <!-- TODO: Unique id by sensorId -->
       <div
         id="main-sensor-value"

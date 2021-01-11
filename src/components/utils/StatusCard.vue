@@ -9,8 +9,11 @@
       'bg-red-100 border-red-600': status === 3,
     }"
   >
-      <div class="flex flex-row justify-between w-full">
-      <span class="font-semibold text-base">{{ name }}</span>
+    <div class="flex flex-row justify-between w-full">
+      <div class="flex flex-col">
+        <span class="font-semibold text-xxs capitalize">{{ typeOfCard }} Card</span>
+        <span class="font-semibold text-base">{{ name }}</span>
+      </div>
       <div>
         <status-ind :status="status" :size="4" />
       </div>
@@ -26,7 +29,7 @@ import { IndicatorType } from "@/utils";
 
 @Component({
   components: {
-      StatusInd,
+    StatusInd,
   },
 })
 export default class StatusCard extends Vue {
@@ -35,6 +38,7 @@ export default class StatusCard extends Vue {
   @Prop({ required: true }) readonly status!: IndicatorType;
 
   @Prop({ default: false }) readonly fullWidth!: boolean;
-}
 
+  @Prop({ required: true }) readonly typeOfCard!: string;
+}
 </script>
