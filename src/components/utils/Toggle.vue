@@ -17,11 +17,14 @@
 
 <script lang="ts">
 import { Component, Emit, Prop, Vue } from "vue-property-decorator";
+import { ToggleType } from "@/utils";
 
 @Component({
   components: {},
 })
 export default class Toggle extends Vue {
+  @Prop({ required: true }) type!: ToggleType;
+
   @Prop({ default: false }) state!: boolean;
 
   @Emit()

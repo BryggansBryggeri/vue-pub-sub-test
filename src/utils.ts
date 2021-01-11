@@ -15,7 +15,11 @@ export enum IndicatorType {
   Error = 3,
 }
 
-export type toggleType = "ManAuto" | "OnOff";
+export function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+export type ToggleType = "ManAuto" | "OnOff";
 
 export type IconName =
   | "check"

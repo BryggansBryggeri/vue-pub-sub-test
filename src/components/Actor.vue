@@ -11,7 +11,7 @@
     }"
   >
     <div class="flex flex-row justify-between w-full">
-      <span class="font-semibold text-sm">{{ actorId }}</span>
+      <span class="font-semibold text-base">{{ actorId }}</span>
       <div>
         <status-ind :status="this.status" :size="4" />
       </div>
