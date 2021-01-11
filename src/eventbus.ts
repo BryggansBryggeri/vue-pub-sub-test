@@ -1,8 +1,8 @@
 import { connect, JSONCodec, NatsConnection } from "nats.ws";
-import { eventStore, dummyManContr, dummyAutoContr } from "@/store/events";
 import { SensorMsg } from "@/models/sensor";
+import { eventStore } from "@/store/events";
 import { ActorMsg } from "@/models/actor";
-import { ContrMsg } from "@/models/controller";
+import { propsToJson, ControllerProps, ContrStatusMsg } from "@/models/controller";
 
 const jc = JSONCodec();
 
@@ -20,9 +20,7 @@ export class Eventbus {
     const sensorSub = nc.subscribe("sensor.*.measurement");
     (async () => {
       for await (const msg of sensorSub) {
-        console.log("raw", msg);
         const sensorMsg: SensorMsg = jc.decode(msg.data);
-        console.log("parsed", sensorMsg);
         eventStore.updateSensor(sensorMsg);
       }
     })().then();
@@ -35,24 +33,33 @@ export class Eventbus {
       }
     })().then();
 
-    const contrSub = nc.subscribe("controller.*.new_target");
+    const contrSub = nc.subscribe("controller.*.status");
     (async () => {
       for await (const msg of contrSub) {
-        const contrMsg: ContrMsg = jc.decode(msg.data);
+        const contrMsg: ContrStatusMsg = jc.decode(msg.data);
         eventStore.updateContr(contrMsg);
       }
     })().then();
 
     // TODO tmp start controller.
-    this.publish("command.start_controller", dummyManContr);
+    // this.publish("command.start_controller", dummyManContrMash);
   }
 
-  public async toggleController(auto: boolean) {
-    if (auto) {
-      this.publish("command.switch_controller", dummyAutoContr);
-    } else {
-      this.publish("command.switch_controller", dummyManContr);
-    }
+  public ready(): boolean {
+    return this.client !== null;
+  }
+
+  public async startController(props: ControllerProps) {
+    const tmp = propsToJson(props);
+    console.log("Starting controller with props:", tmp);
+    console.log("Client at start", this.client);
+    this.publish("command.start_controller", tmp);
+  }
+
+  public async switchController(props: ControllerProps) {
+    const tmp = propsToJson(props);
+    console.log("Switching controller to props:", tmp);
+    this.publish("command.switch_controller", tmp);
   }
 
   public async publish(topic: string, msg: JSON): Promise<void> {

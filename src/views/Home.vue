@@ -38,7 +38,7 @@ import Controller from "@/components/Controller.vue";
 import Sensor from "@/components/Sensor.vue";
 import NavBar from "@/components/NavBar.vue";
 import DashboardTop from "@/components/DashboardTop.vue";
-import ControllerProps from "@/models/controller";
+import { ControllerProps } from "@/models/controller";
 
 @Component({
   components: {
@@ -55,15 +55,17 @@ export default class Home extends Vue {
   }
 
   private mash: ControllerProps = {
-    id: "mash",
+    controllerId: "mash",
     actorId: "mash_heater",
     sensorId: "mash_temp",
+    type: "manual",
   };
 
   private boil: ControllerProps = {
-    id: "boil",
+    controllerId: "boil",
     actorId: "boil_heater",
     sensorId: "boil_temp",
+    type: "manual",
   };
 
   private controllers = [this.boil, this.mash];

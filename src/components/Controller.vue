@@ -49,8 +49,8 @@
                     <div class="flex flex-row space-x-2 justify-center">
                       <span></span>
                       <!-- <toggle-2 :state="state" @toggleState="toggleState()"/> -->
+                      <span>{{ target }}</span>
                       <toggle :state="isAuto" @click="toggleAuto" />
-                      <toggle :state="isAutoOther" @click="toggleAutoOther" />
                     </div>
                   </div>
                 </content>
@@ -65,7 +65,10 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import ControllerProps from "@/models/controller";
+import { typeFromMode, ControllerProps, ContrResult, Target, Mode } from "@/models/controller";
+import { eventStore } from "@/store/events";
+import { eventbus } from "@/eventbus";
+import { match } from "@/models/result";
 import { IndicatorType } from "@/utils";
 import ToggleButton from "@/components/ToggleButton.vue";
 import Toggle from "@/components/utils/Toggle.vue";
@@ -87,32 +90,85 @@ import StatusInd from "@/components/utils/StatusInd.vue";
 export default class Controller extends Vue {
   @Prop() controllerProps!: ControllerProps;
 
-  private autoState = false;
-
-  private autoStateOther = false;
-
-  get isAuto(): boolean {
-    return this.autoState;
-  }
-
-  get isAutoOther(): boolean {
-    return this.autoStateOther;
-  }
-
-  private toggleAuto(): void {
-    this.autoState = !this.autoState;
-  }
-
-  private toggleAutoOther(): void {
-    this.autoStateOther = !this.autoStateOther;
-  }
+  private isStarted = false;
 
   get status(): IndicatorType {
     return IndicatorType.Ok;
   }
 
+  get isAuto(): boolean {
+    return match(
+      this.contrStatus(),
+      (ok) => {
+        return ok.mode !== Mode.Man;
+      },
+      () => {
+        throw new Error("isAuto received error val");
+      }
+    );
+  }
+
+  get target(): Target {
+    return match(
+      this.contrStatus(),
+      (ok) => {
+        return ok.target;
+      },
+      () => {
+        throw new Error("target received error val");
+      }
+    );
+  }
+
+  get mode(): Mode {
+    return match(
+      this.contrStatus(),
+      (ok) => {
+        return ok.mode;
+      },
+      () => {
+        throw new Error("mode received error val");
+      }
+    );
+  }
+
   get dispName(): string {
-    return this.controllerProps.id;
+    return this.controllerProps.controllerId;
+  }
+
+  private contrStatus(): ContrResult {
+    return eventStore.contrStatus(this.controllerProps.controllerId);
+  }
+
+  private toggleAuto(): void {
+    if (eventbus.ready() && this.isStarted) {
+      eventbus.switchController(this.toggledProps());
+    } else {
+      console.log("Starting controller: ", this.controllerProps.controllerId);
+      eventbus.startController(this.controllerProps);
+      this.isStarted = true;
+    }
+  }
+
+  private toggledProps(): ControllerProps {
+    const props = this.controllerProps;
+    return {
+      controllerId: props.controllerId,
+      sensorId: props.sensorId,
+      actorId: props.actorId,
+      type: typeFromMode(this.toggleMode(this.mode)),
+    };
+  }
+
+  private toggleMode(mode: Mode): Mode {
+    switch (mode) {
+      case Mode.Man:
+        return Mode.Auto;
+      case Mode.Auto:
+        return Mode.Man;
+      default:
+        throw new Error("Uncreachable toggle mode");
+    }
   }
 }
 </script>

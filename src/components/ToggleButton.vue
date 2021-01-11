@@ -93,7 +93,6 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import VueSlider from "vue-slider-component";
 import "vue-slider-component/theme/antd.css";
-import { eventbus } from "@/eventbus";
 
 @Component({
   components: {
@@ -129,7 +128,6 @@ export default class ToggleButton extends Vue {
 
   toggleControllerState() {
     this.contrAutoMode = !this.contrAutoMode;
-    eventbus.toggleController(this.contrAutoMode);
   }
 
   setPercentage(val: number) {

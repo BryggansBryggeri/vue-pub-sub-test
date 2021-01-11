@@ -2,11 +2,12 @@ import { Action, Module, VuexModule } from "vuex-class-modules";
 import store from "@/store";
 import { SensorMsg, MeasResult, measResultFromMsg, newMeasOk, newMeasErr } from "@/models/sensor";
 import {
-  ContrMsg,
+  ContrStatusMsg,
   ContrResult,
   contrResultFromMsg,
   newContrResultOk,
   newContrResultErr,
+  Mode,
 } from "@/models/controller";
 import {
   ActorMsg,
@@ -16,14 +17,6 @@ import {
   newActorResultErr,
 } from "@/models/actor";
 import { hasKey } from "@/utils";
-
-export const dummyManContr = JSON.parse(
-  '{"controller_id": "mash", "actor_id": "boil_heater", "sensor_id": "boil_temp", "type": "manual"}'
-);
-
-export const dummyAutoContr = JSON.parse(
-  '{"controller_id": "mash", "actor_id": "mash_heater", "sensor_id": "mash_temp", "type": {"hysteresis": {"offset_on": 10.0, "offset_off": 5.0}}}'
-);
 
 @Module({ generateMutationSetters: true })
 export class EventModule extends VuexModule {
@@ -61,13 +54,8 @@ export class EventModule extends VuexModule {
     mash: ContrResult;
     boil: ContrResult;
   } = {
-    // eslint-disable-next-line @typescript-eslint/camelcase
-    mash: newContrResultOk(67, Date.now()),
-    // eslint-disable-next-line @typescript-eslint/camelcase
-    boil: newContrResultErr(
-      "Das ist nicht nur nicht richtig; es ist nicht einmal falsch!",
-      Date.now()
-    ),
+    mash: newContrResultOk({ target: 67.0, mode: Mode.Man, timestamp: Date.now() }),
+    boil: newContrResultOk({ target: 75.0, mode: Mode.Auto, timestamp: Date.now() }),
   };
 
   public async updateSensor(msg: SensorMsg): Promise<void> {
@@ -106,16 +94,17 @@ export class EventModule extends VuexModule {
     return val;
   }
 
-  public async updateContr(msg: ContrMsg): Promise<void> {
-    if (hasKey(this.controllers, msg.id)) {
-      this.controllers[msg.id] = contrResultFromMsg(msg);
+  public async updateContr(msg: ContrStatusMsg): Promise<void> {
+    console.log("contr msg: ", msg);
+    if (hasKey(this.controllers, msg.status.id)) {
+      this.controllers[msg.status.id] = contrResultFromMsg(msg);
     } else {
-      console.log("Incorrect id", msg.id);
+      console.log("Incorrect id", msg.status.id);
     }
   }
 
-  public contrTarget(contrId: string): ActorResult {
-    let val: ActorResult = newActorResultErr("Incorrect id", Date.now());
+  public contrStatus(contrId: string): ContrResult {
+    let val: ContrResult = newContrResultErr("Incorrect id", Date.now());
     if (hasKey(this.controllers, contrId)) {
       val = this.controllers[contrId];
     } else {
