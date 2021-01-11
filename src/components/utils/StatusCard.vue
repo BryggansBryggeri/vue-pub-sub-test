@@ -2,17 +2,17 @@
   <div
     class="rounded-lg space-y-4 border-2 dark:bg-blue-gray-800 p-2 min-h-20 h-full flex flex-col"
     :class="{
-      'col-span-full': isFullWidth,
-      'col-span-1': !isFullWidth,
-      'bg-blue-gray-100 border-transparent': indType === 1,
-      'bg-yellow-100 border-yellow-400': indType === 2,
-      'bg-red-100 border-red-600': indType === 3,
+      'col-span-full': fullWidth,
+      'col-span-1': !fullWidth,
+      'bg-blue-gray-100 border-transparent': status === 1,
+      'bg-yellow-100 border-yellow-400': status === 2,
+      'bg-red-100 border-red-600': status === 3,
     }"
   >
       <div class="flex flex-row justify-between w-full">
       <span class="font-semibold text-base">{{ name }}</span>
       <div>
-        <status-ind :status="this.status" :size="4" />
+        <status-ind :status="status" :size="4" />
       </div>
     </div>
     <slot></slot>
@@ -31,23 +31,10 @@ import { IndicatorType } from "@/utils";
 })
 export default class StatusCard extends Vue {
   @Prop({ required: true }) readonly name!: string;
-  
+
   @Prop({ required: true }) readonly status!: IndicatorType;
 
-  @Prop({ default: false }) fullWidth!: boolean;
-
-  get isFullWidth(): boolean {
-    return this.fullWidth;
-  }
-
-  get indType(): IndicatorType {
-    return this.status;
-  }
-
-  set indType(indType: IndicatorType) {
-    // void
-  }
-
+  @Prop({ default: false }) readonly fullWidth!: boolean;
 }
 
 </script>
