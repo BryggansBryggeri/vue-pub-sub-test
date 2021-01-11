@@ -1,9 +1,6 @@
 <template>
-  <status-card :status="this.status" typeOfCard="actor" :name="actorId" >
-    <div
-      id="main-actor-value"
-      class="flex flex-row justify-center items-center"
-    >
+  <status-card :status="this.status" typeOfCard="actor" :name="actorId">
+    <div id="main-actor-value" class="flex flex-row justify-center items-center">
       <div id="icon" class="pr-2 animate-pulse text-green-600">
         <SvgIcon name="power" size="7" />
       </div>
