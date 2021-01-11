@@ -17,9 +17,15 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { IndicatorType } from "@/utils";
 
-export default class StatusCard extends Vue {
+@Component({
+  components: {
+  },
+})
+export default class StatusInd extends Vue {
   @Prop({ required: true }) status!: IndicatorType;
 
-  @Prop({ default: false }) isFullWidth!: boolean;
+  @Prop({ default: false }) fullwidth!: boolean;
+
 }
+
 </script>
