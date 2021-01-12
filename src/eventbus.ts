@@ -42,6 +42,16 @@ export class Eventbus {
       }
     })().then();
 
+    this.client
+      .request("command.list_active_clients", undefined, { timeout: 1000 })
+      .then((m) => {
+        const clients = jc.decode(m.data);
+        console.log(clients);
+      })
+      .catch((err) => {
+        console.log(`problem with request: ${err.message}`);
+      });
+
     eventStore.natsClientReady = true;
     console.log("nats client", this.client);
   }
