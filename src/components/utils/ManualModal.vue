@@ -15,7 +15,7 @@
                 <vue-slider
                   ref="manualSlider"
                   class="w-24"
-                  v-model="sliderVal"
+                  :v-model="sliderValue"
                   tooltip="none"
                   :lazy="true"
                   :adsorb="true"
@@ -66,6 +66,10 @@ export default class ManualModal extends Vue {
   @Prop({ default: 0 }) sliderVal!: number;
 
   private newPower!: number;
+
+  get sliderValue() {
+    return this.sliderVal;
+  }
 
   setValue(sliderVal: number) {
     this.newPower = sliderVal;
