@@ -18,7 +18,7 @@
                 <actor :actorId="controllerProps.actorId" />
                 <content
                   id="ControllerCard"
-                  class="rounded-lg space-y-2 col-span-full pb-10 border-2 dark:bg-blue-gray-800 p-2 min-h-20 flex flex-col"
+                  class="rounded-lg space-y-2 col-span-full pb-4 border-2 dark:bg-blue-gray-800 p-2 min-h-20 flex flex-col"
                   :class="{
                     'bg-blue-gray-100 border-transparent': status === 1,
                     'bg-yellow-100 border-yellow-400': status === 2,
@@ -48,38 +48,42 @@
                       <man-auto-toggle :state="isAuto" @click="toggleAuto" />
                     </div>
                     <div v-if="isAuto">
-                      <div class="flex flex-row justify-between w-full">
-                        <span class="font-semibold text-base">Manual Control</span>
-                      </div>
-                      <div class="flex flex-row justify-between items-center">
-                        <div id="icon" class="pr-2 animate-pulse text-green-600">
-                          <svg-icon name="power" size="7" />
+                      <div class="flex flex-row items-center">
+                        <div class="flex flex-col w-full items-center">
+                          <div class="flex flex-col text-xs py-4">
+                            <button
+                              class="py-2 px-8 bg-purple-500 rounded-lg shadow-lg font-semibold outline-none ring-0 focus:outline-none focus:ring-0"
+                              @click="autoModalVisible = true"
+                            >
+                              Set new target
+                            </button>
+
+                            <AutoModal
+                              :isVisible="autoModalVisible"
+                              :sliderVal="parseInt(actorSignalDisp)"
+                              @cancel="autoModalVisible = false"
+                              @confirm="sendUpdateRequest($event)"
+                            />
+                          </div>
                         </div>
-                        <!--
-                        Actor signal should be in Actor component.
-                        <div class="flex text-3xl font-bold">
-                          <span class="">{{ actorSignalDisp }}%</span>
-                        </div>
-                        -->
                       </div>
                     </div>
                     <div v-else>
-                      Manuellt läge
+                      <div class="flex flex-row items-center">
+                        <div class="flex flex-col w-full items-center">
+                          <div class="flex flex-col text-xs py-4">
+                            <button
+                              class="py-2 px-8 bg-purple-500 rounded-lg shadow-lg font-semibold outline-none ring-0 focus:outline-none focus:ring-0"
+                              @click="modalVisible = true"
+                            >
+                              Set new target
+                            </button>
 
-                      <div class="flex flex-row">
-                        <div class="flex flex-col w-full">
-                          <div class="w-4/5 text-xs py-4 mx-auto -center">
-                            <vue-slider
-                              ref="manualSlider"
-                              class="w-20"
-                              v-model="percentage"
-                              tooltip="none"
-                              :lazy="true"
-                              :adsorb="true"
-                              :interval="10"
-                              :marks="true"
-                              :drag-on-click="true"
-                              @change="setValue(percentage)"
+                            <ManualModal
+                              :isVisible="modalVisible"
+                              :sliderVal="parseInt(actorSignalDisp)"
+                              @cancel="modalVisible = false"
+                              @confirm="sendUpdateRequest($event)"
                             />
                           </div>
                         </div>
@@ -108,6 +112,8 @@ import OnOffToggle from "@/components/toggles/OnOffToggle.vue";
 import ManAutoToggle from "@/components/toggles/ManAutoToggle.vue";
 import Sensor from "@/components/Sensor.vue";
 import Actor from "@/components/Actor.vue";
+import ManualModal from "@/components/utils/ManualModal.vue";
+import AutoModal from "@/components/utils/AutoModal.vue";
 import StatusInd from "@/components/utils/StatusInd.vue";
 import VueSlider from "vue-slider-component";
 import "vue-slider-component/theme/material.css";
@@ -120,6 +126,8 @@ import "vue-slider-component/theme/material.css";
     SvgIcon,
     Sensor,
     Actor,
+    ManualModal,
+    AutoModal,
     StatusInd,
   },
 })
@@ -131,6 +139,27 @@ export default class Controller extends Vue {
   private percentage = 0;
 
   private autoState = false;
+
+  private modalVisible = false;
+
+  private autoModalVisible = false;
+
+  private sendUpdateRequest(newValue: number) {
+    console.log("sendUpdateRequest ran");
+    console.log(newValue);
+    // SKICAK TILL VUEX
+    this.modalVisible = false;
+  }
+
+  get actorSignalDisp(): string {
+    return match(
+      eventStore.actorSignal(this.controllerProps.actorId),
+      (ok) => {
+        return `${Math.round(100 * ok[0])}`;
+      },
+      () => "--"
+    );
+  }
 
   get status(): IndicatorType {
     return IndicatorType.Ok;

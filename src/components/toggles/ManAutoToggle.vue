@@ -75,7 +75,7 @@ export default class ManAutoToggle extends Vue {
 
   private async disableForAWhile(): Promise<void> {
     this.propdisabled = true;
-    await delay(1000);
+    await delay(4500);
     this.propdisabled = false;
   }
 
