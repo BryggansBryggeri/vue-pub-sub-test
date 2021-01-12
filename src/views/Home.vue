@@ -1,6 +1,6 @@
 <template>
   <main class="h-screen">
-    <div v-if="natsClientReady">
+    <div v-if="breweryReady">
       <div
         id="content"
         class="bg-blue-gray-100 overscroll-none font-sans dark:bg-darkTrueGray w-full dark:text-gray-100 text-gray-700 h-full pb-24"
@@ -26,13 +26,6 @@
               v-bind:key="controller.name"
             />
           </section>
-        </div>
-        <div>
-          <ul id="example-1">
-            <li v-for="id in listActiveClients" :key="id">
-              {{ id }}
-            </li>
-          </ul>
         </div>
       </div>
     </div>
@@ -76,14 +69,20 @@ export default class Home extends Vue {
     type: "manual",
   };
 
-  get natsClientReady(): boolean {
+  // Gatekeeper for rendering the 'Brewery view'.
+  // More predicates can be added as needed.
+  get breweryReady() {
+    return this.natsClientReady();
+  }
+
+  private natsClientReady(): boolean {
     return eventStore.natsClientReady;
   }
 
   private controllers = [this.boil, this.mash];
 
-  listActiveClients(): string[] {
-    return eventStore.listActiveClients();
-  }
+  // get listActiveClients(): string[] {
+  //   return eventStore.listActiveClients();
+  // }
 }
 </script>

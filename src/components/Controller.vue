@@ -111,7 +111,7 @@ import SvgIcon from "@/components/symbols/SvgIcon.vue";
 import { eventStore } from "@/store/events";
 import { eventbus } from "@/eventbus";
 import { match } from "@/models/result";
-import { IndicatorType, delay } from "@/utils";
+import { IndicatorType } from "@/utils";
 import OnOffToggle from "@/components/toggles/OnOffToggle.vue";
 import ManAutoToggle from "@/components/toggles/ManAutoToggle.vue";
 import Sensor from "@/components/Sensor.vue";
@@ -213,8 +213,6 @@ export default class Controller extends Vue {
   }
 
   private async startController(): Promise<void> {
-    // TODO: Replace delay with something smarter.
-    // await delay(1000);
     eventbus.startController(this.controllerProps);
   }
 

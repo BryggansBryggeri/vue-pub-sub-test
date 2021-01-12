@@ -2,7 +2,6 @@ import { Msg, connect, JSONCodec, NatsConnection } from "nats.ws";
 import { SensorMsg } from "@/models/sensor";
 import { eventStore } from "@/store/events";
 import { ActorMsg } from "@/models/actor";
-import { delay } from "@/utils";
 import { propsToJson, ControllerProps, ContrStatusMsg } from "@/models/controller";
 
 const jc = JSONCodec();
@@ -43,9 +42,9 @@ export class Eventbus {
     })().then();
 
     this.request("command.list_active_clients", null, 1000)
-      .then((m) => {
-        if (m !== undefined) {
-          const clients = jc.decode(m.data);
+      .then((msg) => {
+        if (msg !== undefined) {
+          const clients = jc.decode(msg.data);
           const clientIds: string[] = Object.keys(clients);
           eventStore.updateActiveClients(clientIds);
         }
@@ -58,6 +57,7 @@ export class Eventbus {
     console.log("nats client", this.client);
   }
 
+  // This should be req-rep.
   public async startController(props: ControllerProps) {
     const tmp = propsToJson(props);
     console.log("Starting controller with props:", tmp);

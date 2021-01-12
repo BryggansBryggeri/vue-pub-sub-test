@@ -23,7 +23,7 @@
 
 <script lang="ts">
 import { Component, Emit, Prop, Vue } from "vue-property-decorator";
-import { ToggleType } from "@/utils";
+// import { ToggleType } from "@/utils";
 
 @Component({
   components: {},
