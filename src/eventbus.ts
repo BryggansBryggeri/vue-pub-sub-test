@@ -1,4 +1,4 @@
-import { connect, JSONCodec, NatsConnection } from "nats.ws";
+import { Msg, connect, JSONCodec, NatsConnection } from "nats.ws";
 import { SensorMsg } from "@/models/sensor";
 import { eventStore } from "@/store/events";
 import { ActorMsg } from "@/models/actor";
@@ -29,7 +29,6 @@ export class Eventbus {
     (async () => {
       for await (const msg of actorSub) {
         const actorMsg: ActorMsg = jc.decode(msg.data);
-        console.log(actorMsg);
         eventStore.updateActor(actorMsg);
       }
     })().then();
@@ -42,11 +41,12 @@ export class Eventbus {
       }
     })().then();
 
-    this.client
-      .request("command.list_active_clients", undefined, { timeout: 1000 })
+    this.request("command.list_active_clients", null, 1000)
       .then((m) => {
-        const clients = jc.decode(m.data);
-        console.log(clients);
+        if (m !== undefined) {
+          const clients = jc.decode(m.data);
+          console.log(clients);
+        }
       })
       .catch((err) => {
         console.log(`problem with request: ${err.message}`);
@@ -70,11 +70,23 @@ export class Eventbus {
   public async switchController(props: ControllerProps) {
     const tmp = propsToJson(props);
     console.log("Switching controller to props:", tmp);
-    this.publish("command.switch_controller", tmp);
+    const reply = await this.request("command.switch_controller", tmp, 5000);
+    console.log("Controller switched: ", reply);
   }
 
-  public async publish(topic: string, msg: JSON): Promise<void> {
-    this.client?.publish(topic, jc.encode(msg));
+  public async request(
+    subject: string,
+    data: JSON | null,
+    timeout: number
+  ): Promise<Msg | undefined> {
+    if (data !== null) {
+      return this.client?.request(subject, jc.encode(data), { timeout });
+    }
+    return this.client?.request(subject, undefined, { timeout });
+  }
+
+  public async publish(subject: string, data: JSON): Promise<void> {
+    this.client?.publish(subject, jc.encode(data));
   }
 }
 

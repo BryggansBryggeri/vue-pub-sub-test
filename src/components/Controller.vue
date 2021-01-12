@@ -132,6 +132,8 @@ export default class Controller extends Vue {
 
   private autoState = false;
 
+  private currentlySwitchingMode = false;
+
   get status(): IndicatorType {
     return IndicatorType.Ok;
   }
@@ -180,9 +182,13 @@ export default class Controller extends Vue {
     return eventStore.contrStatus(this.controllerProps.controllerId);
   }
 
-  private toggleAuto(): void {
+  private async toggleAuto(): Promise<void> {
     if (eventbus.ready() && this.isStarted) {
-      eventbus.switchController(this.toggledProps());
+      console.log("pre-switch");
+      this.currentlySwitchingMode = true;
+      await eventbus.switchController(this.toggledProps());
+      this.currentlySwitchingMode = false;
+      console.log("post-switch");
     } else {
       console.log("Starting controller: ", this.controllerProps.controllerId);
       eventbus.startController(this.controllerProps);
