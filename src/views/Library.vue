@@ -59,13 +59,8 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { eventStore } from "@/store/events";
-import Controller from "@/components/Controller.vue";
-import Sensor from "@/components/Sensor.vue";
 import NavBar from "@/components/NavBar.vue";
 import Modal from "@/components/utils/Modal.vue";
-import DashboardTop from "@/components/DashboardTop.vue";
-import { ControllerProps } from "@/models/controller";
 
 @Component({
   components: {

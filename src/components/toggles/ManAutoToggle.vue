@@ -1,7 +1,7 @@
 <template>
   <button
     class="flex flex-row space-x-4 h-14 items-center disabled:text-red-500 disabled:cursor-not-allowed"
-    :disabled="propdisabled"
+    :disabled="disabled"
     @click="click()"
   >
     <div>
@@ -9,7 +9,7 @@
     </div>
     <div class="relative flex-none w-14">
       <div
-        v-if="propdisabled"
+        v-if="disabled"
         class="absolute z-40 w-full items-center px-4 transition ease-in-out duration-150 cursor-not-allowed"
       >
         <svg
@@ -33,10 +33,7 @@
           ></path>
         </svg>
       </div>
-      <div
-        class="flex flex-row justify-between items-center"
-        :class="{ 'opacity-40': propdisabled }"
-      >
+      <div class="flex flex-row justify-between items-center" :class="{ 'opacity-40': disabled }">
         <div
           class="w-full h-6 flex items-center rounded-full border-gray-500 p-1 border-2 shadow-inner duration-300 ease-in-out"
           :class="{
@@ -61,7 +58,6 @@
 
 <script lang="ts">
 import { Component, Emit, Prop, Vue } from "vue-property-decorator";
-import { delay } from "@/utils";
 
 @Component({
   components: {},
@@ -71,17 +67,11 @@ export default class ManAutoToggle extends Vue {
 
   @Prop({ default: false }) state!: boolean;
 
-  private propdisabled = false;
-
-  private async disableForAWhile(): Promise<void> {
-    this.propdisabled = true;
-    await delay(4500);
-    this.propdisabled = false;
-  }
+  @Prop({ required: true }) private disabled = false;
 
   @Emit()
   private click(): void {
-    this.disableForAWhile();
+    //
   }
 }
 </script>

@@ -2,7 +2,6 @@
 import { Component, Vue } from "vue-property-decorator";
 import { eventbus } from "@/eventbus";
 import { eventStore } from "@/store/events";
-import { delay } from "./utils";
 
 @Component
 export default class App extends Vue {

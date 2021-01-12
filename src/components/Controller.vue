@@ -45,7 +45,11 @@
                   </div>
                   <div class="flex flex-col pt-4 space-y-2">
                     <div class="flex flex-col space-x-2 justify-center items-center">
-                      <man-auto-toggle :state="isAuto" @click="toggleAuto" />
+                      <man-auto-toggle
+                        :state="isAuto"
+                        :disabled="currentlySwitchingMode"
+                        @click="toggleAuto"
+                      />
                     </div>
                     <div v-if="isAuto">
                       <div class="flex flex-row items-center">
@@ -107,7 +111,7 @@ import SvgIcon from "@/components/symbols/SvgIcon.vue";
 import { eventStore } from "@/store/events";
 import { eventbus } from "@/eventbus";
 import { match } from "@/models/result";
-import { IndicatorType, ToggleType, delay } from "@/utils";
+import { IndicatorType } from "@/utils";
 import OnOffToggle from "@/components/toggles/OnOffToggle.vue";
 import ManAutoToggle from "@/components/toggles/ManAutoToggle.vue";
 import Sensor from "@/components/Sensor.vue";
