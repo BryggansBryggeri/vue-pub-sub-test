@@ -24,7 +24,30 @@
             />
           </div>
         </div>
-        <div class="w-1/6 border-2 rounded border-gray-700"></div>
+        <div class="w-1/6 border-2 rounded border-gray-700">
+          <div class="flex flex-wrap">
+            <div class="flex w-8/12">
+              <input
+                type="text"
+                value="7"
+                class="bg-white text-sm text-gray-900 text-center focus:outline-none border border-gray-800 focus:border-gray-600 rounded-l-md w-full"
+              />
+            </div>
+            <div class="flex flex-col w-4/12">
+              <button
+                class="text-white text-center text-md font-semibold rounded-tr-md px-1 bg-gray-800 focus:bg-gray-600 focus:outline-none border border-gray-800 focus:border-gray-600"
+              >
+                +
+              </button>
+              <button
+                class="text-white text-center text-md font-semibold rounded-br-md px-1 bg-gray-800 focus:bg-gray-600 focus:outline-none border border-gray-800 focus:border-gray-600"
+              >
+                -
+              </button>
+            </div>
+          </div>
+        </div>
+
         <div class="w-1/6 border-2 rounded border-gray-700"></div>
         <div class="w-1/6 border-2 rounded border-gray-700"></div>
         <div class="w-1/6 border-2 rounded border-gray-700"></div>
