@@ -111,7 +111,7 @@ import SvgIcon from "@/components/symbols/SvgIcon.vue";
 import { eventStore } from "@/store/events";
 import { eventbus } from "@/eventbus";
 import { match } from "@/models/result";
-import { IndicatorType } from "@/utils";
+import { IndicatorType, delay } from "@/utils";
 import OnOffToggle from "@/components/toggles/OnOffToggle.vue";
 import ManAutoToggle from "@/components/toggles/ManAutoToggle.vue";
 import Sensor from "@/components/Sensor.vue";
@@ -120,7 +120,6 @@ import ManualModal from "@/components/utils/ManualModal.vue";
 import AutoModal from "@/components/utils/AutoModal.vue";
 import StatusInd from "@/components/utils/StatusInd.vue";
 import VueSlider from "vue-slider-component";
-import "vue-slider-component/theme/material.css";
 
 @Component({
   components: {
@@ -139,8 +138,6 @@ export default class Controller extends Vue {
   @Prop() controllerProps!: ControllerProps;
 
   private isStarted = false;
-
-  private percentage = 0;
 
   private autoState = false;
 
@@ -211,21 +208,27 @@ export default class Controller extends Vue {
     return this.controllerProps.controllerId;
   }
 
+  created(): void {
+    this.startController();
+  }
+
+  private async startController(): Promise<void> {
+    // TODO: Replace delay with something smarter.
+    // await delay(1000);
+    eventbus.startController(this.controllerProps);
+  }
+
   private contrStatus(): ContrResult {
     return eventStore.contrStatus(this.controllerProps.controllerId);
   }
 
   private async toggleAuto(): Promise<void> {
-    if (eventbus.ready() && this.isStarted) {
-      console.log("pre-switch");
+    if (eventStore.natsClientReady) {
       this.currentlySwitchingMode = true;
       await eventbus.switchController(this.toggledProps());
       this.currentlySwitchingMode = false;
-      console.log("post-switch");
     } else {
-      console.log("Starting controller: ", this.controllerProps.controllerId);
-      eventbus.startController(this.controllerProps);
-      this.isStarted = true;
+      console.log("Could not toggle. Eventbus not ready");
     }
   }
 

@@ -9,12 +9,6 @@ export default class App extends Vue {
     eventbus.start();
   }
 
-  private ready = false;
-
-  get appReady(): boolean {
-    return this.natsClientReady();
-  }
-
   natsClientReady(): boolean {
     return eventStore.natsClientReady;
   }

@@ -26,6 +26,8 @@ export class EventModule extends VuexModule {
 
   public natsClientReady = false;
 
+  private activeClients: string[] = [];
+
   private sensors: {
     mash_temp: MeasResult;
     boil_temp: MeasResult;
@@ -59,6 +61,14 @@ export class EventModule extends VuexModule {
     mash: newContrResultOk({ target: 67.0, mode: Mode.Man, timestamp: Date.now() }),
     boil: newContrResultOk({ target: 75.0, mode: Mode.Auto, timestamp: Date.now() }),
   };
+
+  public async updateActiveClients(clients: string[]): Promise<void> {
+    this.activeClients = clients;
+  }
+
+  public listActiveClients(): string[] {
+    return this.activeClients;
+  }
 
   public async updateSensor(msg: SensorMsg): Promise<void> {
     if (hasKey(this.sensors, msg.id)) {

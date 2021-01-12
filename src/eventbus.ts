@@ -2,6 +2,7 @@ import { Msg, connect, JSONCodec, NatsConnection } from "nats.ws";
 import { SensorMsg } from "@/models/sensor";
 import { eventStore } from "@/store/events";
 import { ActorMsg } from "@/models/actor";
+import { delay } from "@/utils";
 import { propsToJson, ControllerProps, ContrStatusMsg } from "@/models/controller";
 
 const jc = JSONCodec();
@@ -45,7 +46,8 @@ export class Eventbus {
       .then((m) => {
         if (m !== undefined) {
           const clients = jc.decode(m.data);
-          console.log(clients);
+          const clientIds: string[] = Object.keys(clients);
+          eventStore.updateActiveClients(clientIds);
         }
       })
       .catch((err) => {
@@ -56,14 +58,9 @@ export class Eventbus {
     console.log("nats client", this.client);
   }
 
-  public ready(): boolean {
-    return this.client !== null;
-  }
-
   public async startController(props: ControllerProps) {
     const tmp = propsToJson(props);
     console.log("Starting controller with props:", tmp);
-    console.log("Client at start", this.client);
     this.publish("command.start_controller", tmp);
   }
 
