@@ -3,7 +3,13 @@ import { Component, Vue } from "vue-property-decorator";
 import { eventbus } from "@/eventbus";
 import { eventStore } from "@/store/events";
 
-@Component
+import MainLayout from "@/components/layouts/MainLayout.vue";
+
+@Component({
+  components: {
+    MainLayout,
+  },
+})
 export default class App extends Vue {
   created(): void {
     eventbus.start();
@@ -21,6 +27,8 @@ export default class App extends Vue {
 
 <template>
   <div id="app" class="h-full min-h-screen" :class="{ ' dark ': darkMode }">
-    <router-view />
+    <main-layout>
+      <router-view />
+    </main-layout>
   </div>
 </template>

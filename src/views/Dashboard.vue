@@ -1,34 +1,22 @@
 <template>
-  <main class="min-h-screen h-full">
+  <main id="dashboard" class="min-h-screen h-full">
     <div v-show="!breweryReady">
       <Loading />
     </div>
-    <div
-      id="content"
-      class="h-full bg-blue-gray-100 overscroll-none font-sans dark:bg-darkTrueGray w-full dark:text-gray-100 text-gray-700 pb-24"
-    >
-      <!-- Main container -->
-      <NavBar />
+    <div class="mx-8 space-y-4">
+      <!-- <Overview /> -->
+      <!-- <Todo /> -->
+      <!-- <Chart /> -->
 
-      <div class="mx-8 space-y-4">
-        <!-- <Overview /> -->
-        <!-- <Todo /> -->
-        <!-- <Chart /> -->
-
-        <section
-          id="vesselGrid"
-          class="mx-auto grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4"
-        >
-          <!--
-          <Vessel v-for="vessel in vessels" v-bind:vesselProp="vessel" v-bind:key="vessel.name" />
-          -->
-          <Controller
-            v-for="controller in controllers"
-            v-bind:controllerProps="controller"
-            v-bind:key="controller.name"
-          />
-        </section>
-      </div>
+      <section
+        class="mx-auto grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4"
+      >
+        <Controller
+          v-for="controller in controllers"
+          v-bind:controllerProps="controller"
+          v-bind:key="controller.name"
+        />
+      </section>
     </div>
   </main>
 </template>
@@ -53,7 +41,7 @@ import { ControllerProps } from "@/models/controller";
     // MashCard,
   },
 })
-export default class Home extends Vue {
+export default class Dashboard extends Vue {
   private mash: ControllerProps = {
     controllerId: "mash",
     actorId: "mash_heater",

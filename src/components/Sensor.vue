@@ -58,7 +58,7 @@ import { eventStore } from "@/store/events";
 import { match } from "@/models/result";
 import SvgIcon from "@/components/symbols/SvgIcon.vue";
 import StatusInd from "@/components/utils/StatusInd.vue";
-import StatusCard from "@/components/utils/StatusCard.vue";
+import StatusCard from "@/components/layouts/StatusCard.vue";
 
 enum Success {
   Ok = 1,
