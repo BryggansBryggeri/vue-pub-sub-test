@@ -1,9 +1,11 @@
 <template>
-  <main class="h-screen">
-    <div v-if="breweryReady">
+  <main class="min-h-screen h-full">
+    <div v-show="!breweryReady">
+      <Loading /> 
+    </div>
       <div
         id="content"
-        class="bg-blue-gray-100 overscroll-none font-sans dark:bg-darkTrueGray w-full dark:text-gray-100 text-gray-700 h-full pb-24"
+        class="h-full bg-blue-gray-100 overscroll-none font-sans dark:bg-darkTrueGray w-full dark:text-gray-100 text-gray-700 pb-24"
       >
         <!-- Main container -->
         <NavBar />
@@ -28,11 +30,7 @@
           </section>
         </div>
       </div>
-    </div>
-    <div v-else>
-      Här borde Jonte lägga in en spinner som faktiskt fungerar! Det verkar inte den i App.vue göra
-      nämligen.
-    </div>
+
   </main>
 </template>
 
@@ -41,6 +39,7 @@ import { Component, Vue } from "vue-property-decorator";
 import { eventStore } from "@/store/events";
 import Controller from "@/components/Controller.vue";
 import Sensor from "@/components/Sensor.vue";
+import Loading from "@/components/utils/Loading.vue";
 import NavBar from "@/components/NavBar.vue";
 import DashboardTop from "@/components/DashboardTop.vue";
 import { ControllerProps } from "@/models/controller";
@@ -48,6 +47,7 @@ import { ControllerProps } from "@/models/controller";
 @Component({
   components: {
     Sensor,
+    Loading,
     Controller,
     NavBar,
     DashboardTop,
