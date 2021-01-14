@@ -1,7 +1,10 @@
 <template>
   <main id="dashboard" class="min-h-screen h-full mx-8 space-y-4">
-    <div v-if="isLoading">
-      <Loading />
+    <div v-if="isLoading === 1">
+      <Loading msg="Loading" />
+    </div>
+    <div v-else-if="isLoading === 3">
+      <Loading msg="Error, cannot find Supervisor" />
     </div>
     <!-- <Overview /> -->
     <!-- <Todo /> -->
@@ -64,12 +67,13 @@ export default class Dashboard extends Vue {
 
   // Gatekeeper for rendering the 'Brewery view'.
   // More predicates can be added as needed.
+
   get isLoading() {
     return this.natsClientConnecting();
   }
 
-  private natsClientConnecting(): boolean {
-    return eventStore.natsClientStatus.valueOf() === NatsClientStatus.Connecting.valueOf();
+  private natsClientConnecting(): NatsClientStatus {
+    return eventStore.natsClientStatus;
   }
 
   // private controllers = [this.mash, this.manifold, this.boil];

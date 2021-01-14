@@ -1,7 +1,7 @@
 <template>
   <div id="loading">
     <div
-      class="fixed inset-0 z-30 transition-all duration-550 ease-in-out flex justify-center items-center text-green-500"
+      class="flex-col space-y-4 fixed inset-0 z-30 transition-all duration-550 ease-in-out flex justify-center items-center text-green-500"
     >
       <svg
         class="animate-spin h-64 w-64"
@@ -23,6 +23,7 @@
           d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
         ></path>
       </svg>
+      <h2 class="text-2xl">{{ msg }}</h2>
     </div>
     <div class="opacity-90 fixed inset-0 z-20 bg-black"></div>
   </div>
@@ -34,5 +35,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 @Component({
   components: {},
 })
-export default class Loading extends Vue {}
+export default class Loading extends Vue {
+  @Prop({}) msg!: string;
+}
 </script>
