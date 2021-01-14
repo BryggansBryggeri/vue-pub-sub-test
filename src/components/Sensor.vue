@@ -35,12 +35,12 @@
         }"
       >
         <div class="">
-          <span class="font-normal">Target:</span>
-          <div><span class="font-extrabold">72,2</span><span>&#8451;</span></div>
+          <span class="font-normal animate-pulse">Target:</span>
+          <div><span class="font-extrabold">{{ target }}</span><span>&#8451;</span></div>
         </div>
         <div class="font-normal">
           <span>Diff:</span>
-          <div><span class="font-extrabold">-4,1</span><span>&#8451;</span></div>
+          <div><span class="font-extrabold truncate">{{ diffDisp }}</span><span>&#8451;</span></div>
         </div>
 
         <div class="">
@@ -80,7 +80,13 @@ export default class Sensor extends Vue {
 
   private target = 68.7; // Subscribe to Controller.Actor.Target ?
 
+  private diff = (Number(this.sensorMeasDisp) - this.target).toFixed(2)
+
   private fullWidth = true;
+
+  get diffDisp(){
+    return (Number(this.sensorMeasDisp) - this.target).toFixed(2)
+  }
 
   get isFullWidth(): boolean {
     return this.fullWidth;
