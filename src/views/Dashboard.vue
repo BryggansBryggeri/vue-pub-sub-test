@@ -1,23 +1,22 @@
 <template>
-  <main id="dashboard" class="min-h-screen h-full">
-    <div v-show="!breweryReady">
+  <main id="dashboard" class="min-h-screen h-full mx-8 space-y-4">
+    <div v-if="!breweryReady">
       <Loading />
     </div>
-    <div class="mx-8 space-y-4">
-      <!-- <Overview /> -->
-      <!-- <Todo /> -->
-      <!-- <Chart /> -->
+    <!-- <Overview /> -->
+    <!-- <Todo /> -->
+    <!-- <Chart /> -->
 
-      <section
-        class="mx-auto grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4"
-      >
-        <Controller
-          v-for="controller in controllers"
-          v-bind:controllerProps="controller"
-          v-bind:key="controller.name"
-        />
-      </section>
-    </div>
+    <section
+      v-else
+      class="mx-auto grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4"
+    >
+      <Controller
+        v-for="controller in controllers"
+        v-bind:controllerProps="controller"
+        v-bind:key="controller.name"
+      />
+    </section>
   </main>
 </template>
 
@@ -56,6 +55,13 @@ export default class Dashboard extends Vue {
     type: "manual",
   };
 
+/*   private manifold: ControllerProps = {
+    controllerId: "boil",
+    actorId: "boil_heater",
+    sensorId: "boil_temp",
+    type: "manual",
+  }; */
+
   // Gatekeeper for rendering the 'Brewery view'.
   // More predicates can be added as needed.
   get breweryReady() {
@@ -66,7 +72,8 @@ export default class Dashboard extends Vue {
     return eventStore.natsClientReady;
   }
 
-  private controllers = [this.boil, this.mash];
+  // private controllers = [this.mash, this.manifold, this.boil];
+  private controllers = [this.mash, this.boil];
 
   // get listActiveClients(): string[] {
   //   return eventStore.listActiveClients();
