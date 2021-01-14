@@ -1,6 +1,6 @@
 <template>
   <div
-    class="rounded-lg space-y-4 border-2 dark:bg-blue-gray-800 p-2 min-h-20 h-full flex flex-col"
+    class="rounded-lg space-y-3 border-2 dark:bg-blue-gray-800 p-2 flex flex-col"
     :class="{
       'col-span-full': isFullWidth,
       'col-span-1': !isFullWidth,
@@ -11,11 +11,11 @@
   >
     <div class="flex flex-row justify-between w-full">
       <div class="flex flex-col">
-        <span class="font-semibold text-xxs capitalize">{{ typeOfCard }} Card</span>
-        <span class="font-semibold text-base">{{ name }}</span>
+        <span class="font-semibold text-xxs capitalize">{{ typeOfCard }}</span>
+        <span class="font-semibold text-sm">{{ name }}</span>
       </div>
       <div>
-        <status-ind :status="this.status" :size="4" />
+        <status-ind :status="this.status" :size="5" />
       </div>
     </div>
     <slot></slot>

@@ -1,5 +1,5 @@
 <template>
-  <main id="dashboard" class="min-h-screen h-full mx-8 space-y-4">
+  <main id="dashboard" class="leading-tight min-h-screen h-full mx-8 space-y-4">
     <div v-if="isLoading === 1">
       <Loading msg="Loading" />
     </div>

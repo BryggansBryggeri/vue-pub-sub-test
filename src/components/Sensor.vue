@@ -3,50 +3,51 @@
   <div class="sensor">
     <status-card :status="this.status" typeOfCard="sensor" :name="sensorId">
       <!-- TODO: Unique id by sensorId -->
-      <div id="main-sensor-value" class="flex flex-row justify-center items-center">
+      <div
+        id="main-sensor-value"
+        class="flex flex-row justify-around items-center"
+      >
         <div id="icon" class="pr-2">
-          <SvgIcon name="temp" size="7" />
+          <SvgIcon name="temp" size="9" />
         </div>
-        <div class="text-3xl font-bold">
-          <span>{{ sensorMeasDisp }}</span
-          ><span>&#8451;</span>
-        </div>
-      </div>
-      <div class="flex flex-row justify-end text-xs">
-        <div class="cursor-pointer flex flex-row" @click="showMore = !showMore">
-          <div class="flex flex-row">
-            <span v-if="showMore">Show less</span>
-            <span v-else>Show less</span>
-            <svg-icon
-              class="transform transition duration-200 ease-in-out"
-              :class="{ 'transform rotate-90': showMore }"
-              name="chevronRight"
-              size="4"
-            />
+        <div class="flex flex-col">
+          <div class="text-3xl font-bold">
+            <span class="font-mono">{{ sensorMeasDisp }}</span
+            ><span>&#8451;</span>
+          </div>
+          <div
+            class="flex flex-row text-sm items-center align-text-bottom space-x-2"
+          >
+            <span class="">Target:</span>
+
+            <span class="font-extrabold font-mono -mb-px">{{ target }}</span
+            ><span>&#8451;</span>
           </div>
         </div>
       </div>
-      <div
-        v-if="showMore"
-        class="w-full text-xs mx-auto grid gap-x-1 gap-y-3"
-        :class="{
-          'grid-cols-3 sm:grid-cols-3 place-items-center': isFullWidth,
-          'grid-cols-2 sm:grid-cols-2': !isFullWidth,
-        }"
-      >
+      <div v-if="isMore" class="flex flex-row w-full text-xxs justify-around">
         <div class="">
-          <span class="font-normal animate-pulse">Target:</span>
-          <div><span class="font-extrabold">{{ target }}</span><span>&#8451;</span></div>
-        </div>
-        <div class="font-normal">
-          <span>Diff:</span>
-          <div><span class="font-extrabold truncate">{{ diffDisp }}</span><span>&#8451;</span></div>
+          <span class="font-normal">Diff:</span>
+          <div class="">
+            <span class="font-extrabold font-mono min-w-max">{{ diffDisp }}</span
+            ><span>&#8451;</span>
+          </div>
         </div>
 
         <div class="">
           <span class="font-normal">RoC:</span>
-          <div><span class="font-extrabold">1,27</span><span>&#8451;/min</span></div>
+          <div class="">
+            <span class="font-extrabold font-mono min-w-max">{{ rocDisp }}</span
+            ><span>&#8451;/min</span>
+          </div>
         </div>
+      </div>
+      <div
+        class="flex flex-row justify-center"
+        cursor-pointer
+        @click="isMore = !isMore"
+      >
+        <ShowMore :isMore="isMore" />
       </div>
     </status-card>
   </div>
@@ -58,7 +59,15 @@ import { eventStore } from "@/store/events";
 import { match } from "@/models/result";
 import SvgIcon from "@/components/symbols/SvgIcon.vue";
 import StatusInd from "@/components/utils/StatusInd.vue";
+import ShowMore from "@/components/toggles/ShowMore.vue";
 import StatusCard from "@/components/layouts/StatusCard.vue";
+import {
+  typeFromMode,
+  ControllerProps,
+  ContrResult,
+  Target,
+  Mode,
+} from "@/models/controller";
 
 enum Success {
   Ok = 1,
@@ -68,6 +77,7 @@ enum Success {
 
 @Component({
   components: {
+    ShowMore,
     SvgIcon,
     StatusInd,
     StatusCard,
@@ -75,17 +85,21 @@ enum Success {
 })
 export default class Sensor extends Vue {
   @Prop() sensorId!: string;
+  
+  @Prop() target!: Target;
 
-  private showMore = false;
+  private isMore = false;
 
-  private target = 68.7; // Subscribe to Controller.Actor.Target ?
-
-  private diff = (Number(this.sensorMeasDisp) - this.target).toFixed(2)
+  private diff = (Number(this.sensorMeasDisp) - this.target).toFixed(2);
 
   private fullWidth = true;
 
-  get diffDisp(){
-    return (Number(this.sensorMeasDisp) - this.target).toFixed(2)
+  get diffDisp() {
+    return (Number(this.sensorMeasDisp) - this.target).toFixed(2);
+  }
+
+  get rocDisp() {
+    return 13;
   }
 
   get isFullWidth(): boolean {

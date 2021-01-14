@@ -1,11 +1,23 @@
 <template>
   <status-card :status="this.status" typeOfCard="actor" :name="actorId">
-    <div id="main-actor-value" class="flex flex-row justify-center items-center">
-      <div id="icon" class="pr-2 animate-pulse text-green-600">
-        <SvgIcon name="power" size="7" />
+    <div
+      id="main-actor-value"
+      class="flex flex-row justify-around items-center"
+    >
+      <div id="icon" class="pr-2">
+        <SvgIcon name="power" size="9" />
       </div>
-      <div class="flex text-3xl font-bold">
-        <span class="">{{ actorSignalDisp }}%</span>
+      <div class="flex flex-col">
+        <div class="text-3xl font-bold">
+          <span class="font-mono min-w-max">0</span><span>%</span>
+        </div>
+        <div
+          class="flex flex-row text-sm items-center align-text-bottom space-x-2"
+        >
+          <span class="">Controll:</span>
+
+          <span class="font-extrabold font-mono -mb-px">{{ currentMode }}</span>
+        </div>
       </div>
     </div>
   </status-card>
@@ -19,6 +31,13 @@ import StatusCard from "@/components/layouts/StatusCard.vue";
 import SvgIcon from "@/components/symbols/SvgIcon.vue";
 import { IndicatorType } from "@/utils";
 import { match } from "@/models/result";
+import {
+  typeFromMode,
+  ControllerProps,
+  ContrResult,
+  Target,
+  Mode,
+} from "@/models/controller";
 
 @Component({
   components: {
@@ -29,6 +48,20 @@ import { match } from "@/models/result";
 })
 export default class Actor extends Vue {
   @Prop() actorId!: string;
+
+  @Prop() mode!: Mode; // Should probably not come in as a veriable but get read from eventbus?
+
+  get currentMode() {
+    let disp!: string;
+    if (this.mode === 0) {
+      disp = "Manual";
+    } else if (this.mode === 1) {
+      disp = "Auto";
+    } else {
+      disp = "--";
+    }
+    return disp;
+  }
 
   private fullWidth = false;
 
