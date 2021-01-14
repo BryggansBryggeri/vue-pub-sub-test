@@ -2,7 +2,7 @@ export type TimeStamp = number;
 
 export function capitalizeFirstLetter(string: string): string {
   return string.charAt(0).toUpperCase() + string.slice(1);
-}
+} // @Jakob: Totally unneccesery from a UI-perspective as it's easy to do this in CSS.
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function hasKey<O>(obj: O, key: keyof any): key is keyof O {

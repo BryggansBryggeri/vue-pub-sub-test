@@ -1,37 +1,22 @@
 <template>
-  <main class="min-h-screen h-full">
+  <main id="dashboard" class="min-h-screen h-full mx-8 space-y-4">
     <div v-if="isLoading">
       <Loading />
     </div>
-    <div v-else>
-      <div
-        id="content"
-        class="h-full bg-blue-gray-100 overscroll-none font-sans dark:bg-darkTrueGray w-full dark:text-gray-100 text-gray-700 pb-24"
-      >
-        <!-- Main container -->
-        <NavBar />
+    <!-- <Overview /> -->
+    <!-- <Todo /> -->
+    <!-- <Chart /> -->
 
-        <div class="mx-8 space-y-4">
-          <!-- <Overview /> -->
-          <!-- <Todo /> -->
-          <!-- <Chart /> -->
-
-          <section
-            id="vesselGrid"
-            class="mx-auto grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4"
-          >
-            <!--
-          <Vessel v-for="vessel in vessels" v-bind:vesselProp="vessel" v-bind:key="vessel.name" />
-          -->
-            <Controller
-              v-for="controller in controllers"
-              v-bind:controllerProps="controller"
-              v-bind:key="controller.name"
-            />
-          </section>
-        </div>
-      </div>
-    </div>
+    <section
+      v-else
+      class="mx-auto grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4"
+    >
+      <Controller
+        v-for="controller in controllers"
+        v-bind:controllerProps="controller"
+        v-bind:key="controller.name"
+      />
+    </section>
   </main>
 </template>
 
@@ -55,7 +40,7 @@ import { ControllerProps } from "@/models/controller";
     // MashCard,
   },
 })
-export default class Home extends Vue {
+export default class Dashboard extends Vue {
   private mash: ControllerProps = {
     controllerId: "mash",
     actorId: "mash_heater",
@@ -70,6 +55,13 @@ export default class Home extends Vue {
     type: "manual",
   };
 
+  /*   private manifold: ControllerProps = {
+    controllerId: "boil",
+    actorId: "boil_heater",
+    sensorId: "boil_temp",
+    type: "manual",
+  }; */
+
   // Gatekeeper for rendering the 'Brewery view'.
   // More predicates can be added as needed.
   get isLoading() {
@@ -80,7 +72,8 @@ export default class Home extends Vue {
     return eventStore.natsClientStatus.valueOf() === NatsClientStatus.Connecting.valueOf();
   }
 
-  private controllers = [this.boil, this.mash];
+  // private controllers = [this.mash, this.manifold, this.boil];
+  private controllers = [this.mash, this.boil];
 
   // get listActiveClients(): string[] {
   //   return eventStore.listActiveClients();

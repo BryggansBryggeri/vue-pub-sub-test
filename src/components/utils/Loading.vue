@@ -1,7 +1,7 @@
 <template>
   <div id="loading">
     <div
-      class="fixed inset-0 z-50 transition-all duration-550 ease-in-out flex justify-center items-center text-green-500"
+      class="fixed inset-0 z-30 transition-all duration-550 ease-in-out flex justify-center items-center text-green-500"
     >
       <svg
         class="animate-spin h-64 w-64"
@@ -24,7 +24,7 @@
         ></path>
       </svg>
     </div>
-    <div class="opacity-90 fixed inset-0 z-40 bg-black"></div>
+    <div class="opacity-90 fixed inset-0 z-20 bg-black"></div>
   </div>
 </template>
 

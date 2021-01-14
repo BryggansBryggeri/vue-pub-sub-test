@@ -15,7 +15,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { eventStore } from "@/store/events";
 import StatusInd from "@/components/utils/StatusInd.vue";
-import StatusCard from "@/components/utils/StatusCard.vue";
+import StatusCard from "@/components/layouts/StatusCard.vue";
 import SvgIcon from "@/components/symbols/SvgIcon.vue";
 import { IndicatorType } from "@/utils";
 import { match } from "@/models/result";

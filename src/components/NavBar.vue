@@ -1,12 +1,10 @@
 <template>
   <div
     id="Navbar"
-    class="px-6 py-2 mb-4 bg-white dark:bg-blue-gray-900 mx-auto flex flex-row items-center align-middle justify-between shadow-lg"
+    class="w-full relative px-6 py-3 mb-4 border-t-2 border-green-800 bg-white dark:bg-blue-gray-900 mx-auto flex flex-row items-center align-middle justify-between shadow-lg z-50"
   >
-    <h4 class="text-xl font-bold leading-tight">BryggIO</h4>
-    <div class="flex flex-row items-center space-x-4">
-      <router-link to="/"><svg-icon name="dashboard" size="6" /></router-link>
-      <router-link to="/Library"><svg-icon name="book" size="6" /></router-link>
+    <h4 class="text-xl font-bold leading-tight underline logo">BryggIO</h4>
+    <div class="flex flex-row items-center space-x-6 text-sm">
       <button class="focus:outline-none focus:ring-0" @click="toggleDarkMode()">
         <div v-if="darkMode" class="hover:text-yellow-600 transition duration-150">
           <svg-icon name="sun" size="6"></svg-icon>
@@ -15,11 +13,23 @@
           <svg-icon name="moon" size="6"></svg-icon>
         </div>
       </button>
+      <router-link
+        class="flex flex-row transition focus:outline-none duration-150 ease-in-out hover:text-indigo-400 rounded space-x-2"
+        to="/"
+        ><svg-icon name="dashboard" size="5" />
+        <p>Dashboard</p></router-link
+      >
+      <router-link
+        class="flex flex-row transition focus:outline-none duration-150 ease-in-out hover:text-indigo-400 rounded space-x-2"
+        to="/Library"
+        ><svg-icon name="book" size="5" />
+        <p>Library</p></router-link
+      >
       <button
-        class="flex flex-row transition focus:outline-none duration-150 ease-in-out hover:text-indigo-400 rounded px-2 py-2 text-sm"
+        class="flex flex-row transition focus:outline-none duration-150 ease-in-out hover:text-indigo-400 rounded space-x-2 text-sm"
       >
         <svg-icon name="git" size="5"></svg-icon>
-        <span class="pl-2">Github</span>
+        <p>Github</p>
       </button>
     </div>
   </div>
@@ -51,3 +61,9 @@ export default class Navbar extends Vue {
   }
 }
 </script>
+
+<style scoped>
+.logo {
+  text-decoration-color: green;
+}
+</style>
