@@ -1,6 +1,6 @@
 <template>
   <main class="min-h-screen h-full">
-    <div v-if="!breweryReady">
+    <div v-if="isLoading">
       <Loading />
     </div>
     <div v-else>
@@ -37,7 +37,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { eventStore } from "@/store/events";
+import { eventStore, NatsClientStatus } from "@/store/events";
 import Controller from "@/components/Controller.vue";
 import Sensor from "@/components/Sensor.vue";
 import Loading from "@/components/utils/Loading.vue";
@@ -72,12 +72,12 @@ export default class Home extends Vue {
 
   // Gatekeeper for rendering the 'Brewery view'.
   // More predicates can be added as needed.
-  get breweryReady() {
-    return this.natsClientReady();
+  get isLoading() {
+    return this.natsClientConnecting();
   }
 
-  private natsClientReady(): boolean {
-    return eventStore.natsClientReady;
+  private natsClientConnecting(): boolean {
+    return eventStore.natsClientStatus.valueOf() === NatsClientStatus.Connecting.valueOf();
   }
 
   private controllers = [this.boil, this.mash];

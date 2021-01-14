@@ -18,13 +18,19 @@ import {
 } from "@/models/actor";
 import { hasKey } from "@/utils";
 
+export enum NatsClientStatus {
+  Connecting = 1,
+  Ready = 2,
+  Error = 3,
+}
+
 @Module({ generateMutationSetters: true })
 export class EventModule extends VuexModule {
   messages: string[] = [];
 
   public darkMode = true;
 
-  public natsClientReady = false;
+  public natsClientStatus = NatsClientStatus.Connecting;
 
   private activeClients: string[] = [];
 
@@ -33,12 +39,10 @@ export class EventModule extends VuexModule {
     boil_temp: MeasResult;
   } = {
     // eslint-disable-next-line @typescript-eslint/camelcase
-    mash_temp: newMeasOk(54.2, Date.now()),
+    mash_temp: newMeasErr("No data received.", Date.now()),
+    // mash_temp: newMeasOk(54.2, Date.now()),
     // eslint-disable-next-line @typescript-eslint/camelcase
-    boil_temp: newMeasErr(
-      "Das ist nicht nur nicht richtig; es ist nicht einmal falsch!",
-      Date.now()
-    ),
+    boil_temp: newMeasErr("No data received.", Date.now()),
   };
 
   private actors: {
@@ -46,12 +50,10 @@ export class EventModule extends VuexModule {
     boil_heater: ActorResult;
   } = {
     // eslint-disable-next-line @typescript-eslint/camelcase
-    mash_heater: newActorResultOk(0.7, Date.now()),
+    mash_heater: newActorResultErr("No data received.", Date.now()),
+    // mash_heater: newActorResultOk(0.7, Date.now()),
     // eslint-disable-next-line @typescript-eslint/camelcase
-    boil_heater: newActorResultErr(
-      "Das ist nicht nur nicht richtig; es ist nicht einmal falsch!",
-      Date.now()
-    ),
+    boil_heater: newActorResultErr("No data received.", Date.now()),
   };
 
   private controllers: {

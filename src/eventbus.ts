@@ -1,6 +1,6 @@
 import { Msg, connect, JSONCodec, NatsConnection } from "nats.ws";
 import { SensorMsg } from "@/models/sensor";
-import { eventStore } from "@/store/events";
+import { eventStore, NatsClientStatus } from "@/store/events";
 import { ActorMsg } from "@/models/actor";
 import { propsToJson, ControllerProps, ContrStatusMsg } from "@/models/controller";
 
@@ -10,53 +10,58 @@ export class Eventbus {
   private client: NatsConnection | null = null;
 
   public async start(): Promise<void> {
-    const nc = await connect({
-      servers: "ws://localhost:9222",
-      user: "jackonelli",
-      pass: "penna1glas",
-    });
-    this.client = nc;
-
-    // TODO nc --> this.client. I want to track that change though.
-    // Will do it when there is slightly less churn.
-    const sensorSub = nc.subscribe("sensor.*.measurement");
-    (async () => {
-      for await (const msg of sensorSub) {
-        const sensorMsg: SensorMsg = jc.decode(msg.data);
-        eventStore.updateSensor(sensorMsg);
-      }
-    })().then();
-
-    const actorSub = nc.subscribe("actor.*.current_signal");
-    (async () => {
-      for await (const msg of actorSub) {
-        const actorMsg: ActorMsg = jc.decode(msg.data);
-        eventStore.updateActor(actorMsg);
-      }
-    })().then();
-
-    const contrSub = nc.subscribe("controller.*.status");
-    (async () => {
-      for await (const msg of contrSub) {
-        const contrMsg: ContrStatusMsg = jc.decode(msg.data);
-        eventStore.updateContr(contrMsg);
-      }
-    })().then();
-
-    this.request("command.list_active_clients", null, 1000)
-      .then((msg) => {
-        if (msg !== undefined) {
-          const clients = jc.decode(msg.data);
-          const clientIds: string[] = Object.keys(clients);
-          eventStore.updateActiveClients(clientIds);
-        }
-      })
-      .catch((err) => {
-        console.log(`problem with request: ${err.message}`);
+    try {
+      const nc = await connect({
+        servers: "ws://localhost:9222",
+        user: "jackonelli",
+        pass: "penna1glas",
       });
+      this.client = nc;
 
-    eventStore.natsClientReady = true;
-    console.log("nats client", this.client);
+      // TODO nc --> this.client. I want to track that change though.
+      // Will do it when there is slightly less churn.
+      const sensorSub = nc.subscribe("sensor.*.measurement");
+      (async () => {
+        for await (const msg of sensorSub) {
+          const sensorMsg: SensorMsg = jc.decode(msg.data);
+          eventStore.updateSensor(sensorMsg);
+        }
+      })().then();
+
+      const actorSub = nc.subscribe("actor.*.current_signal");
+      (async () => {
+        for await (const msg of actorSub) {
+          const actorMsg: ActorMsg = jc.decode(msg.data);
+          eventStore.updateActor(actorMsg);
+        }
+      })().then();
+
+      const contrSub = nc.subscribe("controller.*.status");
+      (async () => {
+        for await (const msg of contrSub) {
+          const contrMsg: ContrStatusMsg = jc.decode(msg.data);
+          eventStore.updateContr(contrMsg);
+        }
+      })().then();
+
+      this.request("command.list_active_clients", null, 1000)
+        .then((msg) => {
+          if (msg !== undefined) {
+            const clients = jc.decode(msg.data);
+            const clientIds: string[] = Object.keys(clients);
+            eventStore.updateActiveClients(clientIds);
+          }
+        })
+        .catch((err) => {
+          console.log(`problem with request: ${err.message}`);
+        });
+
+      eventStore.natsClientStatus = NatsClientStatus.Ready;
+      console.log("nats client", this.client);
+    } catch (err) {
+      eventStore.natsClientStatus = NatsClientStatus.Error;
+      console.log("Error connecting to NATS client", err);
+    }
   }
 
   // This should be req-rep.

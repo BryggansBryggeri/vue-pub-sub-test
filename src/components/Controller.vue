@@ -108,7 +108,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { typeFromMode, ControllerProps, ContrResult, Target, Mode } from "@/models/controller";
 import SvgIcon from "@/components/symbols/SvgIcon.vue";
-import { eventStore } from "@/store/events";
+import { eventStore, NatsClientStatus } from "@/store/events";
 import { eventbus } from "@/eventbus";
 import { match } from "@/models/result";
 import { IndicatorType } from "@/utils";
@@ -146,13 +146,6 @@ export default class Controller extends Vue {
   private modalVisible = false;
 
   private autoModalVisible = false;
-
-  private sendUpdateRequest(newValue: number) {
-    console.log("sendUpdateRequest ran");
-    console.log(newValue);
-    // SKICAK TILL VUEX
-    this.modalVisible = false;
-  }
 
   get actorSignalDisp(): string {
     return match(
@@ -212,6 +205,13 @@ export default class Controller extends Vue {
     this.startController();
   }
 
+  private sendUpdateRequest(newValue: number) {
+    console.log("sendUpdateRequest ran");
+    console.log(newValue);
+    // SKICAK TILL VUEX
+    this.modalVisible = false;
+  }
+
   private async startController(): Promise<void> {
     eventbus.startController(this.controllerProps);
   }
@@ -221,12 +221,12 @@ export default class Controller extends Vue {
   }
 
   private async toggleAuto(): Promise<void> {
-    if (eventStore.natsClientReady) {
+    if (eventStore.natsClientStatus.valueOf() === NatsClientStatus.Ready.valueOf()) {
       this.currentlySwitchingMode = true;
       await eventbus.switchController(this.toggledProps());
       this.currentlySwitchingMode = false;
     } else {
-      console.log("Could not toggle. Eventbus not ready");
+      console.log("Could not toggle. NATS client not ready");
     }
   }
 

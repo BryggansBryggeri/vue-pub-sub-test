@@ -9,10 +9,6 @@ export default class App extends Vue {
     eventbus.start();
   }
 
-  natsClientReady(): boolean {
-    return eventStore.natsClientReady;
-  }
-
   get darkMode(): boolean {
     return eventStore.darkMode;
   }
