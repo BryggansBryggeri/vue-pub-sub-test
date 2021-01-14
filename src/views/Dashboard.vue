@@ -55,7 +55,7 @@ export default class Dashboard extends Vue {
     type: "manual",
   };
 
-/*   private manifold: ControllerProps = {
+  /*   private manifold: ControllerProps = {
     controllerId: "boil",
     actorId: "boil_heater",
     sensorId: "boil_temp",
