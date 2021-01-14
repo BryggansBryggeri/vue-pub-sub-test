@@ -17,6 +17,8 @@ export class Eventbus {
     });
     this.client = nc;
 
+    // TODO nc --> this.client. I want to track that change though.
+    // Will do it when there is slightly less churn.
     const sensorSub = nc.subscribe("sensor.*.measurement");
     (async () => {
       for await (const msg of sensorSub) {
@@ -59,16 +61,20 @@ export class Eventbus {
 
   // This should be req-rep.
   public async startController(props: ControllerProps) {
-    const tmp = propsToJson(props);
-    console.log("Starting controller with props:", tmp);
-    this.publish("command.start_controller", tmp);
+    const parsedProps = propsToJson(props);
+    console.log("Starting controller with props:", parsedProps);
+    this.publish("command.start_controller", parsedProps);
   }
 
   public async switchController(props: ControllerProps) {
-    const tmp = propsToJson(props);
-    console.log("Switching controller to props:", tmp);
-    const reply = await this.request("command.switch_controller", tmp, 5000);
-    console.log("Controller switched: ", reply);
+    const parsedProps = propsToJson(props);
+    console.log("Switching controller to props:", parsedProps);
+    try {
+      const reply = await this.request("command.switch_controller", parsedProps, 5000);
+      console.log("Controller switched: ", reply);
+    } catch (err) {
+      console.log("Error switching controllers: ", err);
+    }
   }
 
   public async request(
