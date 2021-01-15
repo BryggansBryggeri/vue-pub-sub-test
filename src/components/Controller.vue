@@ -222,10 +222,11 @@ export default class Controller extends Vue {
   }
 
   private sendUpdateRequest(newValue: number) {
+    this.modalVisible = false;
+    this.autoModalVisible = false;
     console.log("sendUpdateRequest ran");
     console.log(newValue);
     // SKICAK TILL VUEX
-    this.modalVisible = false;
   }
 
   private async startController(): Promise<void> {
