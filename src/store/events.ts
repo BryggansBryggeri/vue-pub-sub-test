@@ -1,6 +1,6 @@
 import { Action, Module, VuexModule } from "vuex-class-modules";
 import store from "@/store";
-import { SensorMsg, MeasResult, measResultFromMsg, newMeasOk, newMeasErr } from "@/models/sensor";
+import { SensorMsg, MeasResult, measResultFromMsg, newMeasErr } from "@/models/sensor";
 import {
   ContrStatusMsg,
   ContrResult,
@@ -9,13 +9,7 @@ import {
   newContrResultErr,
   Mode,
 } from "@/models/controller";
-import {
-  ActorMsg,
-  ActorResult,
-  actorResultFromMsg,
-  newActorResultOk,
-  newActorResultErr,
-} from "@/models/actor";
+import { ActorMsg, ActorResult, actorResultFromMsg, newActorResultErr } from "@/models/actor";
 import { hasKey } from "@/utils";
 
 export enum NatsClientStatus {

@@ -12,15 +12,14 @@ export class Eventbus {
   public async start(): Promise<void> {
     try {
       const nc = await connect({
+        // servers: "ws://192.168.0.10:9222",
         servers: "ws://localhost:9222",
         user: "jackonelli",
         pass: "penna1glas",
       });
       this.client = nc;
 
-      // TODO nc --> this.client. I want to track that change though.
-      // Will do it when there is slightly less churn.
-      const sensorSub = nc.subscribe("sensor.*.measurement");
+      const sensorSub = this.client.subscribe("sensor.*.measurement");
       (async () => {
         for await (const msg of sensorSub) {
           const sensorMsg: SensorMsg = jc.decode(msg.data);
@@ -28,7 +27,7 @@ export class Eventbus {
         }
       })().then();
 
-      const actorSub = nc.subscribe("actor.*.current_signal");
+      const actorSub = this.client.subscribe("actor.*.current_signal");
       (async () => {
         for await (const msg of actorSub) {
           const actorMsg: ActorMsg = jc.decode(msg.data);
@@ -36,7 +35,7 @@ export class Eventbus {
         }
       })().then();
 
-      const contrSub = nc.subscribe("controller.*.status");
+      const contrSub = this.client.subscribe("controller.*.status");
       (async () => {
         for await (const msg of contrSub) {
           const contrMsg: ContrStatusMsg = jc.decode(msg.data);
