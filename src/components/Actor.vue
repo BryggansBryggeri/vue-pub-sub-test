@@ -2,7 +2,7 @@
   <status-card :status="this.status" typeOfCard="actor" :name="actorId">
     <div
       id="main-actor-value"
-      class="flex flex-row justify-around items-center"
+      class="flex flex-row justify-left items-center"
     >
       <div id="icon" class="pr-2">
         <SvgIcon name="power" size="9" />

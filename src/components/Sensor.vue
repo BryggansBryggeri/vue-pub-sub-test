@@ -5,7 +5,7 @@
       <!-- TODO: Unique id by sensorId -->
       <div
         id="main-sensor-value"
-        class="flex flex-row justify-around items-center"
+        class="flex flex-row justify-left items-center"
       >
         <div id="icon" class="pr-2">
           <SvgIcon name="temp" size="9" />
