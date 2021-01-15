@@ -1,11 +1,9 @@
-
 <template>
   <main id="dashboard" class="leading-tight min-h-screen h-full mx-8 space-y-4">
     <!--<Overview />-->
     <!-- <ChartView />-->
     <!-- <Todo /> -->
-    
-    
+
     <div v-if="isLoading === 1">
       <Loading msg="Loading" />
     </div>
@@ -17,7 +15,6 @@
       v-else
       class="mx-auto grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4"
     >
-
       <Controller
         v-for="controller in controllers"
         v-bind:controllerProps="controller"
@@ -88,4 +85,3 @@ export default class Dashboard extends Vue {
   // }
 }
 </script>
-

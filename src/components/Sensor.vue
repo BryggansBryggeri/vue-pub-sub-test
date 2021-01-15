@@ -3,10 +3,7 @@
   <div class="sensor">
     <status-card :status="this.status" typeOfCard="sensor" :name="sensorId">
       <!-- TODO: Unique id by sensorId -->
-      <div
-        id="main-sensor-value"
-        class="flex flex-row justify-left items-center"
-      >
+      <div id="main-sensor-value" class="flex flex-row justify-left items-center">
         <div id="icon" class="pr-2">
           <SvgIcon name="temp" size="9" />
         </div>
@@ -15,9 +12,7 @@
             <span class="font-mono">{{ sensorMeasDisp }}</span
             ><span>&#8451;</span>
           </div>
-          <div
-            class="flex flex-row text-sm items-center align-text-bottom space-x-2"
-          >
+          <div class="flex flex-row text-sm items-center align-text-bottom space-x-2">
             <span class="">Target:</span>
 
             <span class="font-extrabold font-mono -mb-px">{{ target }}</span
@@ -42,11 +37,7 @@
           </div>
         </div>
       </div>
-      <div
-        class="flex flex-row justify-center"
-        cursor-pointer
-        @click="isMore = !isMore"
-      >
+      <div class="flex flex-row justify-center" cursor-pointer @click="isMore = !isMore">
         <ShowMore :isMore="isMore" />
       </div>
     </status-card>
@@ -61,13 +52,7 @@ import SvgIcon from "@/components/symbols/SvgIcon.vue";
 import StatusInd from "@/components/utils/StatusInd.vue";
 import ShowMore from "@/components/toggles/ShowMore.vue";
 import StatusCard from "@/components/layouts/StatusCard.vue";
-import {
-  typeFromMode,
-  ControllerProps,
-  ContrResult,
-  Target,
-  Mode,
-} from "@/models/controller";
+import { typeFromMode, ControllerProps, ContrResult, Target, Mode } from "@/models/controller";
 
 enum Success {
   Ok = 1,
@@ -85,7 +70,7 @@ enum Success {
 })
 export default class Sensor extends Vue {
   @Prop() sensorId!: string;
-  
+
   @Prop() target!: Target;
 
   private isMore = false;

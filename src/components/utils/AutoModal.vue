@@ -13,18 +13,18 @@
               </h1>
               <p>Currently there is no validation on this field so please use "68.7"</p>
               <div class="w-3/4 p-5">
-                  <div class="mt-1 inline-flex rounded-lg shadow-lg">
-                    <input
-                      type="text"
-                      v-model.number="targetTemp"
-                      name="target"
-                      id="target"
-                      class="outline-none px-5 py-3 dark:bg-blue-gray-700 text-right rounded-l-lg block shadow-inner w-full sm:text-sm"
-                      :placeholder="currentPower" 
-                    />
-                    <div class="bg-indigo-700 rounded-r-lg p-3 flex items-center cursor-default">
-                      <p class="text-base text-white">&#x2103;</p>
-                    </div>
+                <div class="mt-1 inline-flex rounded-lg shadow-lg">
+                  <input
+                    type="text"
+                    v-model.number="targetTemp"
+                    name="target"
+                    id="target"
+                    class="outline-none px-5 py-3 dark:bg-blue-gray-700 text-right rounded-l-lg block shadow-inner w-full sm:text-sm"
+                    :placeholder="currentPower"
+                  />
+                  <div class="bg-indigo-700 rounded-r-lg p-3 flex items-center cursor-default">
+                    <p class="text-base text-white">&#x2103;</p>
+                  </div>
                 </div>
               </div>
               <div class="flex items-center justify-center w-full">
@@ -64,13 +64,13 @@ import "vue-slider-component/theme/material.css";
 })
 export default class AutoModal extends Vue {
   @Prop() isVisible!: boolean;
-  
+
   @Prop() currentPower!: number;
-  
+
   private targetTemp = "0";
 
-  get newTarget(){
-    return this.targetTemp
+  get newTarget() {
+    return this.targetTemp;
   }
 
   emitCancel() {
