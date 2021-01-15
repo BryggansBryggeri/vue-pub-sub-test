@@ -23,7 +23,7 @@
                 <actor :actorId="controllerProps.actorId" :mode="mode" />
                 <content
                   id="ControllerCard"
-                  class="rounded-lg space-y-2 col-span-full pb-4 border-2 dark:bg-blue-gray-800 p-2 min-h-20 flex flex-col"
+                  class="rounded-lg space-y-2 col-span-full border-2 dark:bg-blue-gray-800 p-2 min-h-20 flex flex-col"
                   :class="{
                     'bg-blue-gray-100 border-transparent': status === 1,
                     'bg-yellow-100 border-yellow-400': status === 2,
@@ -51,7 +51,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="flex flex-col pt-4 space-y-2">
+                  <div class="flex flex-col space-y-2">
                     <div
                       class="flex flex-col space-x-2 justify-center items-center"
                     >
@@ -64,12 +64,12 @@
                     <div v-if="isAuto">
                       <div class="flex flex-row items-center">
                         <div class="flex flex-col w-full items-center">
-                          <div class="flex flex-col text-xs py-4">
+                          <div class="flex flex-col text-xs py-2">
                             <button
                               class="py-2 px-8 bg-purple-500 rounded-lg shadow-lg font-semibold outline-none ring-0 focus:outline-none focus:ring-0"
                               @click="autoModalVisible = true"
                             >
-                              Set new target
+                              Set target temperature
                             </button>
 
                             <AutoModal
@@ -90,7 +90,7 @@
                               class="py-2 px-8 bg-purple-500 rounded-lg shadow-lg font-semibold outline-none ring-0 focus:outline-none focus:ring-0"
                               @click="modalVisible = true"
                             >
-                              Set new target
+                              Set power percentage
                             </button>
 
                             <ManualModal
