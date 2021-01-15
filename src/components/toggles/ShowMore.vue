@@ -15,14 +15,14 @@ import SvgIcon from "@/components/symbols/SvgIcon.vue";
 
 @Component({
   components: {
-      SvgIcon
+    SvgIcon,
   },
 })
 export default class ShowMore extends Vue {
-    @Prop() isMore!: boolean
-    
-    get showMore(){
-        return this.isMore;
-    }
+  @Prop() isMore!: boolean;
+
+  get showMore() {
+    return this.isMore;
+  }
 }
 </script>

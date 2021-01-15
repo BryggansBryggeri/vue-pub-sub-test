@@ -1,9 +1,6 @@
 <template>
   <status-card :status="this.status" typeOfCard="actor" :name="actorId">
-    <div
-      id="main-actor-value"
-      class="flex flex-row justify-left items-center"
-    >
+    <div id="main-actor-value" class="flex flex-row justify-left items-center">
       <div id="icon" class="pr-2">
         <SvgIcon name="power" size="9" />
       </div>
@@ -11,9 +8,7 @@
         <div class="text-3xl font-bold">
           <span class="font-mono min-w-max">0</span><span>%</span>
         </div>
-        <div
-          class="flex flex-row text-sm items-center align-text-bottom space-x-2"
-        >
+        <div class="flex flex-row text-sm items-center align-text-bottom space-x-2">
           <span class="">Control:</span>
 
           <span class="font-extrabold font-mono -mb-px">{{ currentMode }}</span>
@@ -31,13 +26,7 @@ import StatusCard from "@/components/layouts/StatusCard.vue";
 import SvgIcon from "@/components/symbols/SvgIcon.vue";
 import { IndicatorType } from "@/utils";
 import { match } from "@/models/result";
-import {
-  typeFromMode,
-  ControllerProps,
-  ContrResult,
-  Target,
-  Mode,
-} from "@/models/controller";
+import { typeFromMode, ControllerProps, ContrResult, Target, Mode } from "@/models/controller";
 
 @Component({
   components: {
