@@ -11,29 +11,20 @@
               <h1 class="text-center font-lg font-bold tracking-normal leading-tight mb-5">
                 Adjust automagic parameters
               </h1>
-              <div class="w-full pt-5 pb-10">
-                <div>
-                  <label for="price" class="block text-sm font-medium text-gray-700">Price</label>
-                  <div class="mt-1 inline-flex shadow-lg">
+              <p>Currently there is no validation on this field so please use "68.7"</p>
+              <div class="w-3/4 p-5">
+                  <div class="mt-1 inline-flex rounded-lg shadow-lg">
                     <input
-                      type="number"
+                      type="text"
+                      v-model.number="targetTemp"
                       name="target"
                       id="target"
-                      class="focus:ring-indigo-500 focus:border-indigo-500 pl-2 py-3 rounded-l-lg block shadow-inner w-full sm:text-sm border-gray-300"
-                      placeholder="0.00"
+                      class="outline-none px-5 py-3 dark:bg-blue-gray-700 text-right rounded-l-lg block shadow-inner w-full sm:text-sm"
+                      :placeholder="currentPower" 
                     />
-                    <div class="bg-indigo-400 rounded-r-lg flex items-center">
-                      <label for="scale" class="sr-only">Scale</label>
-                      <select
-                        id="scale"
-                        name="scale"
-                        class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
-                      >
-                        <option>&#x2103;</option>
-                        <option>&#x212A;</option>
-                      </select>
+                    <div class="bg-indigo-700 rounded-r-lg p-3 flex items-center cursor-default">
+                      <p class="text-base text-white">&#x2103;</p>
                     </div>
-                  </div>
                 </div>
               </div>
               <div class="flex items-center justify-center w-full">
@@ -73,13 +64,13 @@ import "vue-slider-component/theme/material.css";
 })
 export default class AutoModal extends Vue {
   @Prop() isVisible!: boolean;
+  
+  @Prop() currentPower!: number;
+  
+  private targetTemp = "0";
 
-  @Prop({ default: 0 }) sliderVal!: number;
-
-  private newPower!: number;
-
-  setValue(sliderVal: number) {
-    this.newPower = sliderVal;
+  get newTarget(){
+    return this.targetTemp
   }
 
   emitCancel() {
@@ -87,7 +78,7 @@ export default class AutoModal extends Vue {
   }
 
   emitConfirm() {
-    this.$emit("confirm", this.newPower);
+    this.$emit("confirm", this.newTarget);
   }
 }
 </script>

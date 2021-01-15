@@ -14,7 +14,7 @@
         <div
           class="flex flex-row text-sm items-center align-text-bottom space-x-2"
         >
-          <span class="">Controll:</span>
+          <span class="">Control:</span>
 
           <span class="font-extrabold font-mono -mb-px">{{ currentMode }}</span>
         </div>

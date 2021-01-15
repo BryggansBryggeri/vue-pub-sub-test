@@ -74,7 +74,7 @@
 
                             <AutoModal
                               :isVisible="autoModalVisible"
-                              :sliderVal="parseInt(actorSignalDisp)"
+                              :currentPower="parseInt(actorSignalDisp)"
                               @cancel="autoModalVisible = false"
                               @confirm="sendUpdateRequest($event)"
                             />
@@ -85,7 +85,7 @@
                     <div v-else>
                       <div class="flex flex-row items-center">
                         <div class="flex flex-col w-full items-center">
-                          <div class="flex flex-col text-xs py-4">
+                          <div class="flex flex-col text-xs py-2">
                             <button
                               class="py-2 px-8 bg-purple-500 rounded-lg shadow-lg font-semibold outline-none ring-0 focus:outline-none focus:ring-0"
                               @click="modalVisible = true"
