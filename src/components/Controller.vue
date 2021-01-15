@@ -61,7 +61,7 @@
                             >
                               Set target temperature
                             </button>
-
+                            <!-- TODO: Fix the input :currentPower -->
                             <AutoModal
                               :isVisible="autoModalVisible"
                               :currentPower="Number(actorSignalDisp)"
@@ -82,10 +82,10 @@
                             >
                               Set power percentage
                             </button>
-
+                            <!-- TODO: Fix the input :sliderVal -->
                             <ManualModal
                               :isVisible="modalVisible"
-                              :sliderVal="Number(actorSignalDisp)"
+                              :sliderVal="30"
                               @cancel="modalVisible = false"
                               @confirm="sendUpdateRequest($event)"
                             />
@@ -206,6 +206,7 @@ export default class Controller extends Vue {
   }
 
   private sendUpdateRequest(newValue: number) {
+    // TODO: Fix this fulhack
     this.modalVisible = false;
     this.autoModalVisible = false;
     console.log("sendUpdateRequest ran");
