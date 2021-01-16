@@ -52,7 +52,7 @@ import SvgIcon from "@/components/symbols/SvgIcon.vue";
 import StatusInd from "@/components/utils/StatusInd.vue";
 import ShowMore from "@/components/toggles/ShowMore.vue";
 import StatusCard from "@/components/layouts/StatusCard.vue";
-import { typeFromMode, ControllerProps, ContrResult, Target, Mode } from "@/models/controller";
+import { Target } from "@/models/controller";
 
 enum Success {
   Ok = 1,
@@ -71,16 +71,14 @@ enum Success {
 export default class Sensor extends Vue {
   @Prop() sensorId!: string;
 
-  @Prop() target!: Target;
+  @Prop() target!: Target | "--";
 
   private isMore = false;
-
-  private diff = (Number(this.sensorMeasDisp) - this.target).toFixed(2);
 
   private fullWidth = true;
 
   get diffDisp() {
-    return (Number(this.sensorMeasDisp) - this.target).toFixed(2);
+    return 13;
   }
 
   get rocDisp() {

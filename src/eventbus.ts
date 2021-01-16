@@ -2,7 +2,7 @@ import { Msg, connect, JSONCodec, NatsConnection } from "nats.ws";
 import { SensorMsg } from "@/models/sensor";
 import { eventStore, NatsClientStatus } from "@/store/events";
 import { ActorMsg } from "@/models/actor";
-import { propsToJson, ControllerProps, ContrStatusMsg } from "@/models/controller";
+import { propsToJson, ControllerProps, ContrStatusMsg, Target } from "@/models/controller";
 
 const jc = JSONCodec();
 
@@ -68,6 +68,14 @@ export class Eventbus {
     const parsedProps = propsToJson(props);
     console.log("Starting controller with props:", parsedProps);
     this.publish("command.start_controller", parsedProps);
+  }
+
+  // This should be req-rep.
+  public async setTarget(contrId: string, newTarget: Target) {
+    // TODO: stupid serialization.
+    const parsedTarget = JSON.parse(JSON.stringify(newTarget));
+    console.log(`Setting target ${parsedTarget} for controller: ${contrId}`);
+    this.publish(`controller.${contrId}.set_target`, parsedTarget);
   }
 
   public async switchController(props: ControllerProps) {

@@ -1,12 +1,12 @@
 import Vue from "vue";
-import VueSlider from 'vue-slider-component'
+import VueSlider from "vue-slider-component";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "./assets/tailwind.css";
 
 Vue.config.productionTip = false;
-Vue.component('VueSlider', VueSlider)
+Vue.component("VueSlider", VueSlider);
 
 new Vue({
   router,

@@ -168,19 +168,21 @@ export default class Controller extends Vue {
         return ok.mode !== Mode.Man;
       },
       () => {
-        throw new Error("isAuto received error val");
+        console.log("Controller status is Err. Setting 'isAuto = false'");
+        return false;
       }
     );
   }
 
-  get target(): Target {
+  get target(): Target | "--" {
     return match(
       this.contrStatus(),
       (ok) => {
-        return ok.target;
+        // TODO: Why is this cast needed?
+        return ok.target as Target | "--";
       },
       () => {
-        throw new Error("target received error val");
+        return "--";
       }
     );
   }
@@ -192,7 +194,8 @@ export default class Controller extends Vue {
         return ok.mode;
       },
       () => {
-        throw new Error("mode received error val");
+        console.log("Controller status is Err. Setting 'mode = Mode.Man'");
+        return Mode.Man;
       }
     );
   }
@@ -209,9 +212,7 @@ export default class Controller extends Vue {
     // TODO: Fix this fulhack
     this.modalVisible = false;
     this.autoModalVisible = false;
-    console.log("sendUpdateRequest ran");
-    console.log(newValue);
-    // SKICAK TILL VUEX
+    eventbus.setTarget(this.controllerProps.controllerId, newValue);
   }
 
   private async startController(): Promise<void> {

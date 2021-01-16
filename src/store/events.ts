@@ -5,9 +5,7 @@ import {
   ContrStatusMsg,
   ContrResult,
   contrResultFromMsg,
-  newContrResultOk,
   newContrResultErr,
-  Mode,
 } from "@/models/controller";
 import { ActorMsg, ActorResult, actorResultFromMsg, newActorResultErr } from "@/models/actor";
 import { hasKey } from "@/utils";
@@ -54,8 +52,8 @@ export class EventModule extends VuexModule {
     mash: ContrResult;
     boil: ContrResult;
   } = {
-    mash: newContrResultOk({ target: 67.0, mode: Mode.Man, timestamp: Date.now() }),
-    boil: newContrResultOk({ target: 75.0, mode: Mode.Auto, timestamp: Date.now() }),
+    mash: newContrResultErr("No data received.", Date.now()),
+    boil: newContrResultErr("No data received.", Date.now()),
   };
 
   public async updateActiveClients(clients: string[]): Promise<void> {
