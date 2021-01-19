@@ -25,12 +25,6 @@
         ><svg-icon name="book" size="5" />
         <p>Library</p></router-link
       >
-      <button
-        class="flex flex-row transition focus:outline-none duration-150 ease-in-out hover:text-indigo-400 rounded space-x-2 text-sm"
-      >
-        <svg-icon name="git" size="5"></svg-icon>
-        <p>Github</p>
-      </button>
     </div>
   </div>
 </template>
