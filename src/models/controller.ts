@@ -1,9 +1,6 @@
 import { Result, newErr, newOk } from "@/models/result";
 import { TimeStamp } from "@/utils";
 
-// TODO tmp start controller.
-// this.publish("command.start_controller", dummyManContrMash);
-
 type ContrType = "manual" | { hysteresis: { offset_on: number; offset_off: number } };
 
 export interface ControllerProps {

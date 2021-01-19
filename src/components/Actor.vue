@@ -6,7 +6,8 @@
       </div>
       <div class="flex flex-col">
         <div class="text-3xl font-bold">
-          <span class="font-mono min-w-max">0</span><span>%</span>
+          <span class="font-mono min-w-max">{{ signal }}</span
+          ><span>%</span>
         </div>
         <div class="flex flex-row text-sm items-center align-text-bottom space-x-2">
           <span class="">Control:</span>
@@ -39,6 +40,8 @@ export default class Actor extends Vue {
   @Prop() actorId!: string;
 
   @Prop() mode!: Mode; // Should probably not come in as a veriable but get read from eventbus?
+
+  @Prop() signal!: Target; // Should probably not come in as a veriable but get read from eventbus?
 
   get currentMode() {
     let disp!: string;

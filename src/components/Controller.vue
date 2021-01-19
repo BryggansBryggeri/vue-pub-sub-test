@@ -14,8 +14,8 @@
           <div class="w-full">
             <div class="space-y-3">
               <div id="6x6grid" class="mx-auto grid grid-cols-1 md:grid-cols-2 gap-3">
-                <sensor :sensorId="controllerProps.sensorId" :target="target" />
-                <actor :actorId="controllerProps.actorId" :mode="mode" />
+                <sensor :sensorId="controllerProps.sensorId" :target="dispAutoTarget" />
+                <actor :actorId="controllerProps.actorId" :mode="mode" :signal="dispManTarget" />
                 <content
                   id="ControllerCard"
                   class="rounded-lg space-y-2 col-span-full border-2 dark:bg-blue-gray-800 p-2 min-h-20 flex flex-col"
@@ -64,9 +64,9 @@
                             <!-- TODO: Fix the input :currentPower -->
                             <AutoModal
                               :isVisible="autoModalVisible"
-                              :currentPower="Number(actorSignalDisp)"
+                              :currentPower="Number(dispAutoTarget)"
                               @cancel="autoModalVisible = false"
-                              @confirm="sendUpdateRequest($event)"
+                              @confirm="setAutoTarget($event)"
                             />
                           </div>
                         </div>
@@ -85,9 +85,9 @@
                             <!-- TODO: Fix the input :sliderVal -->
                             <ManualModal
                               :isVisible="modalVisible"
-                              :sliderVal="30"
+                              :sliderVal="dispManTarget"
                               @cancel="modalVisible = false"
-                              @confirm="sendUpdateRequest($event)"
+                              @confirm="setManTarget($event)"
                             />
                           </div>
                         </div>
@@ -147,7 +147,11 @@ export default class Controller extends Vue {
 
   private autoModalVisible = false;
 
-  get actorSignalDisp(): string {
+  private latentManTarget: Target | "--" = "--";
+
+  private latentAutoTarget: Target | "--" = "--";
+
+  get dispActorSignal(): string {
     return match(
       eventStore.actorSignal(this.controllerProps.actorId),
       (ok) => {
@@ -172,6 +176,45 @@ export default class Controller extends Vue {
         return false;
       }
     );
+  }
+
+  get dispAutoTarget(): Target | "--" {
+    if (this.mode.valueOf() === Mode.Auto.valueOf()) {
+      return this.target;
+    }
+    return this.latentAutoTarget;
+  }
+
+  get dispManTarget(): Target | "--" {
+    if (this.mode.valueOf() === Mode.Man.valueOf()) {
+      return this.target;
+    }
+    return this.latentManTarget;
+  }
+
+  private setAutoTarget(newTarget: Target) {
+    if (this.mode.valueOf() === Mode.Auto.valueOf()) {
+      this.latentAutoTarget = newTarget;
+    } else {
+      console.log("setAutoTarget called in auto mode");
+    }
+    this.setTarget(newTarget);
+  }
+
+  private setManTarget(newTarget: Target) {
+    if (this.mode.valueOf() === Mode.Man.valueOf()) {
+      this.latentManTarget = newTarget;
+    } else {
+      console.log("setManTarget called in auto mode");
+    }
+    this.setTarget(newTarget);
+  }
+
+  private setTarget(newValue: Target) {
+    // TODO: Fix this fulhack
+    this.modalVisible = false;
+    this.autoModalVisible = false;
+    eventbus.setTarget(this.controllerProps.controllerId, newValue);
   }
 
   get target(): Target | "--" {
@@ -208,13 +251,6 @@ export default class Controller extends Vue {
     this.startController();
   }
 
-  private sendUpdateRequest(newValue: number) {
-    // TODO: Fix this fulhack
-    this.modalVisible = false;
-    this.autoModalVisible = false;
-    eventbus.setTarget(this.controllerProps.controllerId, newValue);
-  }
-
   private async startController(): Promise<void> {
     eventbus.startController(this.controllerProps);
   }
@@ -228,6 +264,17 @@ export default class Controller extends Vue {
       this.currentlySwitchingMode = true;
       await eventbus.switchController(this.toggledProps());
       this.currentlySwitchingMode = false;
+      let latentTarget: Target | "--" = 0.0;
+      // TODO: Make switch controller take new target as param.
+      if (this.mode.valueOf() === Mode.Man.valueOf()) {
+        latentTarget = this.latentAutoTarget;
+      } else {
+        latentTarget = this.latentManTarget;
+      }
+      if (latentTarget !== "--") {
+        const target: Target = latentTarget;
+        this.setTarget(target);
+      }
     } else {
       console.log("Could not toggle. NATS client not ready");
     }
