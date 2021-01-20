@@ -5,7 +5,7 @@
         <SvgIcon name="power" size="9" />
       </div>
       <div class="flex flex-col">
-        <div class="text-3xl font-bold">
+        <div class="text-3xl font-bold space-x-1">
           <span class="font-mono min-w-max">{{ signal }}</span
           ><span>%</span>
         </div>

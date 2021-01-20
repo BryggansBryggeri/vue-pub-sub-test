@@ -8,8 +8,8 @@
           <SvgIcon name="temp" size="9" />
         </div>
         <div class="flex flex-col">
-          <div class="text-3xl font-bold">
-            <span class="font-mono">{{ sensorMeasDisp }}</span
+          <div class="text-3xl font-bold space-x-1">
+            <span class="font-mono min-w-max">{{ sensorMeasDisp }}</span
             ><span>&#8451;</span>
           </div>
           <div class="flex flex-row text-sm items-center align-text-bottom space-x-2">
