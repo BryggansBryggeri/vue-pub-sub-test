@@ -2,7 +2,7 @@ import { Msg, connect, JSONCodec, NatsConnection } from "nats.ws";
 import { SensorMsg } from "@/models/sensor";
 import { eventStore, NatsClientStatus } from "@/store/events";
 import { ActorMsg } from "@/models/actor";
-import { propsToJson, ControllerProps, ContrStatusMsg, Target } from "@/models/controller";
+import { propsAndTargetToJson, ControllerProps, ContrStatusMsg, Target } from "@/models/controller";
 
 const jc = JSONCodec();
 
@@ -64,10 +64,10 @@ export class Eventbus {
   }
 
   // This should be req-rep.
-  public async startController(props: ControllerProps) {
-    const parsedProps = propsToJson(props);
-    console.log("Starting controller with props:", parsedProps);
-    this.publish("command.start_controller", parsedProps);
+  public async startController(props: ControllerProps, target: number) {
+    const contrData = propsAndTargetToJson(props, target);
+    console.log("Starting controller with props:", contrData);
+    this.publish("command.start_controller", contrData);
   }
 
   // This should be req-rep.
@@ -78,11 +78,11 @@ export class Eventbus {
     this.publish(`controller.${contrId}.set_target`, parsedTarget);
   }
 
-  public async switchController(props: ControllerProps) {
-    const parsedProps = propsToJson(props);
-    console.log("Switching controller to props:", parsedProps);
+  public async switchController(props: ControllerProps, newTarget: number) {
+    const contrData = propsAndTargetToJson(props, newTarget);
+    console.log("Switching controller to props:", contrData);
     try {
-      const reply = await this.request("command.switch_controller", parsedProps, 5000);
+      const reply = await this.request("command.switch_controller", contrData, 5000);
       console.log("Controller switched: ", reply);
     } catch (err) {
       console.log("Error switching controllers: ", err);

@@ -15,7 +15,7 @@
             <div class="space-y-3">
               <div id="6x6grid" class="mx-auto grid grid-cols-1 md:grid-cols-2 gap-3">
                 <sensor :sensorId="controllerProps.sensorId" :target="dispAutoTarget" />
-                <actor :actorId="controllerProps.actorId" :mode="mode" :signal="dispManTarget" />
+                <actor :actorId="controllerProps.actorId" :mode="mode" :signal="dispActorSignal" />
                 <content
                   id="ControllerCard"
                   class="rounded-lg space-y-2 col-span-full border-2 dark:bg-blue-gray-800 p-2 min-h-20 flex flex-col"
@@ -147,19 +147,7 @@ export default class Controller extends Vue {
 
   private autoModalVisible = false;
 
-  private latentManTarget: Target | "--" = "--";
-
   private latentAutoTarget: Target | "--" = "--";
-
-  get dispActorSignal(): string {
-    return match(
-      eventStore.actorSignal(this.controllerProps.actorId),
-      (ok) => {
-        return `${Math.round(100 * ok[0])}`;
-      },
-      () => "--"
-    );
-  }
 
   get status(): IndicatorType {
     return IndicatorType.Ok;
@@ -178,6 +166,16 @@ export default class Controller extends Vue {
     );
   }
 
+  get dispActorSignal(): string {
+    return match(
+      eventStore.actorSignal(this.controllerProps.actorId),
+      (ok) => {
+        return `${Math.round(100 * ok[0])}`;
+      },
+      () => "--"
+    );
+  }
+
   get dispAutoTarget(): Target | "--" {
     if (this.mode.valueOf() === Mode.Auto.valueOf()) {
       return this.target;
@@ -186,10 +184,7 @@ export default class Controller extends Vue {
   }
 
   get dispManTarget(): Target | "--" {
-    if (this.mode.valueOf() === Mode.Man.valueOf()) {
-      return this.target;
-    }
-    return this.latentManTarget;
+    return this.target;
   }
 
   private setAutoTarget(newTarget: Target) {
@@ -202,11 +197,6 @@ export default class Controller extends Vue {
   }
 
   private setManTarget(newTarget: Target) {
-    if (this.mode.valueOf() === Mode.Man.valueOf()) {
-      this.latentManTarget = newTarget;
-    } else {
-      console.log("setManTarget called in auto mode");
-    }
     this.setTarget(newTarget);
   }
 
@@ -252,7 +242,7 @@ export default class Controller extends Vue {
   }
 
   private async startController(): Promise<void> {
-    eventbus.startController(this.controllerProps);
+    eventbus.startController(this.controllerProps, 0.0);
   }
 
   private contrStatus(): ContrResult {
@@ -261,20 +251,16 @@ export default class Controller extends Vue {
 
   private async toggleAuto(): Promise<void> {
     if (eventStore.natsClientStatus.valueOf() === NatsClientStatus.Ready.valueOf()) {
-      this.currentlySwitchingMode = true;
-      await eventbus.switchController(this.toggledProps());
-      this.currentlySwitchingMode = false;
-      let latentTarget: Target | "--" = 0.0;
-      // TODO: Make switch controller take new target as param.
+      let newTarget: Target = 0.0;
       if (this.mode.valueOf() === Mode.Man.valueOf()) {
-        latentTarget = this.latentAutoTarget;
-      } else {
-        latentTarget = this.latentManTarget;
+        if (this.latentAutoTarget !== "--") {
+          newTarget = this.latentAutoTarget;
+        }
       }
-      if (latentTarget !== "--") {
-        const target: Target = latentTarget;
-        this.setTarget(target);
-      }
+
+      this.currentlySwitchingMode = true;
+      await eventbus.switchController(this.toggledProps(), newTarget);
+      this.currentlySwitchingMode = false;
     } else {
       console.log("Could not toggle. NATS client not ready");
     }

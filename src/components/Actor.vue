@@ -27,7 +27,7 @@ import StatusCard from "@/components/layouts/StatusCard.vue";
 import SvgIcon from "@/components/symbols/SvgIcon.vue";
 import { IndicatorType } from "@/utils";
 import { match } from "@/models/result";
-import { typeFromMode, ControllerProps, ContrResult, Target, Mode } from "@/models/controller";
+import { Target, Mode } from "@/models/controller";
 
 @Component({
   components: {
