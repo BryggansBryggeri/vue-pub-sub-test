@@ -50,6 +50,7 @@
       <button class="bg-green-500 p-3 rounded-xl shadow-xl text-white" @click="reload()">Try again!</button>
       <router-link class="bg-red-500 p-3 rounded-xl shadow-xl text-white" to="/Error">Ok, show me errors!
 </router-link>
+      <button class="bg-yellow-500 p-3 rounded-xl shadow-xl text-white" @click="emitAdmin()">Dev</button>
 </div>
     </div>
     <div class="opacity-90 fixed inset-0 z-20 bg-black"></div>
@@ -57,7 +58,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Emit, Vue } from "vue-property-decorator";
 
 @Component({
   components: {},
@@ -66,6 +67,10 @@ export default class Loading extends Vue {
   @Prop({}) msg!: string;
   
   @Prop({}) type!: string;
+
+   emitAdmin() {
+    this.$emit("admin");
+  }
 
   private reload(){
     window.location.reload()
