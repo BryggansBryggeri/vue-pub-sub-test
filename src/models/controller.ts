@@ -11,19 +11,28 @@ export interface ControllerProps {
 }
 
 // Manual serialization, stupid but don't know how to do it otherwise
-export function propsToJson(props: ControllerProps): JSON {
-  return JSON.parse(
-    JSON.stringify({
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      controller_id: props.controllerId,
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      actor_id: props.actorId,
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      sensor_id: props.sensorId,
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      type: props.type,
-    })
-  );
+export function propsAndTargetToJson(props: ControllerProps, newTarget: Target): JSON {
+  const config = {
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    controller_id: props.controllerId,
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    actor_id: props.actorId,
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    sensor_id: props.sensorId,
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    type: props.type,
+  };
+  const contrData = {
+    config,
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    new_target: newTarget,
+  };
+  return JSON.parse(JSON.stringify(contrData));
+}
+
+export interface NewContrData {
+  config: ControllerProps;
+  new_target: Target;
 }
 
 export type ContrErr = string;
