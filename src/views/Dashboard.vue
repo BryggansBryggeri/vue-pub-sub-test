@@ -8,7 +8,7 @@
       <Loading msg="Loading" />
     </div>
     <div v-else-if="isLoading === 3">
-      <Loading msg="Error, cannot find Supervisor" />
+      <Loading msg="Error, cannot find Supervisor" type="error" />
     </div>
 
     <section

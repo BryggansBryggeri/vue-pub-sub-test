@@ -46,6 +46,11 @@
         <line class="lines" x1="304" y1="480" x2="304" y2="562" />
       </svg>
       <p class="text-2xl">{{ msg }}<span class="animate-pulse">...</span></p>
+      <div class="flex flex-row space-x-2" v-if="type === 'error'">
+      <button class="bg-green-500 p-3 rounded-xl shadow-xl text-white" @click="reload()">Try again!</button>
+      <router-link class="bg-red-500 p-3 rounded-xl shadow-xl text-white" to="/Error">Ok, show me errors!
+</router-link>
+</div>
     </div>
     <div class="opacity-90 fixed inset-0 z-20 bg-black"></div>
   </div>
@@ -59,6 +64,12 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 })
 export default class Loading extends Vue {
   @Prop({}) msg!: string;
+  
+  @Prop({}) type!: string;
+
+  private reload(){
+    window.location.reload()
+  }
 }
 </script>
 
