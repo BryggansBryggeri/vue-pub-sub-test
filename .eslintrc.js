@@ -11,6 +11,7 @@ module.exports = {
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
     "import/prefer-default-export": "off",
+    "max-classes-per-file": ["warn", 1],
     "class-methods-use-this": "off",
     "no-unused-expressions": "off",
     "no-restricted-syntax": "off",

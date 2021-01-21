@@ -52,13 +52,13 @@
           <label>User Name</label>
           <input
             type="text"
-            id="userName"
+            id="newTarget"
             class="form-control"
-            name="userName"
-            v-model="userFormGroup.props.userName"
+            name="newTarget"
+            v-model="AutoTargetFormGroup.props.newTarget"
           />
           <small class="form-text text-danger">{{
-            userFormGroup.controls.userName.errorMessage
+            AutoTargetFormGroup.controls.newTarget.errorMessage
           }}</small>
         </div>
       </div>
@@ -70,7 +70,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import Modal from "@/components/utils/Modal.vue";
 import { RxFormBuilder, IFormGroup } from "@rxweb/reactive-forms";
-import { User } from "../models/user";
+import { AutoTarget } from "../models/autotarget";
 
 @Component({
   components: {
@@ -80,13 +80,13 @@ import { User } from "../models/user";
 export default class Library extends Vue {
   private modalVisible = false;
 
-  private userFormGroup!: IFormGroup<User>;
+  private AutoTargetFormGroup!: IFormGroup<AutoTarget>;
 
   private formBuilder: RxFormBuilder = new RxFormBuilder();
 
   constructor() {
     super();
-    this.userFormGroup = this.formBuilder.formGroup(User) as IFormGroup<User>;
+    this.AutoTargetFormGroup = this.formBuilder.formGroup(AutoTarget) as IFormGroup<AutoTarget>;
   }
 }
 </script>

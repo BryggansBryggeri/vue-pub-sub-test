@@ -38,6 +38,8 @@ module.exports = {
     },
   },
   variants: {
+    backgroundColor: ({ after }) => after(['disabled']),
+    opacity: ({ after }) => after(['disabled']),
     extend: {},
   },
   plugins: [],

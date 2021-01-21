@@ -11,6 +11,7 @@ ReactiveFormConfig.clientLib = ClientLibrary.Vue;
 ReactiveFormConfig.set({
     validationMessage: {
         required: "This Field is required",
+        NumericValueType: "Wrong",
     }
 });
 

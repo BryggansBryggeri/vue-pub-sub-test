@@ -14,12 +14,13 @@
               <p>Currently there is no validation on this field so please use "68.7"</p>
               <div class="w-3/4 p-5">
                 <div class="mt-1 inline-flex rounded-lg shadow-lg">
+
                   <input
                     ref="targetfield"
                     type="text"
-                    v-model.number="targetTemp"
-                    name="target"
-                    id="target"
+                    v-model="AutoTargetFormGroup.props.newTarget"
+                    name="newTarget"
+                    id="newTarget"
                     class="outline-none px-5 py-3 dark:bg-blue-gray-700 text-right rounded-l-lg block shadow-inner w-full sm:text-sm"
                     :placeholder="'e.g 16.7'"
                   />
@@ -28,9 +29,12 @@
                   </div>
                 </div>
               </div>
+                            <small class="form-text text-danger">{{
+            AutoTargetFormGroup.controls.newTarget.errorMessage
+          }}</small>
               <div class="flex items-center justify-center w-full">
-                <button
-                  class="focus:outline-none transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm"
+                <button :disabled="AutoTargetFormGroup.controls.newTarget.errorMessage"
+                  class="focus:outline-none transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm disabled:bg-gray-600"
                   @click="emitConfirm()"
                 >
                   Confirm
@@ -56,6 +60,8 @@ import { Component, Prop, Vue, Ref } from "vue-property-decorator";
 import SvgIcon from "@/components/symbols/SvgIcon.vue";
 import VueSlider from "vue-slider-component";
 import "vue-slider-component/theme/material.css";
+import { RxFormBuilder, IFormGroup } from "@rxweb/reactive-forms";
+import { AutoTarget } from "@/models/autotarget";
 
 @Component({
   components: {
@@ -70,10 +76,22 @@ export default class AutoModal extends Vue {
   
   @Ref() readonly target!: HTMLInputElement;
 
-  private targetTemp!: number;
+  private autoTarget!: number;
+
+  private isDisabled = true;
+
+
+  private AutoTargetFormGroup!: IFormGroup<AutoTarget>;
+
+  private formBuilder: RxFormBuilder = new RxFormBuilder();
+
+  constructor() {
+    super();
+    this.AutoTargetFormGroup = this.formBuilder.formGroup(AutoTarget) as IFormGroup<AutoTarget>;
+  }
 
   get newTarget() {
-    return this.targetTemp;
+    return this.autoTarget;
   }
   
   created(){
