@@ -21,7 +21,7 @@
                     name="target"
                     id="target"
                     class="outline-none px-5 py-3 dark:bg-blue-gray-700 text-right rounded-l-lg block shadow-inner w-full sm:text-sm"
-                    :placeholder="'e.g ' + currentSignal"
+                    :placeholder="'e.g 16.7'"
                   />
                   <div class="bg-indigo-700 rounded-r-lg p-3 flex items-center cursor-default">
                     <p class="text-base text-white">&#x2103;</p>
@@ -65,8 +65,6 @@ import "vue-slider-component/theme/material.css";
 })
 export default class AutoModal extends Vue {
   @Prop() isVisible!: boolean;
-
-  @Prop() currentSignal!: number;
 
   @Ref() readonly targetfield!: HTMLInputElement;
   
