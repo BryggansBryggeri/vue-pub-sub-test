@@ -65,19 +65,19 @@ import "vue-slider-component/theme/material.css";
 export default class ManualModal extends Vue {
   @Prop() isVisible!: boolean;
 
-  @Prop({ default: 0 }) sliderVal!: number;
+  @Prop({ default: 0 }) sliderVal!: number;  // [0,1]
 
   private value!: number;
 
   created() {
-    this.value = this.sliderVal;
+    this.value = this.sliderVal*100;
     // this.$refs.slider.focus()
   }
 
   private newPower = 0;
 
   setValue(value: number) {
-    this.newPower = value;
+    this.newPower = value/100; // parent component want power for manual target to be [0,1]
     console.log("setValue called from");
   }
 
