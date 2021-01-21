@@ -12,6 +12,7 @@
                 Adjust automagic parameters
               </h1>
               <p>Currently there is no validation on this field so please use "68.7"</p>
+              <p>{{validInput}}</p>
               <div class="w-3/4 p-5">
                 <div class="mt-1 inline-flex rounded-lg shadow-lg">
                   <input
@@ -69,15 +70,19 @@ export default class AutoModal extends Vue {
   @Prop() currentPower!: number;
 
   @Ref() readonly targetfield!: HTMLInputElement;
-  
+
   @Ref() readonly target!: HTMLInputElement;
 
-  private targetTemp!: number;
+  private targetTemp: number | string = 0.0;
+
+  get validInput(): boolean {
+    return !Number.isNaN(parseFloat(`${this.targetTemp}`));
+  }
 
   get newTarget() {
     return this.targetTemp;
   }
-  
+
   created(){
     this.$nextTick(()=> this.targetfield.focus())
   }
