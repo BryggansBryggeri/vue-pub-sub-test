@@ -1,7 +1,9 @@
 <template>
   <main id="library" class="min-h-screen h-full">
     <div class="flex flex-grid grid-cols-6 gap-4 justify-around">
-      <div class="w-1/6 border-2 rounded border-gray-700 flex flex-col items-center space-y-3">
+      <div
+        class="w-1/6 border-2 rounded border-gray-700 flex flex-col items-center space-y-3"
+      >
         <span class="justify-left text-left">Component</span>
         <span class="text-sm">utils/Modal</span>
         <button
@@ -45,7 +47,21 @@
       <div class="w-1/6 border-2 rounded border-gray-700"></div>
       <div class="w-1/6 border-2 rounded border-gray-700"></div>
       <div class="w-1/6 border-2 rounded border-gray-700"></div>
-      <div class="w-1/6 border-2 rounded border-gray-700"></div>
+      <div class="w-1/6 border-2 rounded border-gray-700">
+        <div class="form-group">
+          <label>User Name</label>
+          <input
+            type="text"
+            id="userName"
+            class="form-control"
+            name="userName"
+            v-model="userFormGroup.props.userName"
+          />
+          <small class="form-text text-danger">{{
+            userFormGroup.controls.userName.errorMessage
+          }}</small>
+        </div>
+      </div>
     </div>
   </main>
 </template>
@@ -53,6 +69,8 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Modal from "@/components/utils/Modal.vue";
+import { RxFormBuilder, IFormGroup } from "@rxweb/reactive-forms";
+import { User } from "../models/user";
 
 @Component({
   components: {
@@ -61,5 +79,14 @@ import Modal from "@/components/utils/Modal.vue";
 })
 export default class Library extends Vue {
   private modalVisible = false;
+
+  private userFormGroup!: IFormGroup<User>;
+
+  private formBuilder: RxFormBuilder = new RxFormBuilder();
+
+  constructor() {
+    super();
+    this.userFormGroup = this.formBuilder.formGroup(User) as IFormGroup<User>;
+  }
 }
 </script>
