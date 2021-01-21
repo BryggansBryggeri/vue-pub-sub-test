@@ -15,6 +15,7 @@
               <div class="w-3/4 p-5">
                 <div class="mt-1 inline-flex rounded-lg shadow-lg">
                   <input
+                    ref="targetfield"
                     type="text"
                     v-model.number="targetTemp"
                     name="target"
@@ -51,7 +52,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue, Ref } from "vue-property-decorator";
 import SvgIcon from "@/components/symbols/SvgIcon.vue";
 import VueSlider from "vue-slider-component";
 import "vue-slider-component/theme/material.css";
@@ -67,10 +68,18 @@ export default class AutoModal extends Vue {
 
   @Prop() currentPower!: number;
 
-  private targetTemp = "0";
+  @Ref() readonly targetfield!: HTMLInputElement;
+  
+  @Ref() readonly target!: HTMLInputElement;
+
+  private targetTemp!: number;
 
   get newTarget() {
     return this.targetTemp;
+  }
+  
+  created(){
+    this.$nextTick(()=> this.targetfield.focus())
   }
 
   emitCancel() {
