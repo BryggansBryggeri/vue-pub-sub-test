@@ -1,7 +1,7 @@
 <template>
   <main id="error" class="min-h-screen h-full">
     <div class="flex flex-row justify-center mx-auto my-auto">
-    <span>We had errors. I'm sorry</span>
+      <span>We had errors. I'm sorry</span>
     </div>
   </main>
 </template>

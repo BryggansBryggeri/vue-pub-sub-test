@@ -12,7 +12,7 @@
                 Adjust automagic parameters
               </h1>
               <p>Currently there is no validation on this field so please use "68.7"</p>
-              <p>{{validInput}}</p>
+              <p>{{ validInput }}</p>
               <div class="w-3/4 p-5">
                 <div class="mt-1 inline-flex rounded-lg shadow-lg">
                   <input
@@ -83,8 +83,8 @@ export default class AutoModal extends Vue {
     return this.targetTemp;
   }
 
-  created(){
-    this.$nextTick(()=> this.targetfield.focus())
+  created() {
+    this.$nextTick(() => this.targetfield.focus());
   }
 
   emitCancel() {
