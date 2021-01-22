@@ -17,42 +17,36 @@
               >
                 Adjust automagic parameters
               </h1>
-              <p>
-                Currently there is no validation on this field so please use
-                "68.7"
-              </p>
               <div class="w-3/4 p-5">
                 <div class="mt-1 inline-flex rounded-lg shadow-lg">
-                    <input
-                      ref="targetfield"
-                      v-model="$v.value.$model"
-                      name="target"
-                      id="target"
-                      class="outline-none px-5 py-3 dark:bg-blue-gray-700 text-right rounded-l-lg block shadow-inner w-full sm:text-sm"
-                      :placeholder="currentPower"
-                    />
-                    <div
-                      class="bg-indigo-700 rounded-r-lg p-3 flex items-center cursor-default"
-                    >
-                      <p class="text-base text-white">&#x2103;</p>
+                  <input
+                    ref="targetfield"
+                    v-model.lazy="$v.value.$model"
+                    name="target"
+                    id="target"
+                    class="outline-none px-5 py-3 dark:bg-blue-gray-700 text-right rounded-l-lg block shadow-inner w-full sm:text-sm"
+                    :placeholder="currentPower"
+                  />
+                  <div
+                    class="bg-indigo-700 rounded-r-lg p-3 flex items-center cursor-default"
+                  >
+                    <p class="text-base text-white">&#x2103;</p>
                   </div>
                 </div>
               </div>
-              <div class="flex items-center justify-center w-full">
-                  <div class="error" v-if="!$v.value.required">
-                    Required
-                  </div>
-                  <div class="error" v-if="!$v.value.decimal">
-                    Decimal
-                  </div>
-                  <div class="error" v-if="!$v.value.maxValue">
-                    Value
-                  </div>
+              <div class="flex flex-col items-center justify-center w-full">
+                <div>
+                  <div class="error" v-if="!$v.value.required">Required</div>
+                  <div class="error" v-if="!$v.value.decimal">Decimal</div>
+                  <div class="error" v-if="!$v.value.maxValue">Value</div>
                   <div class="error" v-if="!$v.value.between">
                     Must be between 0-100
                   </div>
-                <button :disabled="$v.value.$invalid"
-                  class="focus:outline-none transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm disabled:opacity-50"
+                </div>
+                <div>
+                <button
+                  :disabled="$v.value.$invalid"
+                  class="focus:outline-none transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded cursor-auto text-white px-8 py-2 text-sm disabled:bg-gray-600 disabled:cursor-not-allowed"
                   @click="emitConfirm()"
                 >
                   Confirm
@@ -63,6 +57,7 @@
                 >
                   Cancel
                 </button>
+                </div>
               </div>
             </div>
           </div>
@@ -79,7 +74,14 @@ import SvgIcon from "@/components/symbols/SvgIcon.vue";
 import VueSlider from "vue-slider-component";
 import "vue-slider-component/theme/material.css";
 import { Validate } from "vuelidate-property-decorators";
-import { required, maxLength, decimal, between, maxValue, numeric } from "vuelidate/lib/validators";
+import {
+  required,
+  maxLength,
+  decimal,
+  between,
+  maxValue,
+  numeric,
+} from "vuelidate/lib/validators";
 
 @Component({
   components: {
@@ -98,14 +100,19 @@ export default class AutoModal extends Vue {
 
   // private targetTemp!: number;
 
-  
-  @Validate({required, decimal, maxValue: maxValue(101), between: between(-10, 110)}) value = "";
+  @Validate({
+    required,
+    decimal,
+    maxValue: maxValue(101),
+    between: between(-10, 110),
+  })
+  value = "";
 
   @Validate({
     maxValue: maxValue(100),
-    required
-    })
-     targetTemp!: number;
+    required,
+  })
+  targetTemp!: number;
 
   get newTarget() {
     return this.value;
