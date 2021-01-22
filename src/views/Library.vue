@@ -56,7 +56,6 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Modal from "@/components/utils/Modal.vue";
-import { between } from 'vuelidate/lib/validators'
 
 @Component({
   components: {
@@ -70,3 +69,5 @@ export default class Library extends Vue {
 
 
 </script>
+
+
