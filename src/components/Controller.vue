@@ -42,7 +42,7 @@
                       >{{ dispName }} controller</span
                     >
                     <div>
-                      <status-ind :status="this.status" :size="4" />
+                      <status-ind :status="this.status" :size="5" />
                     </div>
                   </div>
                   <div id="ingredients" class="flex flex-col">
@@ -73,7 +73,7 @@
                         <div class="flex flex-col w-full items-center">
                           <div class="flex flex-col text-xs py-2">
                             <button
-                              class="py-2 px-8 bg-purple-500 rounded-lg shadow-lg font-semibold outline-none ring-0 focus:outline-none focus:ring-0"
+                              class="py-2 px-8 bg-purple-500 text-white rounded-lg shadow-lg font-semibold outline-none ring-0 focus:outline-none focus:ring-0 hover:bg-purple-400 hover:scale-105 transform duration-75 ease-in-out "
                               @click="autoModalVisible = true"
                             >
                               Set target temperature
@@ -96,7 +96,7 @@
                         <div class="flex flex-col w-full items-center">
                           <div class="flex flex-col text-xs py-2">
                             <button
-                              class="py-2 px-8 bg-purple-500 rounded-lg shadow-lg font-semibold outline-none ring-0 focus:outline-none focus:ring-0"
+                              class="py-2 px-8 bg-purple-500 text-white rounded-lg shadow-lg font-semibold outline-none ring-0 focus:outline-none focus:ring-0 hover:bg-purple-400 hover:scale-105 transform duration-75 ease-in-out "
                               @click="modalVisible = true"
                             >
                               Set power percentage
