@@ -1,7 +1,9 @@
 <template>
   <main id="library" class="min-h-screen h-full">
     <div class="flex flex-grid grid-cols-6 gap-4 justify-around">
-      <div class="w-1/6 border-2 rounded border-gray-700 flex flex-col items-center space-y-3">
+      <div
+        class="w-1/6 border-2 rounded border-gray-700 flex flex-col items-center space-y-3"
+      >
         <span class="justify-left text-left">Component</span>
         <span class="text-sm">utils/Modal</span>
         <button
@@ -42,7 +44,8 @@
         </div>
       </div>
 
-      <div class="w-1/6 border-2 rounded border-gray-700"></div>
+      <div class="w-1/6 border-2 rounded border-gray-700">
+      </div>
       <div class="w-1/6 border-2 rounded border-gray-700"></div>
       <div class="w-1/6 border-2 rounded border-gray-700"></div>
       <div class="w-1/6 border-2 rounded border-gray-700"></div>
@@ -53,6 +56,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Modal from "@/components/utils/Modal.vue";
+import { between } from 'vuelidate/lib/validators'
 
 @Component({
   components: {
@@ -62,4 +66,7 @@ import Modal from "@/components/utils/Modal.vue";
 export default class Library extends Vue {
   private modalVisible = false;
 }
+
+
+
 </script>
