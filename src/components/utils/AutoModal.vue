@@ -52,7 +52,7 @@
                     Must be between 0-100
                   </div>
                 <button :disabled="$v.value.$invalid"
-                  class="focus:outline-none transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm disabled:bg-red-500"
+                  class="focus:outline-none transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm disabled:opacity-50"
                   @click="emitConfirm()"
                 >
                   Confirm
