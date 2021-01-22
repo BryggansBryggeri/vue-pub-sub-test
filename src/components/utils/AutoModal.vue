@@ -96,21 +96,13 @@ export default class AutoModal extends Vue {
 
   @Ref() readonly target!: HTMLInputElement;
 
-  // private targetTemp!: number;
 
   @Validate({
     required,
     decimal,
-    maxValue: maxValue(101),
     between: between(-10, 110),
   })
   value = "";
-
-  @Validate({
-    maxValue: maxValue(100),
-    required,
-  })
-  targetTemp!: number;
 
   get newTarget() {
     return this.value;
