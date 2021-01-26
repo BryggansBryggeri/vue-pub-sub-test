@@ -83,11 +83,8 @@ import "vue-slider-component/theme/material.css";
 import { Validate } from "vuelidate-property-decorators";
 import {
   required,
-  maxLength,
   decimal,
   between,
-  maxValue,
-  numeric,
 } from "vuelidate/lib/validators";
 
 @Component({

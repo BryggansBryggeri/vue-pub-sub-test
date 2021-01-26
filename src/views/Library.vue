@@ -45,6 +45,32 @@
       </div>
 
       <div class="w-1/6 border-2 rounded border-gray-700">
+        <div class="flex flex-col w-3/4 h-24">
+          <label
+            for="password1"
+            class="text-xs font-semibold leading-tight tracking-normal mb-2"
+            >Enter url to NATS-server</label
+          >
+          <div class="flex flex-row">
+            <input
+              ref="targetfield"
+              name="target"
+              id="target"
+              :placeholder="'e.g 16.7'"
+              v-model="$v.natsAddress.$model"
+              class="focus:outline-none focus:border dark:bg-blue-gray-700 focus:border-indigo-700 text-right pr-4 font-normal h-10 flex items-center text-sm rounded-lg shadow-inner"
+              :class="{
+                'border border-red-400 text-red-400': $v.natsAddress.$invalid,
+              }"
+            />
+          </div>
+          <div
+            v-show="$v.natsAddress.$invalid && $v.natsAddress.$dirty"
+            class="flex items-center text-xs leading-3 tracking-normal justify-between mt-2 text-red-400"
+          >
+            <p>Please enter a valid url</p>
+          </div>
+        </div>
       </div>
       <div class="w-1/6 border-2 rounded border-gray-700"></div>
       <div class="w-1/6 border-2 rounded border-gray-700"></div>
@@ -56,6 +82,11 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Modal from "@/components/utils/Modal.vue";
+import { Validate } from "vuelidate-property-decorators";
+import {
+  required,
+  ipAddress
+} from "vuelidate/lib/validators";
 
 @Component({
   components: {
@@ -64,10 +95,15 @@ import Modal from "@/components/utils/Modal.vue";
 })
 export default class Library extends Vue {
   private modalVisible = false;
+
+
+  @Validate({
+    ipAddress,
+    required,
+    // ^(ht|f)tp(s?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&amp;%\$#_]*)?$ should work for all urls with port number.
+  })
+  natsAddress = "";
 }
-
-
-
 </script>
 
 
