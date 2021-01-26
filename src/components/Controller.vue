@@ -1,8 +1,6 @@
 <template>
   <div class="controller">
-    <div
-      class="rounded-xl bg-white dark:bg-blue-gray-900 p-4 shadow-lg py-4 flex flex-col"
-    >
+    <div class="rounded-xl bg-white dark:bg-blue-gray-900 p-4 shadow-lg py-4 flex flex-col">
       <div id="card-header" class="flex flex-row justify-between">
         <span class="font-bold text-xl capitalize">{{ dispName }}</span>
         <div class="text-green-600">
@@ -15,19 +13,9 @@
         <div class="flex flex-wrap">
           <div class="w-full">
             <div class="space-y-3">
-              <div
-                id="6x6grid"
-                class="mx-auto grid grid-cols-1 md:grid-cols-2 gap-3"
-              >
-                <sensor
-                  :sensorId="controllerProps.sensorId"
-                  :target="dispAutoTarget"
-                />
-                <actor
-                  :actorId="controllerProps.actorId"
-                  :mode="mode"
-                  :signal="dispActorSignal"
-                />
+              <div id="6x6grid" class="mx-auto grid grid-cols-1 md:grid-cols-2 gap-3">
+                <sensor :sensorId="controllerProps.sensorId" :target="dispAutoTarget" />
+                <actor :actorId="controllerProps.actorId" :mode="mode" :signal="dispActorSignal" />
                 <content
                   id="ControllerCard"
                   class="rounded-lg space-y-2 col-span-full border-2 dark:bg-blue-gray-800 p-2 min-h-20 flex flex-col"
@@ -38,9 +26,7 @@
                   }"
                 >
                   <div class="flex flex-row justify-between w-full">
-                    <span class="font-semibold text-lg capitalize"
-                      >{{ dispName }} controller</span
-                    >
+                    <span class="font-semibold text-lg capitalize">{{ dispName }} controller</span>
                     <div>
                       <status-ind :status="this.status" :size="5" />
                     </div>
@@ -48,8 +34,7 @@
                   <div id="ingredients" class="flex flex-col">
                     <div class="flex flex-col space-y-1 justify-left text-xxs">
                       <div class="flex flex-row">
-                        <span class="pr-1 font-semibold"
-                          >Controller sensor:</span
+                        <span class="pr-1 font-semibold">Controller sensor:</span
                         ><span class="">{{ controllerProps.sensorId }}</span>
                       </div>
                       <div class="flex flex-row">
@@ -59,9 +44,7 @@
                     </div>
                   </div>
                   <div class="flex flex-col space-y-2">
-                    <div
-                      class="flex flex-col space-x-2 justify-center items-center"
-                    >
+                    <div class="flex flex-col space-x-2 justify-center items-center">
                       <man-auto-toggle
                         :state="isAuto"
                         :disabled="currentlySwitchingMode"
@@ -73,7 +56,7 @@
                         <div class="flex flex-col w-full items-center">
                           <div class="flex flex-col text-xs py-2">
                             <button
-                              class="py-2 px-8 bg-purple-500 text-white rounded-lg shadow-lg font-semibold outline-none ring-0 focus:outline-none focus:ring-0 hover:bg-purple-400 hover:scale-105 transform duration-75 ease-in-out "
+                              class="py-2 px-8 bg-purple-500 text-white rounded-lg shadow-lg font-semibold outline-none ring-0 focus:outline-none focus:ring-0 hover:bg-purple-400 hover:scale-105 transform duration-75 ease-in-out"
                               @click="autoModalVisible = true"
                             >
                               Set target temperature
@@ -96,7 +79,7 @@
                         <div class="flex flex-col w-full items-center">
                           <div class="flex flex-col text-xs py-2">
                             <button
-                              class="py-2 px-8 bg-purple-500 text-white rounded-lg shadow-lg font-semibold outline-none ring-0 focus:outline-none focus:ring-0 hover:bg-purple-400 hover:scale-105 transform duration-75 ease-in-out "
+                              class="py-2 px-8 bg-purple-500 text-white rounded-lg shadow-lg font-semibold outline-none ring-0 focus:outline-none focus:ring-0 hover:bg-purple-400 hover:scale-105 transform duration-75 ease-in-out"
                               @click="modalVisible = true"
                             >
                               Set power percentage
@@ -127,13 +110,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import {
-  typeFromMode,
-  ControllerProps,
-  ContrResult,
-  Target,
-  Mode,
-} from "@/models/controller";
+import { typeFromMode, ControllerProps, ContrResult, Target, Mode } from "@/models/controller";
 import SvgIcon from "@/components/symbols/SvgIcon.vue";
 import { eventStore, NatsClientStatus } from "@/store/events";
 import { eventbus } from "@/eventbus";
@@ -277,9 +254,7 @@ export default class Controller extends Vue {
   }
 
   private async toggleAuto(): Promise<void> {
-    if (
-      eventStore.natsClientStatus.valueOf() === NatsClientStatus.Ready.valueOf()
-    ) {
+    if (eventStore.natsClientStatus.valueOf() === NatsClientStatus.Ready.valueOf()) {
       let newTarget: Target = 0.0;
       if (this.mode.valueOf() === Mode.Man.valueOf()) {
         if (this.latentAutoTarget !== "--") {

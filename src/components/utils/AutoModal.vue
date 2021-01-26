@@ -5,16 +5,10 @@
     >
       <div class="py-12 absolute top-10 right-0 bottom-0 left-0" id="modal">
         <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
-          <div
-            class="py-8 px-5 md:px-32 bg-white dark:bg-blue-gray-800 rounded-lg shadow-2xl"
-          >
-            <div
-              class="w-full flex flex-col space-y-6 items-center justify-center mb-4"
-            >
+          <div class="py-8 px-5 md:px-32 bg-white dark:bg-blue-gray-800 rounded-lg shadow-2xl">
+            <div class="w-full flex flex-col space-y-6 items-center justify-center mb-4">
               <svg-icon name="power" size="12" />
-              <h1
-                class="text-center font-lg font-bold pb-5 tracking-normal leading-tight mb-5"
-              >
+              <h1 class="text-center font-lg font-bold pb-5 tracking-normal leading-tight mb-5">
                 Adjust automagic parameters
               </h1>
 
@@ -36,14 +30,12 @@
                       'border border-red-400 text-red-400': $v.value.$invalid,
                     }"
                   />
-                  <div
-                    class="bg-indigo-700 rounded-r-lg h-10 p-3 flex items-center cursor-default"
-                  >
+                  <div class="bg-indigo-700 rounded-r-lg h-10 p-3 flex items-center cursor-default">
                     <p class="text-base text-white">&#x2103;</p>
                   </div>
                 </div>
                 <div
-                  v-show="($v.value.$invalid && $v.value.$dirty)"
+                  v-show="$v.value.$invalid && $v.value.$dirty"
                   class="flex items-center text-xs leading-3 tracking-normal justify-between mt-2 text-red-400"
                 >
                   <p>Please enter a value between -10.0 and 110.0</p>
@@ -81,11 +73,7 @@ import SvgIcon from "@/components/symbols/SvgIcon.vue";
 import VueSlider from "vue-slider-component";
 import "vue-slider-component/theme/material.css";
 import { Validate } from "vuelidate-property-decorators";
-import {
-  required,
-  decimal,
-  between,
-} from "vuelidate/lib/validators";
+import { required, decimal, between } from "vuelidate/lib/validators";
 
 @Component({
   components: {

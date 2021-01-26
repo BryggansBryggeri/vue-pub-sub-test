@@ -8,7 +8,7 @@
       <Loading msg="Loading" />
     </div>
     <div v-else-if="isLoading === 3">
-      <Loading msg="Error, cannot find Supervisor" type="error" @admin="setAdmin($event)"/>
+      <Loading msg="Error, cannot find Supervisor" type="error" @admin="setAdmin($event)" />
     </div>
 
     <section
@@ -70,18 +70,17 @@ export default class Dashboard extends Vue {
   // More predicates can be added as needed.
 
   private loading!: boolean;
-  
+
   private devByPass = false;
-  
+
   get isLoading() {
-    if(this.devByPass){
-      return 2
-      
+    if (this.devByPass) {
+      return 2;
     }
     return this.natsClientConnecting();
   }
 
-  private setAdmin(){
+  private setAdmin() {
     this.devByPass = !this.devByPass;
   }
 
