@@ -5,21 +5,22 @@
     <!-- <Todo /> -->
 
     <div v-if="isLoading === 1">
-      <Loading msg="Loading" />
+      <loading msg="Loading" />
     </div>
     <div v-else-if="isLoading === 3">
-      <Loading msg="Error, cannot find Supervisor" type="error" @admin="setAdmin($event)" />
+      <loading msg="Error, cannot find Supervisor" type="error" @admin="setAdmin($event)" />
     </div>
 
     <section
       v-else
       class="mx-auto grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4"
     >
-      <Controller
+      <controller
         v-for="controller in controllers"
         v-bind:controllerProps="controller"
         v-bind:key="controller.name"
       />
+      <time-series-chart :chartData="genTestData" />
     </section>
   </main>
 </template>
@@ -33,6 +34,9 @@ import Loading from "@/components/utils/Loading.vue";
 import NavBar from "@/components/NavBar.vue";
 import DashboardTop from "@/components/DashboardTop.vue";
 import { ControllerProps } from "@/models/controller";
+import TimeSeriesChart from "@/components/charts/TimeSeries.vue";
+import { TimeSeries, DataPoint } from "@/models/chart";
+import { Chart, ChartOptions } from "chart.js";
 
 @Component({
   components: {
@@ -40,6 +44,7 @@ import { ControllerProps } from "@/models/controller";
     Loading,
     Controller,
     NavBar,
+    TimeSeriesChart,
     DashboardTop,
     // MashCard,
   },
@@ -94,5 +99,18 @@ export default class Dashboard extends Vue {
   // get listActiveClients(): string[] {
   //   return eventStore.listActiveClients();
   // }
+  get genTestData(): TimeSeries<number, number>[] {
+    const xData = [0, 1, 2, 3, 4];
+    const yData = [1, 2, 1, 2, 3];
+    const data: DataPoint<number, number>[] = xData.map((x, i) => {
+      const tmp: DataPoint<number, number> = { x, y: yData[i] };
+      return tmp;
+    });
+    const tsData: TimeSeries<number, number> = {
+      label: "test",
+      data,
+    };
+    return [tsData];
+  }
 }
 </script>

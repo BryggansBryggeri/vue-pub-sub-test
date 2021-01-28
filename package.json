@@ -10,6 +10,7 @@
     "check_format": "prettier --check '**/*.{js,ts,html,vue,json}'"
   },
   "dependencies": {
+    "@types/chart.js": "^2.9.30",
     "@types/vuelidate": "^0.7.13",
     "chart.js": "^2.9.4",
     "chartjs-plugin-colorschemes": "^0.4.0",

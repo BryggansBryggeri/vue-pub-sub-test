@@ -1,15 +1,14 @@
-/**
- * Data (Label with values)
- */
-export interface Data {
+export interface Data<X, Y> {
   label: string;
-  data: Value[];
+  data: DataPoint<X, Y>[];
 }
 
-/**
- * Value
- */
-export interface Value {
-  x: Date;
-  y: number;
+export interface DataPoint<X, Y> {
+  x: X;
+  y: Y;
+}
+
+export interface TimeSeries<X, Y> {
+  label: string;
+  data: DataPoint<X, Y>[];
 }

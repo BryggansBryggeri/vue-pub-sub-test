@@ -91,7 +91,7 @@ import Modal from "@/components/utils/Modal.vue";
 import { Validate } from "vuelidate-property-decorators";
 import { required, ipAddress } from "vuelidate/lib/validators";
 import TimeSeriesChart from "@/components/utils/TimeSeriesChart.vue";
-import { Data, Value } from "@/models/chart";
+import { Data, DataPoint } from "@/models/chart";
 import { Chart, ChartOptions } from "chart.js";
 import "chartjs-plugin-colorschemes";
 
@@ -111,7 +111,7 @@ export default class Library extends Vue {
   })
   natsAddress = "";
 
-  private allData: Data[] = [];
+  private allData: Data<Date, number>[] = [];
   /**
    * Data for chart
    */
@@ -181,7 +181,7 @@ export default class Library extends Vue {
       } */
     });
 
-    const dataset = (labelData: Data) => ({
+    const dataset = (labelData: Data<Date, number>) => ({
       label: labelData.label,
       data: labelData.data,
       fill: false,
