@@ -36,7 +36,6 @@ import DashboardTop from "@/components/DashboardTop.vue";
 import { ControllerProps } from "@/models/controller";
 import TimeSeriesChart from "@/components/charts/TimeSeries.vue";
 import { TimeSeries, DataPoint } from "@/models/chart";
-import { Chart, ChartOptions } from "chart.js";
 
 @Component({
   components: {
@@ -99,18 +98,18 @@ export default class Dashboard extends Vue {
   // get listActiveClients(): string[] {
   //   return eventStore.listActiveClients();
   // }
-  get genTestData(): TimeSeries<number, number>[] {
-    const xData = [0, 1, 2, 3, 4];
-    const yData = [1, 2, 1, 2, 3];
-    const data: DataPoint<number, number>[] = xData.map((x, i) => {
-      const tmp: DataPoint<number, number> = { x, y: yData[i] };
-      return tmp;
-    });
+  get genTestData(): Chart.ChartData {
+    // const xData = [0, 1, 2, 3, 4];
+    // const yData = [57.8, 68.1, 72.2, 68.0, 74.3];
+    // const data: DataPoint<number, number>[] = xData.map((x, i) => {
+    //   const tmp: DataPoint<number, number> = { x, y: yData[i] };
+    //   return tmp;
+    // });
     const tsData: TimeSeries<number, number> = {
       label: "test",
-      data,
+      data: eventStore.dummySensorTimeSeries,
     };
-    return [tsData];
+    return { datasets: [tsData] };
   }
 }
 </script>

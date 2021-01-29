@@ -8,6 +8,8 @@ import {
   newContrResultErr,
 } from "@/models/controller";
 import { ActorMsg, ActorResult, actorResultFromMsg, newActorResultErr } from "@/models/actor";
+import { DataPoint } from "@/models/chart";
+import { match } from "@/models/result";
 import { hasKey } from "@/utils";
 
 export enum NatsClientStatus {
@@ -16,6 +18,8 @@ export enum NatsClientStatus {
   Error = 3,
 }
 
+const begOfTime = Date.now();
+
 @Module({ generateMutationSetters: true })
 export class EventModule extends VuexModule {
   messages: string[] = [];
@@ -23,6 +27,8 @@ export class EventModule extends VuexModule {
   public darkMode = true;
 
   public natsClientStatus = NatsClientStatus.Connecting;
+
+  public dummySensorTimeSeries: DataPoint<number, number>[] = [];
 
   private activeClients: string[] = [];
 
@@ -66,7 +72,22 @@ export class EventModule extends VuexModule {
 
   public async updateSensor(msg: SensorMsg): Promise<void> {
     if (hasKey(this.sensors, msg.id)) {
-      this.sensors[msg.id] = measResultFromMsg(msg);
+      const res = measResultFromMsg(msg);
+      this.sensors[msg.id] = res;
+      // Tmp. show and tell: store sensor data locally in UI.
+      match(
+        res,
+        (ok) => {
+          // Epa timestamp to seconds since started.
+          const ts = (ok[1] - begOfTime) / 1000;
+          const meas = ok[0];
+          this.dummySensorTimeSeries = [...this.dummySensorTimeSeries, { x: ts, y: meas }];
+          console.log(ts, ok[1]);
+        },
+        () => {
+          // If err, don't add
+        }
+      );
     } else {
       console.log("Incorrect id", msg.id);
     }

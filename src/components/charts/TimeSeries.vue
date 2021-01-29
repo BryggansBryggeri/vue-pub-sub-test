@@ -5,9 +5,10 @@ import VueChart from "vue-chartjs";
 import { TimeSeries } from "@/models/chart";
 
 @Component
-export default class TimeSeriesChart extends Mixins(VueChart.Line) {
+export default class TimeSeriesChart extends Mixins(VueChart.Line, VueChart.mixins.reactiveProp) {
   @Prop({ required: true, default: {} })
-  public chartData!: TimeSeries<number, number>[];
+  public chartData!: Chart.ChartData;
+  // public chartData!: TimeSeries<number, number>[];
 
   @Prop({ default: false })
   public resetChart!: boolean;
@@ -18,7 +19,7 @@ export default class TimeSeriesChart extends Mixins(VueChart.Line) {
 
   mounted() {
     this.applyDefaultOptions();
-    this.renderChart(this.genChartData(this.chartData), this.options);
+    this.renderChart(this.chartData, this.options);
     // eslint-disable-next-line no-underscore-dangle
     this.chart = this.$data._chart;
   }
@@ -73,10 +74,12 @@ export default class TimeSeriesChart extends Mixins(VueChart.Line) {
   }
 
   private maxXValFromData(): number {
-    const maxList: number[] = this.chartData.map((ts) =>
-      ts.data.reduce((max, dataPoint) => (dataPoint.x > max ? dataPoint.x : max), ts.data[0].x)
-    );
-    return Math.max(...maxList);
+    // const maxList = this.chartData.map( (ts) => ts.data.reduce(
+    // (max, dataPoint) => (dataPoint.x > max ? dataPoint.x : max),
+    // // ts.data[0].x));
+    // 0));
+    // return Math.max(...maxList);
+    return 3600 / 30;
   }
 }
 </script>
