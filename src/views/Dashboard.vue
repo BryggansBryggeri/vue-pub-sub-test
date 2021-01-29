@@ -1,7 +1,7 @@
 <template>
   <main id="dashboard" class="leading-tight min-h-screen h-full mx-8 space-y-4">
     <!--<Overview />-->
-    <!-- <ChartView />-->
+    <ChartView />
     <!-- <Todo /> -->
 
     <div v-if="isLoading === 1">
@@ -20,7 +20,6 @@
         v-bind:controllerProps="controller"
         v-bind:key="controller.name"
       />
-      <time-series-chart :chartData="genTestData" />
     </section>
   </main>
 </template>
@@ -32,10 +31,9 @@ import Controller from "@/components/Controller.vue";
 import Sensor from "@/components/Sensor.vue";
 import Loading from "@/components/utils/Loading.vue";
 import NavBar from "@/components/NavBar.vue";
-import DashboardTop from "@/components/DashboardTop.vue";
+// import DashboardTop from "@/components/DashboardTop.vue";
+import ChartView from "@/components/ChartView.vue";
 import { ControllerProps } from "@/models/controller";
-import TimeSeriesChart from "@/components/charts/TimeSeries.vue";
-import { TimeSeries, DataPoint } from "@/models/chart";
 
 @Component({
   components: {
@@ -43,8 +41,8 @@ import { TimeSeries, DataPoint } from "@/models/chart";
     Loading,
     Controller,
     NavBar,
-    TimeSeriesChart,
-    DashboardTop,
+    ChartView,
+    // DashboardTop,
     // MashCard,
   },
 })
@@ -98,18 +96,6 @@ export default class Dashboard extends Vue {
   // get listActiveClients(): string[] {
   //   return eventStore.listActiveClients();
   // }
-  get genTestData(): Chart.ChartData {
-    // const xData = [0, 1, 2, 3, 4];
-    // const yData = [57.8, 68.1, 72.2, 68.0, 74.3];
-    // const data: DataPoint<number, number>[] = xData.map((x, i) => {
-    //   const tmp: DataPoint<number, number> = { x, y: yData[i] };
-    //   return tmp;
-    // });
-    const tsData: TimeSeries<number, number> = {
-      label: "test",
-      data: eventStore.dummySensorTimeSeries,
-    };
-    return { datasets: [tsData] };
-  }
+
 }
 </script>

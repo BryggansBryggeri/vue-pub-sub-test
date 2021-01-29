@@ -3,6 +3,7 @@ import { Component, Prop, Mixins } from "vue-property-decorator";
 import { Chart, ChartOptions } from "chart.js";
 import VueChart from "vue-chartjs";
 import { TimeSeries } from "@/models/chart";
+import "chartjs-plugin-colorschemes";
 
 @Component
 export default class TimeSeriesChart extends Mixins(VueChart.Line, VueChart.mixins.reactiveProp) {
@@ -26,13 +27,18 @@ export default class TimeSeriesChart extends Mixins(VueChart.Line, VueChart.mixi
 
   private applyDefaultOptions() {
     this.options.maintainAspectRatio = false;
+    this.options.responsive = true;
     this.options.elements = {
       line: {
         tension: 0.0,
         fill: false,
-        borderColor: "green",
       },
     };
+    this.options.plugins = {
+      colorschemes: {
+        scheme: "tableau.ClassicMedium10",
+      },
+    }
     this.options.scales = {
       xAxes: [
         {
