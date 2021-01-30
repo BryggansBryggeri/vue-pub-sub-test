@@ -6,7 +6,10 @@ import { TimeSeries } from "@/models/chart";
 import "chartjs-plugin-colorschemes";
 
 @Component
-export default class TimeSeriesChart extends Mixins(VueChart.Line, VueChart.mixins.reactiveProp) {
+export default class TimeSeriesChart extends Mixins(
+  VueChart.Line,
+  VueChart.mixins.reactiveProp
+) {
   @Prop({ required: true, default: {} })
   public chartData!: Chart.ChartData;
   // public chartData!: TimeSeries<number, number>[];
@@ -27,6 +30,7 @@ export default class TimeSeriesChart extends Mixins(VueChart.Line, VueChart.mixi
 
   private applyDefaultOptions() {
     this.options.maintainAspectRatio = false;
+    this.options.aspectRatio = 6;
     this.options.responsive = true;
     this.options.elements = {
       line: {
@@ -38,7 +42,8 @@ export default class TimeSeriesChart extends Mixins(VueChart.Line, VueChart.mixi
       colorschemes: {
         scheme: "tableau.ClassicMedium10",
       },
-    }
+    };
+
     this.options.scales = {
       xAxes: [
         {
@@ -52,18 +57,42 @@ export default class TimeSeriesChart extends Mixins(VueChart.Line, VueChart.mixi
       ],
       yAxes: [
         {
+          display: true,
           id: "temp",
           type: "linear",
+          scaleLabel: {
+            display: true,
+            labelString: "Temperature",
+          },
           ticks: {
             min: this.minYValFromData(),
             max: this.maxYValFromData(),
+            stepSize: 5,
+            beginAtZero: true,
+          },
+        },
+        {
+          display: true,
+          id: "volume",
+          type: "linear",
+          position: "right",
+          scaleLabel: {
+            display: true,
+            labelString: "Volume",
+          },
+          ticks: {
+            min: 0,
+            max: 180,
+            stepSize: 10,
           },
         },
       ],
     };
   }
 
-  private genChartData(chartData: TimeSeries<number, number>[]): Chart.ChartData {
+  private genChartData(
+    chartData: TimeSeries<number, number>[]
+  ): Chart.ChartData {
     return { datasets: chartData };
   }
 
