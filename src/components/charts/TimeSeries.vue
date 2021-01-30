@@ -7,10 +7,7 @@ import "chartjs-plugin-colorschemes";
 import "chartjs-plugin-crosshair";
 
 @Component
-export default class TimeSeriesChart extends Mixins(
-  VueChart.Line,
-  VueChart.mixins.reactiveProp
-) {
+export default class TimeSeriesChart extends Mixins(VueChart.Line, VueChart.mixins.reactiveProp) {
   @Prop({ required: true, default: {} })
   public chartData!: Chart.ChartData;
   // public chartData!: TimeSeries<number, number>[];
@@ -102,7 +99,7 @@ export default class TimeSeriesChart extends Mixins(
           },
         },
         {
-          display: true,
+          display: false,
           id: "volume",
           type: "linear",
           position: "right",
@@ -124,9 +121,7 @@ export default class TimeSeriesChart extends Mixins(
     };
   }
 
-  private genChartData(
-    chartData: TimeSeries<number, number>[]
-  ): Chart.ChartData {
+  private genChartData(chartData: TimeSeries<number, number>[]): Chart.ChartData {
     return { datasets: chartData };
   }
 

@@ -96,6 +96,5 @@ export default class Dashboard extends Vue {
   // get listActiveClients(): string[] {
   //   return eventStore.listActiveClients();
   // }
-
 }
 </script>

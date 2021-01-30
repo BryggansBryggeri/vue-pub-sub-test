@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="rounded-xl bg-white dark:bg-blue-gray-900 p-4 shadow-lg py-4 flex flex-col"
-  >
+  <div class="rounded-xl bg-white dark:bg-blue-gray-900 p-4 shadow-lg py-4 flex flex-col">
     <div class="flex flex-row flex-1 relative w-full">
       <time-series-chart :chartData="genTestData" class="w-full h-64" />
     </div>
@@ -36,8 +34,5 @@ export default class ChartView extends Vue {
     };
     return { datasets: [tsData] };
   }
-
-
-
 }
 </script>
