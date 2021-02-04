@@ -38,7 +38,7 @@ export default class TimeSeriesChart extends Mixins(VueChart.Line, VueChart.mixi
       colorschemes: {
         scheme: "tableau.ClassicMedium10",
       },
-    }
+    };
     this.options.scales = {
       xAxes: [
         {

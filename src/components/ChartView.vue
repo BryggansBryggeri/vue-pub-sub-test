@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="rounded-xl bg-white dark:bg-blue-gray-900 p-4 shadow-lg py-4 flex flex-col"
-  >
+  <div class="rounded-xl bg-white dark:bg-blue-gray-900 p-4 shadow-lg py-4 flex flex-col">
     <div class="">
       <div class="w-full">
         <time-series-chart :chartData="genTestData" />
