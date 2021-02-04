@@ -12,8 +12,8 @@ export class Eventbus {
   public async start(): Promise<void> {
     try {
       const nc = await connect({
-        servers: "ws://192.168.0.10:9222",
-        // servers: "ws://localhost:9222",
+        // servers: "ws://192.168.0.10:9222",
+        servers: "ws://localhost:9222",
         user: "jackonelli",
         pass: "penna1glas",
       });

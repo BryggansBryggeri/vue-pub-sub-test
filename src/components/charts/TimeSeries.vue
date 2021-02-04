@@ -4,6 +4,7 @@ import { Chart, ChartOptions } from "chart.js";
 import VueChart from "vue-chartjs";
 import { TimeSeries } from "@/models/chart";
 import "chartjs-plugin-colorschemes";
+import "chartjs-plugin-crosshair";
 
 @Component
 export default class TimeSeriesChart extends Mixins(VueChart.Line, VueChart.mixins.reactiveProp) {
@@ -27,6 +28,7 @@ export default class TimeSeriesChart extends Mixins(VueChart.Line, VueChart.mixi
 
   private applyDefaultOptions() {
     this.options.maintainAspectRatio = false;
+    this.options.aspectRatio = 6;
     this.options.responsive = true;
     this.options.elements = {
       line: {
@@ -34,7 +36,33 @@ export default class TimeSeriesChart extends Mixins(VueChart.Line, VueChart.mixi
         fill: false,
       },
     };
+    this.options.tooltips = {
+      mode: "x",
+      intersect: false,
+    };
     this.options.plugins = {
+      crosshair: {
+        line: {
+          color: "#F66", // crosshair line color
+          width: 1, // crosshair line width
+        },
+        sync: {
+          enabled: true, // enable trace line syncing with other charts
+          group: 1, // chart group
+          suppressTooltips: false, // suppress tooltips when showing a synced tracer
+        },
+        zoom: {
+          enabled: false, // enable zooming
+          zoomboxBackgroundColor: "rgba(66,133,244,0.2)", // background color of zoom box
+          zoomboxBorderColor: "#48F", // border color of zoom box
+          zoomButtonText: "Reset Zoom", // reset zoom button text
+          zoomButtonClass: "reset-zoom", // reset zoom button class
+        },
+        snap: {
+          enabled: true,
+        },
+      },
+
       colorschemes: {
         scheme: "tableau.ClassicMedium10",
       },
@@ -52,11 +80,41 @@ export default class TimeSeriesChart extends Mixins(VueChart.Line, VueChart.mixi
       ],
       yAxes: [
         {
+          display: true,
           id: "temp",
           type: "linear",
+          gridLines: {
+            color: "rgba(240, 52, 52, 0.1)",
+            lineWidth: 1,
+          },
+          scaleLabel: {
+            display: true,
+            labelString: "Temperature",
+          },
           ticks: {
             min: this.minYValFromData(),
             max: this.maxYValFromData(),
+            stepSize: 5,
+            beginAtZero: true,
+          },
+        },
+        {
+          display: false,
+          id: "volume",
+          type: "linear",
+          position: "right",
+          gridLines: {
+            color: "rgba(52, 52, 255, 0.2)",
+            lineWidth: 1,
+          },
+          scaleLabel: {
+            display: true,
+            labelString: "Volume",
+          },
+          ticks: {
+            min: 0,
+            max: 180,
+            stepSize: 10,
           },
         },
       ],

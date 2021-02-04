@@ -14,6 +14,7 @@
     "@types/vuelidate": "^0.7.13",
     "chart.js": "^2.9.4",
     "chartjs-plugin-colorschemes": "^0.4.0",
+    "chartjs-plugin-crosshair": "^1.1.6",
     "chartjs-plugin-zoom": "^0.7.7",
     "core-js": "^3.6.5",
     "nats.ws": "^1.0.0-114",
