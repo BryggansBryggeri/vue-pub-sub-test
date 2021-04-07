@@ -1,10 +1,15 @@
 import { Result, newErr, newOk } from "@/models/result";
 import { TimeStamp } from "@/utils";
 
-export interface ActorMsg {
+
+interface ActorSignal {
   id: string;
-  timestamp: number;
   signal: number;
+}
+
+export interface ActorMsg {
+  timestamp: number;
+  signal: ActorSignal;
 }
 
 export type Signal = number;
@@ -21,5 +26,5 @@ export function newActorResultErr(err: SignalErr, ts: TimeStamp): ActorResult {
 }
 
 export function actorResultFromMsg(msg: ActorMsg): ActorResult {
-  return newActorResultOk(msg.signal, msg.timestamp);
+  return newActorResultOk(msg.signal.signal, msg.timestamp);
 }

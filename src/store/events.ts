@@ -88,7 +88,7 @@ export class EventModule extends VuexModule {
         }
       );
     } else {
-      console.log("Incorrect id", msg.id);
+      console.log("Incorrect sensor id", msg.id);
     }
   }
 
@@ -97,16 +97,16 @@ export class EventModule extends VuexModule {
     if (hasKey(this.sensors, sensorId)) {
       val = this.sensors[sensorId];
     } else {
-      console.log("Incorrect id", sensorId);
+      console.log("Incorrect actor id", sensorId);
     }
     return val;
   }
 
   public async updateActor(msg: ActorMsg): Promise<void> {
-    if (hasKey(this.actors, msg.id)) {
-      this.actors[msg.id] = actorResultFromMsg(msg);
+    if (hasKey(this.actors, msg.signal.id)) {
+      this.actors[msg.signal.id] = actorResultFromMsg(msg);
     } else {
-      console.log("Incorrect id", msg.id);
+      console.log("Incorrect actor id", msg);
     }
   }
 
