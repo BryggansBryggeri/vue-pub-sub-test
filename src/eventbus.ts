@@ -73,7 +73,7 @@ export class Eventbus {
   // This should be req-rep.
   public async setTarget(contrId: string, newTarget: Target) {
     // TODO: stupid serialization.
-    const parsedTarget = JSON.parse(JSON.stringify(newTarget));
+    const parsedTarget = JSON.parse(`${newTarget}`);
     console.log(`Setting target ${parsedTarget} for controller: ${contrId}`);
     this.publish(`controller.${contrId}.set_target`, parsedTarget);
   }

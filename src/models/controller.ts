@@ -1,7 +1,10 @@
 import { Result, newErr, newOk } from "@/models/result";
 import { TimeStamp } from "@/utils";
 
-type ContrType = "manual" | { hysteresis: { offset_on: number; offset_off: number } };
+type ContrType =
+  | "manual"
+  | { hysteresis: { offset_on: number; offset_off: number } }
+  | { pid: { kp: number; ki: number; kd: number } };
 
 export interface ControllerProps {
   controllerId: string;
@@ -64,7 +67,8 @@ export function typeFromMode(mode: Mode): ContrType {
       return "manual";
     case Mode.Auto:
       // eslint-disable-next-line @typescript-eslint/camelcase
-      return { hysteresis: { offset_on: 10.0, offset_off: 5.0 } };
+      // return { hysteresis: { offset_on: 10.0, offset_off: 5.0 } };
+      return { pid: { kp: 0.7, ki: 0.0, kd: 0.0 } };
     default:
       throw new Error("Unreachable typeFromMode");
   }
