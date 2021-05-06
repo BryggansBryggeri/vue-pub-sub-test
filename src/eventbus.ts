@@ -3,6 +3,7 @@ import { SensorMsg } from "@/models/sensor";
 import { eventStore, NatsClientStatus } from "@/store/events";
 import { ActorMsg } from "@/models/actor";
 import { propsAndTargetToJson, ControllerProps, ContrStatusMsg, Target } from "@/models/controller";
+import {natsSettings} from "@/settings";
 
 const jc = JSONCodec();
 
@@ -12,10 +13,10 @@ export class Eventbus {
   public async start(): Promise<void> {
     try {
       const nc = await connect({
-        servers: "ws://192.168.1.2:9222",
-        // servers: "ws://localhost:9222",
-        user: "jackonelli",
-        pass: "penna1glas",
+        // servers: "ws://192.168.1.2:9222",
+        servers: natsSettings.servers,
+        user: natsSettings.user,
+        pass: natsSettings.pass,
       });
       this.client = nc;
 

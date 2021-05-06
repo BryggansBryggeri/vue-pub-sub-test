@@ -35,7 +35,7 @@ export function measResultFromMsg(msg: SensorMsg): MeasResult {
   }
   if (hasKey(msg.meas, "Err")) {
     const meas = msg.meas as { Err: MsgErr };
-    return newMeasErr("todo", msg.timestamp);
+    return newMeasErr(JSON.stringify(meas.Err), msg.timestamp);
   }
   return newErr(["Incorrect msg", msg.timestamp]);
 }

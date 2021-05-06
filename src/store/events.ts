@@ -83,7 +83,8 @@ export class EventModule extends VuexModule {
           const meas = ok[0];
           this.dummySensorTimeSeries = [...this.dummySensorTimeSeries, { x: ts, y: meas }];
         },
-        () => {
+        (err) => {
+          console.log("sensor err", err);
           // If err, don't add
         }
       );
