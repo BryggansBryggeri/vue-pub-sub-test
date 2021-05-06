@@ -13,7 +13,6 @@ export class Eventbus {
   public async start(): Promise<void> {
     try {
       const nc = await connect({
-        // servers: "ws://192.168.1.2:9222",
         servers: natsSettings.servers,
         user: natsSettings.user,
         pass: natsSettings.pass,
