@@ -3,7 +3,7 @@ import { SensorMsg } from "@/models/sensor";
 import { eventStore, NatsClientStatus } from "@/store/events";
 import { ActorMsg } from "@/models/actor";
 import { propsAndTargetToJson, ControllerProps, ContrStatusMsg, Target } from "@/models/controller";
-import {natsSettings} from "@/settings";
+import { natsSettings } from "@/settings";
 
 const jc = JSONCodec();
 

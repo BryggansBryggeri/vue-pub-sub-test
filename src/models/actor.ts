@@ -1,7 +1,6 @@
 import { Result, newErr, newOk } from "@/models/result";
 import { TimeStamp } from "@/utils";
 
-
 interface ActorSignal {
   id: string;
   signal: number;

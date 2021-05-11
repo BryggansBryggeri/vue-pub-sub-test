@@ -20,6 +20,7 @@
           </div>
         </div>
       </div>
+      <error-msg msg="Test" />
       <div v-if="isMore" class="flex flex-row w-full text-xxs justify-around">
         <div class="">
           <span class="font-normal">Diff:</span>
@@ -28,7 +29,6 @@
             ><span>&#8451;</span>
           </div>
         </div>
-
         <div class="">
           <span class="font-normal">RoC:</span>
           <div class="">
@@ -50,6 +50,7 @@ import { eventStore } from "@/store/events";
 import { match } from "@/models/result";
 import SvgIcon from "@/components/symbols/SvgIcon.vue";
 import StatusInd from "@/components/utils/StatusInd.vue";
+import ErrorMsg from "@/components/utils/ErrorMsg.vue";
 import ShowMore from "@/components/toggles/ShowMore.vue";
 import StatusCard from "@/components/layouts/StatusCard.vue";
 import { Target } from "@/models/controller";
@@ -62,6 +63,7 @@ enum Success {
 
 @Component({
   components: {
+    ErrorMsg,
     ShowMore,
     SvgIcon,
     StatusInd,

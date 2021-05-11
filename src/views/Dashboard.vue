@@ -20,7 +20,7 @@
         v-bind:controllerProps="controller"
         v-bind:key="controller.name"
       />
-      <aux-sensors :auxSensorsProps="mash"/>
+      <aux-sensors :auxSensorsProps="mash" />
     </section>
   </main>
 </template>
