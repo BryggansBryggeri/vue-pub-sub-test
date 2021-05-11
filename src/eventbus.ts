@@ -3,7 +3,7 @@ import { SensorMsg } from "@/models/sensor";
 import { eventStore, NatsClientStatus } from "@/store/events";
 import { ActorMsg } from "@/models/actor";
 import { propsAndTargetToJson, ControllerProps, ContrStatusMsg, Target } from "@/models/controller";
-import {natsSettings} from "@/settings";
+import { natsSettings } from "@/settings";
 
 const jc = JSONCodec();
 
@@ -64,18 +64,18 @@ export class Eventbus {
     }
   }
 
-  // This should be req-rep.
+  
   public async startController(props: ControllerProps, target: number) {
     const contrData = propsAndTargetToJson(props, target);
     console.log("Starting controller with props:", contrData);
     this.publish("command.start_controller", contrData);
   }
-  
-  // This should be req-rep.
-  public async stopController(props: ControllerProps, target: number) {
-    const contrData = propsAndTargetToJson(props, target);
-    console.log("Shutting down controller:", contrData);
-    this.publish("command.stop_controller", contrData);
+
+// This should be req-rep.
+  public async stopController(props: ControllerProps) {                                                             
+    const id = JSON.parse(`{"contr_id": "${props.controllerId}"}`);                                                 
+    console.log("Stopping controller with id: ", props.controllerId);                                                                                  
+    this.publish("command.stop_controller", id);                                                                                        
   }
 
   // This should be req-rep.

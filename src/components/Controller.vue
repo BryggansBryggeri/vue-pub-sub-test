@@ -274,10 +274,20 @@ export default class Controller extends Vue {
     return this.controllerProps.controllerId;
   }
 
+
   private async startController(): Promise<void> {
-    eventbus.startController(this.controllerProps, 0.0);
     this.starting = true;
-    this.isStarted = true; // TODO check for started
+    if (this.isStarted){
+      eventbus.stopController(this.controllerProps);
+      this.isStarted = false; // TODO check for started
+      
+    }
+    else{
+      eventbus.startController(this.controllerProps, 0.0);
+      this.isStarted = true; // TODO check for started
+    }  
+    
+    
   }
 
   private contrStatus(): ContrResult {
