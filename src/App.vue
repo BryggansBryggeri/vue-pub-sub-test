@@ -11,7 +11,9 @@ import MainLayout from "@/components/layouts/MainLayout.vue";
   },
 })
 export default class App extends Vue {
-
+  created(): void {
+    eventbus.start();
+  }
 
   get darkMode(): boolean {
     return eventStore.darkMode;

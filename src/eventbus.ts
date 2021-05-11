@@ -70,6 +70,13 @@ export class Eventbus {
     console.log("Starting controller with props:", contrData);
     this.publish("command.start_controller", contrData);
   }
+  
+  // This should be req-rep.
+  public async stopController(props: ControllerProps, target: number) {
+    const contrData = propsAndTargetToJson(props, target);
+    console.log("Shutting down controller:", contrData);
+    this.publish("command.stop_controller", contrData);
+  }
 
   // This should be req-rep.
   public async setTarget(contrId: string, newTarget: Target) {

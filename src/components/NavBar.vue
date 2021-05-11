@@ -5,8 +5,12 @@
   >
     <h4 class="text-xl font-bold leading-tight underline logo">BryggIO</h4>
     <div class="flex flex-row items-center space-x-6 text-sm">
+
       <button class="focus:outline-none focus:ring-0" @click="toggleDarkMode()">
-        <div v-if="darkMode" class="hover:text-yellow-600 transition duration-150">
+        <div
+          v-if="darkMode"
+          class="hover:text-yellow-600 transition duration-150"
+        >
           <svg-icon name="sun" size="6"></svg-icon>
         </div>
         <div v-else class="hover:text-indigo-400 transition duration-150">
@@ -32,6 +36,7 @@
 <script lang="ts">
 import { Emit, Component, Prop, Vue } from "vue-property-decorator";
 import SvgIcon from "@/components/symbols/SvgIcon.vue";
+import { eventbus } from "@/eventbus";
 import { eventStore } from "@/store/events";
 
 // import { Options, Vue } from "vue-class-component";
@@ -43,6 +48,7 @@ import { eventStore } from "@/store/events";
 })
 export default class Navbar extends Vue {
   @Prop({ default: false }) isDarkmode = false;
+
 
   @Emit()
   private toggleDarkMode(): boolean {

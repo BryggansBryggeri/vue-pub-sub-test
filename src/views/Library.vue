@@ -78,7 +78,15 @@
           </div>
         </div>
       </div>
-      <div class="w-1/6 border-2 rounded border-gray-700"></div>
+      <div class="w-1/6 border-2 rounded border-gray-700">
+      
+      <simple-actor :actorId="dummy" />
+      <simple-actor :actorId="boil_heater" :mode="mode" :signal="dispActorSignal" />
+      
+      
+      
+      
+      </div>
       <div class="w-1/6 border-2 rounded border-gray-700"></div>
       <div class="w-1/6 border-2 rounded border-gray-700"></div>
     </div>
@@ -88,6 +96,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Modal from "@/components/utils/Modal.vue";
+import SimpleActor from "@/components/SimpleActor.vue";
 import { Validate } from "vuelidate-property-decorators";
 import { required, ipAddress } from "vuelidate/lib/validators";
 import TimeSeriesChart from "@/components/utils/TimeSeriesChart.vue";
@@ -98,6 +107,7 @@ import "chartjs-plugin-colorschemes";
 @Component({
   components: {
     Modal,
+    SimpleActor,
     TimeSeriesChart,
   },
 })
