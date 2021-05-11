@@ -4,10 +4,7 @@
     <!-- <ChartView /> -->
     <!-- <Todo /> -->
 
-    <div v-if="isLoading === 1">
-      <loading msg="Loading" />
-    </div>
-    <div v-else-if="isLoading === 3">
+    <div v-if="isLoading === 3">
       <loading msg="Error, cannot find Supervisor" type="error" @admin="setAdmin($event)" />
     </div>
 
