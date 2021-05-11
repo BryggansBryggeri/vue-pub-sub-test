@@ -1,6 +1,5 @@
 <template>
   <!-- TODO: Unique id by sensorId -->
-  <div class="sensor">
     <status-card :status="this.status" typeOfCard="sensor" :name="sensorId">
       <!-- TODO: Unique id by sensorId -->
       <div id="main-sensor-value" class="flex flex-row justify-left items-center">
@@ -37,11 +36,11 @@
           </div>
         </div>
       </div>
+      
       <div class="flex flex-row justify-center" cursor-pointer @click="isMore = !isMore">
         <show-more :isMore="isMore" />
       </div>
     </status-card>
-  </div>
 </template>
 
 <script lang="ts">
@@ -78,7 +77,6 @@ export default class Sensor extends Vue {
 
   private isMore = false;
 
-  private fullWidth = true;
 
   get diffDisp(): number {
     return 13;
@@ -88,9 +86,6 @@ export default class Sensor extends Vue {
     return 13;
   }
 
-  get isFullWidth(): boolean {
-    return this.fullWidth;
-  }
 
   get status(): Success {
     return match(

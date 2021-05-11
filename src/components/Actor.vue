@@ -57,11 +57,6 @@ export default class Actor extends Vue {
     return disp;
   }
 
-  private fullWidth = false;
-
-  get isFullWidth(): boolean {
-    return this.fullWidth;
-  }
 
   get status(): IndicatorType {
     return match(
