@@ -20,6 +20,7 @@
         v-bind:controllerProps="controller"
         v-bind:key="controller.name"
       />
+      <aux-sensors :auxSensorsProps="mash" />
     </section>
   </main>
 </template>
@@ -28,22 +29,19 @@
 import { Component, Vue } from "vue-property-decorator";
 import { eventStore, NatsClientStatus } from "@/store/events";
 import Controller from "@/components/Controller.vue";
-import Sensor from "@/components/Sensor.vue";
+import AuxSensors from "@/components/AuxSensors.vue";
 import Loading from "@/components/utils/Loading.vue";
 import NavBar from "@/components/NavBar.vue";
-// import DashboardTop from "@/components/DashboardTop.vue";
 import ChartView from "@/components/ChartView.vue";
 import { ControllerProps } from "@/models/controller";
 
 @Component({
   components: {
-    Sensor,
     Loading,
     Controller,
+    AuxSensors,
     NavBar,
     ChartView,
-    // DashboardTop,
-    // MashCard,
   },
 })
 export default class Dashboard extends Vue {

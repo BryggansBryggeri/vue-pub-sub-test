@@ -13,7 +13,6 @@ export class Eventbus {
   public async start(): Promise<void> {
     try {
       const nc = await connect({
-        // servers: "ws://192.168.1.2:9222",
         servers: natsSettings.servers,
         user: natsSettings.user,
         pass: natsSettings.pass,
@@ -64,18 +63,23 @@ export class Eventbus {
     }
   }
 
-  
   public async startController(props: ControllerProps, target: number) {
     const contrData = propsAndTargetToJson(props, target);
     console.log("Starting controller with props:", contrData);
     this.publish("command.start_controller", contrData);
   }
 
-// This should be req-rep.
-  public async stopController(props: ControllerProps) {                                                             
-    const id = JSON.parse(`{"contr_id": "${props.controllerId}"}`);                                                 
-    console.log("Stopping controller with id: ", props.controllerId);                                                                                  
-    this.publish("command.stop_controller", id);                                                                                        
+  // This should be req-rep.
+  public async stopController(props: ControllerProps) {
+    // const id = JSON.parse(`{"contr_id": "${props.controllerId}"}`);
+    const id = JSON.parse(`"${props.controllerId}"`);
+    console.log("Stopping controller with id: ", props.controllerId);
+    try {
+      const reply = await this.request("command.stop_controller", id, 5000);
+      console.log("Controller stopped: ", reply);
+    } catch (err) {
+      console.log("Error stopping controller: ", err);
+    }
   }
 
   // This should be req-rep.

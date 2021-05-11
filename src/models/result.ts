@@ -22,3 +22,18 @@ export function match<T, O, E>(input: Result<O, E>, ok: (ok: O) => T, err: (err:
       throw new Error("Unreachable");
   }
 }
+
+export function isErr<O, E>(input: Result<O, E>): boolean {
+  switch (input.tag) {
+    case "Ok":
+      return false;
+    case "Err":
+      return true;
+    default:
+      throw new Error("Unreachable");
+  }
+}
+
+export function isOk<O, E>(input: Result<O, E>): boolean {
+  return !isErr(input);
+}

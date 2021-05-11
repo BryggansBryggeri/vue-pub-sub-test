@@ -1,9 +1,7 @@
 <template>
+  <div class="actor">
     <status-card :status="this.status" typeOfCard="actor" :name="actorId">
-      <div
-        id="main-actor-value"
-        class="flex flex-row justify-left items-center"
-      >
+      <div id="main-actor-value" class="flex flex-row justify-left items-center">
         <div id="icon" class="pr-2">
           <SvgIcon name="power" size="9" />
         </div>
@@ -12,18 +10,15 @@
             <span class="font-mono min-w-max">{{ signal }}</span
             ><span>%</span>
           </div>
-          <div
-            class="flex flex-row text-sm items-center align-text-bottom space-x-2"
-          >
+          <div class="flex flex-row text-sm items-center align-text-bottom space-x-2">
             <span class="">Control:</span>
 
-            <span class="font-extrabold font-mono -mb-px">{{
-              currentMode
-            }}</span>
+            <span class="font-extrabold font-mono -mb-px">{{ currentMode }}</span>
           </div>
         </div>
       </div>
     </status-card>
+  </div>
 </template>
 
 <script lang="ts">

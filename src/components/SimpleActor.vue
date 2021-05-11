@@ -1,8 +1,10 @@
 <template>
-  <status-card :status="this.status" typeOfCard="actor" :name="'actorId'"> <!-- TODO something not working here -->
+  <status-card :status="this.status" typeOfCard="actor" :name="'actorId'">
+    <!-- TODO something not working here -->
     <div id="main-actor-value" class="flex flex-row justify-left items-center">
       <div id="icon" class="pr-2">
-        <div v-if="power"><!-- play -->
+        <div v-if="power">
+          <!-- play -->
           <svg
             class="w-10 h-10"
             fill="none"
@@ -24,7 +26,8 @@
             ></path>
           </svg>
         </div>
-        <div v-else> <!-- stopp -->
+        <div v-else>
+          <!-- stopp -->
           <svg
             class="w-10 h-10"
             fill="none"

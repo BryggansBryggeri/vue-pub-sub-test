@@ -79,13 +79,8 @@
         </div>
       </div>
       <div class="w-1/6 border-2 rounded border-gray-700">
-      
-      <simple-actor :actorId="dummy" />
-      <simple-actor :actorId="boil_heater" :mode="mode" :signal="dispActorSignal" />
-      
-      
-      
-      
+        <simple-actor :actorId="dummy" />
+        <simple-actor :actorId="boil_heater" :mode="mode" :signal="dispActorSignal" />
       </div>
       <div class="w-1/6 border-2 rounded border-gray-700"></div>
       <div class="w-1/6 border-2 rounded border-gray-700"></div>
@@ -100,8 +95,8 @@ import SimpleActor from "@/components/SimpleActor.vue";
 import { Validate } from "vuelidate-property-decorators";
 import { required, ipAddress } from "vuelidate/lib/validators";
 import TimeSeriesChart from "@/components/utils/TimeSeriesChart.vue";
-import { Data, DataPoint } from "@/models/chart";
-import { Chart, ChartOptions } from "chart.js";
+import { Data } from "@/models/chart";
+import { Chart } from "chart.js";
 import "chartjs-plugin-colorschemes";
 
 @Component({
