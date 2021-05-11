@@ -1,4 +1,5 @@
 <template>
+  <div class="actor">
   <status-card :status="this.status" typeOfCard="actor" :name="actorId">
     <div id="main-actor-value" class="flex flex-row justify-left items-center">
       <div id="icon" class="pr-2">
@@ -17,6 +18,7 @@
       </div>
     </div>
   </status-card>
+  </div>
 </template>
 
 <script lang="ts">

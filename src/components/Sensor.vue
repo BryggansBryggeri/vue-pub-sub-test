@@ -38,7 +38,7 @@
         </div>
       </div>
       <div class="flex flex-row justify-center" cursor-pointer @click="isMore = !isMore">
-        <ShowMore :isMore="isMore" />
+        <show-more :isMore="isMore" />
       </div>
     </status-card>
   </div>

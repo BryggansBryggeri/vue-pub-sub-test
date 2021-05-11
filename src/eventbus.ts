@@ -70,6 +70,12 @@ export class Eventbus {
     this.publish("command.start_controller", contrData);
   }
 
+  public async stopController(props: ControllerProps) {
+    const id = JSON.parse(`{"contr_id": "${props.controllerId}"}`);
+    console.log("Stopping controller with id: ", props.controllerId);
+    this.publish("command.stop_controller", id);
+  }
+
   // This should be req-rep.
   public async setTarget(contrId: string, newTarget: Target) {
     // TODO: stupid serialization.
