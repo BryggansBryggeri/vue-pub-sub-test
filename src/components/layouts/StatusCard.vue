@@ -15,6 +15,7 @@
         <span class="font-semibold text-sm">{{ name }}</span>
       </div>
       <div>
+        <button @click="fullWidth =! fullWidth"><span>asdasd</span></button>
         <status-ind :status="this.status" :size="5" />
       </div>
     </div>
