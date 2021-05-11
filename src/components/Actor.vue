@@ -1,24 +1,24 @@
 <template>
-  <div class="actor">
-    <status-card :status="this.status" typeOfCard="actor" :name="actorId">
-      <div id="main-actor-value" class="flex flex-row justify-left items-center">
-        <div id="icon" class="pr-2">
-          <SvgIcon name="power" size="9" />
+  <status-card :status="this.status" typeOfCard="actor" :name="actorId">
+    <div id="main-actor-value" class="flex flex-row justify-left items-center">
+      <div id="icon" class="pr-2">
+        <SvgIcon name="power" size="9" />
+      </div>
+      <div class="flex flex-col">
+        <div class="text-3xl font-bold space-x-1">
+          <span class="font-mono min-w-max">{{ signal }}</span
+          ><span>%</span>
         </div>
-        <div class="flex flex-col">
-          <div class="text-3xl font-bold space-x-1">
-            <span class="font-mono min-w-max">{{ signal }}</span
-            ><span>%</span>
-          </div>
-          <div class="flex flex-row text-sm items-center align-text-bottom space-x-2">
-            <span class="">Control:</span>
+        <div
+          class="flex flex-row text-sm items-center align-text-bottom space-x-2"
+        >
+          <span class="">Control:</span>
 
-            <span class="font-extrabold font-mono -mb-px">{{ currentMode }}</span>
-          </div>
+          <span class="font-extrabold font-mono -mb-px">{{ currentMode }}</span>
         </div>
       </div>
-    </status-card>
-  </div>
+    </div>
+  </status-card>
 </template>
 
 <script lang="ts">
@@ -35,8 +35,8 @@ import { Target, Mode } from "@/models/controller";
   components: {
     StatusInd,
     StatusCard,
-    SvgIcon,
-  },
+    SvgIcon
+  }
 })
 export default class Actor extends Vue {
   @Prop() actorId!: string;
@@ -56,7 +56,6 @@ export default class Actor extends Vue {
     }
     return disp;
   }
-
 
   get status(): IndicatorType {
     return match(
