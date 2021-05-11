@@ -1,6 +1,8 @@
 <template>
   <div class="error-msg">
-    <p style="color: red">{{ msg }}</p>
+    <div v-if="nonNull">
+      <p style="color: red">{{ msg }}</p>
+    </div>
   </div>
 </template>
 
@@ -10,5 +12,9 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 @Component({})
 export default class Sensor extends Vue {
   @Prop() msg!: string | null;
+
+  get nonNull(): boolean {
+    return !(this.msg === null);
+  }
 }
 </script>

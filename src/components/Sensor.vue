@@ -5,7 +5,7 @@
       <!-- TODO: Unique id by sensorId -->
       <div id="main-sensor-value" class="flex flex-row justify-left items-center">
         <div id="icon" class="pr-2">
-          <SvgIcon name="temp" size="9" />
+          <svg-icon name="temp" size="9" />
         </div>
         <div class="flex flex-col">
           <div class="text-3xl font-bold space-x-1">
@@ -20,7 +20,7 @@
           </div>
         </div>
       </div>
-      <error-msg msg="Test" />
+      <error-msg :msg="errMsg" />
       <div v-if="isMore" class="flex flex-row w-full text-xxs justify-around">
         <div class="">
           <span class="font-normal">Diff:</span>
@@ -48,6 +48,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { eventStore } from "@/store/events";
 import { match } from "@/models/result";
+import { MeasResult } from "@/models/sensor";
 import SvgIcon from "@/components/symbols/SvgIcon.vue";
 import StatusInd from "@/components/utils/StatusInd.vue";
 import ErrorMsg from "@/components/utils/ErrorMsg.vue";
@@ -79,11 +80,11 @@ export default class Sensor extends Vue {
 
   private fullWidth = true;
 
-  get diffDisp() {
+  get diffDisp(): number {
     return 13;
   }
 
-  get rocDisp() {
+  get rocDisp(): number {
     return 13;
   }
 
@@ -93,15 +94,27 @@ export default class Sensor extends Vue {
 
   get status(): Success {
     return match(
-      eventStore.sensorVal(this.sensorId),
+      this.sensorVal,
       () => Success.Ok,
       () => Success.Error
     );
   }
 
+  get errMsg(): string | null {
+    return match(
+      this.sensorVal,
+      () => null,
+      (err) => err[0]
+    );
+  }
+
+  get sensorVal(): MeasResult {
+    return eventStore.sensorVal(this.sensorId);
+  }
+
   get sensorMeasDisp(): string {
     return match(
-      eventStore.sensorVal(this.sensorId),
+      this.sensorVal,
       (ok) => {
         return ok[0].toFixed(2);
       },
