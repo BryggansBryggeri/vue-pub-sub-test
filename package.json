@@ -17,7 +17,7 @@
     "chartjs-plugin-crosshair": "^1.1.6",
     "chartjs-plugin-zoom": "^0.7.7",
     "core-js": "^3.6.5",
-    "nats.ws": "^1.0.0-114",
+    "nats.ws": "1.0.0-114",
     "vue": "^2.6.11",
     "vue-chartjs": "^3.5.1",
     "vue-class-component": "^7.2.3",

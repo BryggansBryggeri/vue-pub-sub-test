@@ -6318,9 +6318,9 @@ nanomatch@^1.2.9:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
-nats.ws@^1.0.0-114:
+nats.ws@1.0.0-114:
   version "1.0.0-114"
-  resolved "https://registry.npmjs.org/nats.ws/-/nats.ws-1.0.0-114.tgz"
+  resolved "https://registry.yarnpkg.com/nats.ws/-/nats.ws-1.0.0-114.tgz#43f048bdbd3993ad82644738167d7efbfac76d63"
   integrity sha512-S8qmJjuuY/j2KyPO+GlS6HKqAKG6bUIcNzuupUlD8jagVHZaDpuPk8bvmUYjR5QbDMTJHEf5XqMKG1jgptCMLA==
 
 natural-compare@^1.4.0:
