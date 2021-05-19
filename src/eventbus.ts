@@ -36,6 +36,8 @@ export class Eventbus {
         }
       })().then();
 
+      this.listActiveClients();
+
       const contrSub = this.client.subscribe("controller.*.status");
       (async () => {
         for await (const msg of contrSub) {
@@ -43,18 +45,6 @@ export class Eventbus {
           eventStore.updateContr(contrMsg);
         }
       })().then();
-
-      this.request("command.list_active_clients", null, 1000)
-        .then((msg) => {
-          if (msg !== undefined) {
-            const clients = jc.decode(msg.data);
-            const clientIds: string[] = Object.keys(clients);
-            eventStore.updateActiveClients(clientIds);
-          }
-        })
-        .catch((err) => {
-          console.log(`problem with request: ${err.message}`);
-        });
 
       eventStore.natsClientStatus = NatsClientStatus.Ready;
       console.log("nats client", this.client);
@@ -64,15 +54,35 @@ export class Eventbus {
     }
   }
 
+  public async listActiveClients() {
+    this.request("command.list_active_clients", null, 1000)
+      .then((msg) => {
+        if (msg !== undefined) {
+          const clients = jc.decode(msg.data);
+          const clientIds: string[] = Object.keys(clients);
+          console.log(clientIds);
+          eventStore.updateActiveClients(clientIds);
+        }
+      })
+      .catch((err) => {
+        console.log(`problem with request: ${err.message}`);
+      });
+  }
+
   public async startController(props: ControllerProps, target: number) {
     const contrData = propsAndTargetToJson(props, target);
-    console.log("Starting controller with props:", contrData);
-    this.publish("command.start_controller", contrData);
+    try {
+      const reply = await this.request("command.start_controller", contrData, 5000);
+      if (reply) {
+        console.log(sc.decode(reply.data));
+      }
+    } catch (err) {
+      console.log("Error starting controller: ", err);
+    }
   }
 
   public async stopController(props: ControllerProps) {
     const id = JSON.parse(`"${props.controllerId}"`);
-    console.log("Stopping controller with id: ", props.controllerId);
     try {
       const reply = await this.request("command.stop_controller", id, 5000);
       if (reply) {
@@ -86,13 +96,18 @@ export class Eventbus {
   public async setTarget(contrId: string, newTarget: Target) {
     // TODO: stupid serialization.
     const parsedTarget = JSON.parse(`${newTarget}`);
-    console.log(`Setting target ${parsedTarget} for controller: ${contrId}`);
-    this.publish(`controller.${contrId}.set_target`, parsedTarget);
+    try {
+      const reply = await this.request(`controller.${contrId}.set_target`, parsedTarget, 5000);
+      if (reply) {
+        console.log(sc.decode(reply.data));
+      }
+    } catch (err) {
+      console.log("Failed setting target", err);
+    }
   }
 
   public async switchController(props: ControllerProps, newTarget: number) {
     const contrData = propsAndTargetToJson(props, newTarget);
-    console.log("Switching controller to props:", contrData);
     try {
       const reply = await this.request("command.switch_controller", contrData, 5000);
       if (reply) {
