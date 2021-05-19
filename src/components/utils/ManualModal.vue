@@ -78,7 +78,6 @@ export default class ManualModal extends Vue {
 
   setValue(value: number) {
     this.newPower = value / 100; // parent component want power for manual target to be [0,1]
-    console.log("setValue called from Manual Modal");
   }
 
   emitCancel() {

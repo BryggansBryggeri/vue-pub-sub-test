@@ -112,7 +112,8 @@ export default class AutoModal extends Vue {
   }
 
   emitConfirm() {
-    this.$emit("confirm", this.newTarget);
+    const newTarget: number = parseFloat(this.newTarget);
+    this.$emit("confirm", newTarget);
   }
 }
 </script>
