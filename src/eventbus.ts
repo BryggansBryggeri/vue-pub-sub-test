@@ -1,4 +1,4 @@
-import { Msg, connect, JSONCodec, NatsConnection } from "nats.ws";
+import { Msg, connect, StringCodec, JSONCodec, NatsConnection } from "nats.ws";
 import { SensorMsg } from "@/models/sensor";
 import { eventStore, NatsClientStatus } from "@/store/events";
 import { ActorMsg } from "@/models/actor";
@@ -6,6 +6,7 @@ import { propsAndTargetToJson, ControllerProps, ContrStatusMsg, Target } from "@
 import { natsSettings } from "@/settings";
 
 const jc = JSONCodec();
+const sc = StringCodec();
 
 export class Eventbus {
   private client: NatsConnection | null = null;
@@ -27,7 +28,7 @@ export class Eventbus {
         }
       })().then();
 
-      const actorSub = this.client.subscribe("actor.*.current_signal");
+      const actorSub = this.client.subscribe("actor_pub.*.current_signal");
       (async () => {
         for await (const msg of actorSub) {
           const actorMsg: ActorMsg = jc.decode(msg.data);
@@ -69,20 +70,19 @@ export class Eventbus {
     this.publish("command.start_controller", contrData);
   }
 
-  // This should be req-rep.
   public async stopController(props: ControllerProps) {
-    // const id = JSON.parse(`{"contr_id": "${props.controllerId}"}`);
     const id = JSON.parse(`"${props.controllerId}"`);
     console.log("Stopping controller with id: ", props.controllerId);
     try {
       const reply = await this.request("command.stop_controller", id, 5000);
-      console.log("Controller stopped: ", reply);
+      if (reply) {
+        console.log(sc.decode(reply.data));
+      }
     } catch (err) {
       console.log("Error stopping controller: ", err);
     }
   }
 
-  // This should be req-rep.
   public async setTarget(contrId: string, newTarget: Target) {
     // TODO: stupid serialization.
     const parsedTarget = JSON.parse(`${newTarget}`);
@@ -95,7 +95,9 @@ export class Eventbus {
     console.log("Switching controller to props:", contrData);
     try {
       const reply = await this.request("command.switch_controller", contrData, 5000);
-      console.log("Controller switched: ", reply);
+      if (reply) {
+        console.log(sc.decode(reply.data));
+      }
     } catch (err) {
       console.log("Error switching controllers: ", err);
     }
