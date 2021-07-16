@@ -9,9 +9,7 @@
           <span class="font-mono min-w-max">{{ signal }}</span
           ><span>%</span>
         </div>
-        <div
-          class="flex flex-row text-sm items-center align-text-bottom space-x-2"
-        >
+        <div class="flex flex-row text-sm items-center align-text-bottom space-x-2">
           <span class="">Control:</span>
 
           <span class="font-extrabold font-mono -mb-px">{{ currentMode }}</span>
@@ -35,8 +33,8 @@ import { Target, Mode } from "@/models/controller";
   components: {
     StatusInd,
     StatusCard,
-    SvgIcon
-  }
+    SvgIcon,
+  },
 })
 export default class Actor extends Vue {
   @Prop() actorId!: string;

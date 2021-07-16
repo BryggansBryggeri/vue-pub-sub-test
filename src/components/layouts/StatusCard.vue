@@ -6,7 +6,7 @@
       'col-span-1': !isFullWidth,
       'bg-blue-gray-100 border-transparent': indType === 1,
       'bg-yellow-100 border-yellow-400': indType === 2,
-      'bg-red-100 border-red-600': indType === 3
+      'bg-red-100 border-red-600': indType === 3,
     }"
   >
     <div class="flex flex-row justify-between w-full">
@@ -45,8 +45,8 @@ import { IndicatorType } from "@/utils";
 
 @Component({
   components: {
-    StatusInd
-  }
+    StatusInd,
+  },
 })
 export default class StatusCard extends Vue {
   @Prop({ required: true }) readonly name!: string;

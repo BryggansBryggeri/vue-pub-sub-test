@@ -1,46 +1,46 @@
 <template>
   <!-- TODO: Unique id by sensorId -->
-    <status-card :status="this.status" typeOfCard="sensor" :name="sensorId">
-      <!-- TODO: Unique id by sensorId -->
-      <div id="main-sensor-value" class="flex flex-row justify-left items-center">
-        <div id="icon" class="pr-2">
-          <svg-icon name="temp" size="9" />
+  <status-card :status="this.status" typeOfCard="sensor" :name="sensorId">
+    <!-- TODO: Unique id by sensorId -->
+    <div id="main-sensor-value" class="flex flex-row justify-left items-center">
+      <div id="icon" class="pr-2">
+        <svg-icon name="temp" size="9" />
+      </div>
+      <div class="flex flex-col">
+        <div class="text-3xl font-bold space-x-1">
+          <span class="font-mono min-w-max">{{ sensorMeasDisp }}</span
+          ><span>&#8451;</span>
         </div>
-        <div class="flex flex-col">
-          <div class="text-3xl font-bold space-x-1">
-            <span class="font-mono min-w-max">{{ sensorMeasDisp }}</span
-            ><span>&#8451;</span>
-          </div>
-          <div class="flex flex-row text-sm items-center align-text-bottom space-x-2">
-            <span class="">Target:</span>
+        <div class="flex flex-row text-sm items-center align-text-bottom space-x-2">
+          <span class="">Target:</span>
 
-            <span class="font-extrabold font-mono -mb-px">{{ target }}</span
-            ><span>&#8451;</span>
-          </div>
+          <span class="font-extrabold font-mono -mb-px">{{ target }}</span
+          ><span>&#8451;</span>
         </div>
       </div>
-      <error-msg :msg="errMsg" />
-      <div v-if="isMore" class="flex flex-row w-full text-xxs justify-around">
+    </div>
+    <error-msg :msg="errMsg" />
+    <div v-if="isMore" class="flex flex-row w-full text-xxs justify-around">
+      <div class="">
+        <span class="font-normal">Diff:</span>
         <div class="">
-          <span class="font-normal">Diff:</span>
-          <div class="">
-            <span class="font-extrabold font-mono min-w-max">{{ diffDisp }}</span
-            ><span>&#8451;</span>
-          </div>
+          <span class="font-extrabold font-mono min-w-max">{{ diffDisp }}</span
+          ><span>&#8451;</span>
         </div>
+      </div>
+      <div class="">
+        <span class="font-normal">RoC:</span>
         <div class="">
-          <span class="font-normal">RoC:</span>
-          <div class="">
-            <span class="font-extrabold font-mono min-w-max">{{ rocDisp }}</span
-            ><span>&#8451;/min</span>
-          </div>
+          <span class="font-extrabold font-mono min-w-max">{{ rocDisp }}</span
+          ><span>&#8451;/min</span>
         </div>
       </div>
-      
-      <div class="flex flex-row justify-center" cursor-pointer @click="isMore = !isMore">
-        <show-more :isMore="isMore" />
-      </div>
-    </status-card>
+    </div>
+
+    <div class="flex flex-row justify-center" cursor-pointer @click="isMore = !isMore">
+      <show-more :isMore="isMore" />
+    </div>
+  </status-card>
 </template>
 
 <script lang="ts">
@@ -77,7 +77,6 @@ export default class Sensor extends Vue {
 
   private isMore = false;
 
-
   get diffDisp(): number {
     return 13;
   }
@@ -85,7 +84,6 @@ export default class Sensor extends Vue {
   get rocDisp(): number {
     return 13;
   }
-
 
   get status(): Success {
     return match(
